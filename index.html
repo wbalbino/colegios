@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITEC - Cadastro de Aluno</title>
+    <style>
+        :root {
+            --bg-page: #f0f2f5;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --bg-subcard: #f4f6f9;
+            --text-main: #333333;
+            --text-muted: #8898aa;
+            --color-primary: #1e3a8a; /* Azul Escuro */
+            --color-required: #ef4444; /* Vermelho */
+            --sidebar-active-bg: #eef2f7;
+            --sidebar-active-text: #1e3a8a;
+            --border-color: #e2e8f0;
+            --border-focus: #3b82f6;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Container Principal */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            gap: 20px;
+        }
+
+        /* Sidebar - Menu Lateral */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-item a {
+            text-decoration: none;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+            display: block;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .sidebar-item a:hover {
+            background-color: #f7fafc;
+            color: var(--color-primary);
+        }
+
+        .sidebar-item.active a {
+            background-color: var(--sidebar-active-bg);
+            color: var(--sidebar-active-text);
+            font-weight: 600;
+            box-shadow: inset 3px 0 0 var(--color-primary);
+        }
+
+        /* Área de Conteúdo Principal */
+        .main-content {
+            flex-grow: 1;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Abas de Conteúdo (Gerenciamento de Visibilidade) */
+        .tab-content {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        /* Títulos de Seção */
+        .section-header {
+            color: var(--color-primary);
+            font-size: 22px;
+            font-weight: 600;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        /* Formulários Comuns */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Classe utilitária para ocupar duas colunas no grid */
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        label .required {
+            color: var(--color-required);
+            margin-left: 2px;
+        }
+
+        input[type="text"],
+        select {
+            font-family: inherit;
+            font-size: 14px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #ffffff;
+            width: 100%;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        /* Layout Específico: Filiação / Responsáveis */
+        .filiacao-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .parent-card {
+            background-color: var(--bg-subcard);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .parent-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a202c;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 10px;
+            margin-bottom: 4px;
+        }
+
+        /* Placeholders de Desenvolvimento */
+        .development-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+            gap: 12px;
+        }
+
+        .development-placeholder h2 {
+            font-size: 18px;
+            color: #4a5568;
+        }
+		/* Atualize esta regra no seu CSS para incluir o campo de data */
+		input[type="text"],
+		input[type="date"],
+		select {
+			font-family: inherit;
+			font-size: 14px;
+			padding: 10px 14px;
+			border: 1px solid #cbd5e1;
+			border-radius: 8px;
+			background-color: #ffffff;
+			width: 100%;
+			transition: all 0.2s ease;
+			color: var(--text-main);
+		}
+
+		input[type="text"]:focus,
+		input[type="date"]:focus,
+		select:focus {
+			outline: none;
+			border-color: var(--border-focus);
+			box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+		}
+		/* Atualize esta regra no seu CSS para manter o padrão visual */
+			input[type="text"],
+			input[type="date"],
+			input[type="number"],
+			select {
+				font-family: inherit;
+				font-size: 14px;
+				padding: 10px 14px;
+				border: 1px solid #cbd5e1;
+				border-radius: 8px;
+				background-color: #ffffff;
+				width: 100%;
+				transition: all 0.2s ease;
+				color: var(--text-main);
+			}
+
+			input[type="text"]:focus,
+			input[type="date"]:focus,
+			input[type="number"]:focus,
+			select:focus {
+				outline: none;
+				border-color: var(--border-focus);
+				box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+			}
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Dinâmica -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Cadastro</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item active" id="menu-dados-cursos">
+                        <a href="#" onclick="switchTab(event, 'dados-curso', 'menu-dados-cursos')">Dados Gerais</a>
+                    </li>
+					<li class="sidebar-item active" id="menu-dados-habilitacao">
+                        <a href="#" onclick="switchTab(event, 'dados-habilitacao', 'menu-dados-habilitacao')">Habilitação</a>
+                    </li>
+					
+					
+					
+                    <li class="sidebar-item" id="menu-endereco">
+                        <a href="#" onclick="switchTab(event, 'endereco-contato', 'menu-endereco')">Séries</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-filiacao">
+                        <a href="#" onclick="switchTab(event, 'filiacao-responsaveis', 'menu-filiacao')">Legislação</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-formacao">
+                        <a href="#" onclick="switchTab(event, 'formacao-anterior', 'menu-formacao')">Documentação</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Documentação</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item" id="menu-docs-basicos">
+                        <a href="#" onclick="switchTab(event, 'docs-basicos', 'menu-docs-basicos')">Documentos Básicos</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-rg">
+                        <a href="#" onclick="switchTab(event, 'rg-identidade', 'menu-rg')">RG e Identidade</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-certidoes">
+                        <a href="#" onclick="switchTab(event, 'certidoes', 'menu-certidoes')">Certidões</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Área de Conteúdo Principal -->
+        <main class="main-content">
+
+            <!-- 1. ABA: Dados curso -->
+            <div id="dados-curso" class="tab-content active">
+                <h2 class="section-header">Dados do Curso</h2>
+				<h3>Catálogo 2027</h3>
+				<br>
+                <form class="form-grid">
+				
+                    <!-- Código do curso -->
+                    <div class="form-group">
+                        <label for="codigo">Código do curso<span class="required">*</span></label>
+                        <input type="text" id="codigo" placeholder="Digite o código do curso">
+                    </div>
+
+                    <!-- Situação do curso -->
+					<div class="form-group span-2">
+                        <label for="codigo">Situação<span class="required">*</span></label>
+                            <div class="radio-list">
+                                <label><input type="radio" name="per" checked> Ativo</label>
+                                <label><input type="radio" name="per"> Inativo</label>
+                            </div>
+                    </div>
+				
+                    <!-- Nome do curso -->
+                    <div class="parent-card span-2">
+                        <h3>Nome do curso</h3>
+                        <div class="form-group">
+                            <label for="nome-curso-portugues">Português<span class="required">*</span></label>
+                            <input type="text" id="nome-curso-portugues" placeholder="Nome completo em português">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome-curso-ingles">Inglês</label>
+                            <input type="text" id="nome-curso-ingles" placeholder="Nome completo em inglês">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome-curso-espanhol">Espanhol</label>
+                            <input type="text" id="nome-curso-espanhol" placeholder="Nome completo em espanhol">
+                        </div>                        
+                    </div>				
+
+                    <!-- Nome cartão -->
+					<div class="form-group">
+						<label for="cartao">Nome abreviado do curso para cartão universitário<span class="required">*</span></label>
+						<input type="text" id="cartao" placeholder="Nome do cartão universitário" maxlength="12">
+					</div>
+					
+					<!-- Sigla do curso -->
+					<div class="form-group">
+						<label for="sigla">Sigla do curso<span class="required">*</span></label>
+						<input type="text" id="sigla" placeholder="Sigla do curso" maxlength="12">
+					</div>
+					
+					
+					
+					<!-- Data -->
+					<div class="form-group">
+						<label for="data-criacao">Data de Criação<span class="required">*</span></label>
+						<input 
+							type="date" id="data-criacao" name="data-criacao" value="2026-07-15" min="2020-01-01" max="2030-12-31"
+						>
+					</div>
+					<div class="form-group">
+                        <label for="tipo">Tipo do curso<span class="required">*</span></label>
+                        <select id="tipo">
+                            <option value="" disabled selected hidden>Selecione o tipo de curso...</option>
+                            <option value="tecnico">Técnico</option>
+                            <option value="medio">Médio</option>
+							<option value="extensao">Extensão</option>
+							<option value="especializacao">Especialização</option>
+							<option value="segundo">2º grau técnico</option>
+							<option value="especial">Especial</option>
+                        </select>
+                    </div>
+					<div class="form-group">
+                        <label for="turno">Turno<span class="required">*</span></label>
+                        <select id="turno">
+                            <option value="" disabled selected hidden>Selecione um turno...</option>
+                            <option value="matutino">Matutino</option>
+                            <option value="vespertino">Vespertino</option>
+							<option value="diurno">Diurno</option>
+							<option value="noturno">Noturno</option>
+							<option value="livre">Horário livre</option>
+                        </select>
+                    </div>
+					<div class="form-group">
+                        <label for="periodo">Períodicidade<span class="required">*</span></label>
+                        <select id="periodo">
+                            <option value="" disabled selected hidden>Selecione a periodicidade...</option>
+                            <option value="semestre">Semestre</option>
+                            <option value="serie">Série</option>
+							<option value="mdoulo">Módulo</option>
+                        </select>
+                    </div>
+					
+                    <!-- Qtdade Períodos Letivos do curso -->
+                    <div class="form-group">
+                        <label for="periodos">Quantidade de Períodos Letivos<span class="required">*</span></label>
+                        <input type="number" id="periodos" placeholder="Digite um valor de 0 a 10" min="0" max="10" step="1">
+                    </div>
+					
+                    <!-- Qtdade anos -->
+                    <div class="form-group">
+                        <label for="anos">Quantidade de anos<span class="required">*</span></label>
+                        <input type="number" id="anos" placeholder="Digite um valor de 0 a 10" min="0" max="10" step="1">
+                    </div>		
+				
+					<div class="form-group">
+                        <label for="periodo">Período letivo<span class="required">*</span></label>
+                        <select id="periodo">
+                            <option value="" disabled selected hidden>Selecione o período...</option>
+                            <option value="semestre">Semestre</option>
+                            <option value="serie">Série</option>
+							<option value="mdoulo">Módulo</option>
+                        </select>
+                    </div>
+					<div class="form-group">
+                        <label for="departamento">Departamento<span class="required">*</span></label>
+                        <select id="departamento">
+                            <option value="enfermagem">Enfermagem</option>
+                            <option value="plasticos">Plasticos</option>
+							<option value="alimentos">Alimentos</option>
+                        </select>
+                    </div>			
+					<div class="form-group">
+                        <label for="concomitante">Curso Concomitante<span class="required">*</span></label>
+                        <select id="concomitante">
+          					<option value="" disabled selected hidden>Selecione um curso...</option>
+                            <option value="ali">25. Técnico em Alimentos</option>
+                            <option value="eletro">26. Técnico em Eletroeletrônica</option>
+							<option value="enfer">27. Técnico em Enfermagem</option>
+                        </select>
+                    </div>			
+
+			
+                </form>
+            </div>
+
+            <!-- 2. ABA: Habilitação -->
+            <div id="dados-habilitacao" class="tab-content active">
+                <h2 class="section-header">Dados da Habilitação</h2>
+				<h3>Catálogo 2027</h3>
+				<br>
+                <form class="form-grid">
+				
+                    <!-- area de conhecimento -->
+					<div class="form-group">
+					<!-- 13 eixos tecnológicos, que agrupam as habilitações de acordo com a área de conhecimento e o setor de atuação-->
+                        <label for="area">Área de conhecimento<span class="required">*</span></label>
+                        <select id="area">
+							<option value="" disabled selected hidden>Selecione uma área...</option>
+                            <option value="tecnico1">LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS</option>
+							<option value="tecnico2">CIÊNCIAS HUMANAS E SUAS TECNOLOGIAS</option>
+							<option value="tecnico3">CIÊNCIAS DA NATUREZA, MATEMÁTICA E SUAS TECNOLOGIAS</option>
+							<option value="tecnico4">PARTE DIVERSIFICADA</option>
+							<option value="tecnico5">INDÚSTRIA</option>
+							<option value="tecnico6">SAÚDE</option>
+							<option value="tecnico7">INFORMÁTICA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="legal">Fundamento legal<span class="required">*</span></label>
+                        <input type="text" id="legal" placeholder="Formação regulamentada por resoluções do Conselho Nacional de Educação (CNE) e diretrizes do Ministério da Educação (MEC).">
+                    </div>
+					<div class="form-group">
+                        <label for="parecer">Parecer de autorização<span class="required">*</span></label>
+                        <input type="text" id="parecer" placeholder="Digite o código do curso">
+                    </div>
+                    <div class="form-group">
+                        <label for="CNCT">Protocolo Catálogo Nacional de Cursos Técnicos (CNCT)</label>
+                        <input type="text" id="CNCT" placeholder="Digite o código utilizado no MEC que orienta a criação e o reconhecimento de cursos técnicos">
+                    </div>
+					<div class="form-group">
+						<label for="data-public">Data de publicação da autorização<span class="required">*</span></label>
+						<input 
+							type="date" id="data-public" name="data-public" value="2026-07-15" min="2020-01-01" max="2030-12-31"
+						>
+					</div>
+                    <div class="form-group">
+                        <label for="hist">Nomeclatura no histórico</label>
+                        <input type="text" id="hist" placeholder="Digite a nome que deve constar no histórico escolar do aluno">
+                    </div>
+					<div class="form-group">
+                        <label for="certif">Nomeclatura no certificado</label>
+                        <input type="text" id="certif" placeholder="Digite a nome que deve constar no certificado do aluno">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carga">Carga Horária de estágio<span class="required">*</span></label>
+                        <input type="number" id="carga" placeholder="Digite um valor de 0 a 350" min="0" max="350" step="1">
+                    </div>
+					<div class="form-group">
+                        <label for="obs">Observação</label>
+                        <input type="text" id="obs" placeholder="Digite o código do curso">
+                    </div>
+
+
+
+
+
+
+
+
+            <!-- 2. ABA: Filiação / Responsáveis -->
+            <div id="filiacao-responsaveis" class="tab-content">
+                <h2 class="section-header">Filiação / Responsáveis</h2>
+                
+                <form class="filiacao-container">
+                    
+                    <!-- Dados da Mãe -->
+                    <div class="parent-card">
+                        <h3>Dados da Mãe</h3>
+                        
+                        <div class="form-group">
+                            <label for="nome-mae">Nome da Mãe</label>
+                            <input type="text" id="nome-mae" placeholder="Nome completo da mãe">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email-mae">E-mail da Mãe</label>
+                            <input type="text" id="email-mae" placeholder="exemplo@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="celular-mae">Celular da Mãe</label>
+                            <input type="text" id="celular-mae" placeholder="(00) 00000-0000">
+                        </div>
+                    </div>
+
+                    <!-- Dados do Pai -->
+                    <div class="parent-card">
+                        <h3>Dados do Pai</h3>
+                        
+                        <div class="form-group">
+                            <label for="nome-pai">Nome do Pai</label>
+                            <input type="text" id="nome-pai" placeholder="Nome completo do pai">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email-pai">E-mail do Pai</label>
+                            <input type="text" id="email-pai" placeholder="exemplo@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="celular-pai">Celular do Pai</label>
+                            <input type="text" id="celular-pai" placeholder="(00) 00000-0000">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Outras Abas (Placeholders de Demonstração) -->
+            <div id="endereco-contato" class="tab-content">
+                <div class="development-placeholder">
+                    <h2>Endereço e Contato</h2>
+                    <p>Espaço reservado para as informações de residência, telefones e e-mails de contato do aluno.</p>
+                </div>
+            </div>
+
+            <div id="formacao-anterior" class="tab-content">
+                <div class="development-placeholder">
+                    <h2>Formação Anterior</h2>
+                    <p>Espaço reservado para o histórico de instituições de ensino frequentadas anteriormente pelo aluno.</p>
+                </div>
+            </div>
+
+            <div id="docs-basicos" class="tab-content">
+                <div class="development-placeholder">
+                    <h2>Documentos Básicos</h2>
+                    <p>Espaço destinado ao upload e conferência de certidão de nascimento, CPF e comprovantes básicos.</p>
+                </div>
+            </div>
+
+            <div id="rg-identidade" class="tab-content">
+                <div class="development-placeholder">
+                    <h2>RG e Identidade</h2>
+                    <p>Espaço para os dados do Registro Geral (RG) do aluno, incluindo órgão emissor e data de expedição.</p>
+                </div>
+            </div>
+
+            <div id="certidoes" class="tab-content">
+                <div class="development-placeholder">
+                    <h2>Certidões</h2>
+                    <p>Espaço destinado à validação de certidões militares, eleitorais ou certidões de casamento.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Script de Alternância Dinâmica das Abas -->
+    <script>
+        function switchTab(event, tabId, menuItemId) {
+            // Evita o comportamento padrão do link
+            event.preventDefault();
+
+            // 1. Ocultar todas as abas
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 2. Desativar destaque de todos os itens do menu
+            const menuItems = document.querySelectorAll('.sidebar-item');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // 3. Exibir a aba selecionada
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // 4. Ativar destaque no item do menu clicado
+            const targetMenu = document.getElementById(menuItemId);
+            if (targetMenu) {
+                targetMenu.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
