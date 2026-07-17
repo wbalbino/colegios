@@ -300,6 +300,9 @@
                     <li class="sidebar-item" id="menu-dados-matriz">
                         <a href="#" onclick="switchTab(event, 'dados-matriz', 'menu-endereco')">Matriz Curricular</a>
                     </li>
+                    <li class="sidebar-item" id="menu-endereco">
+                        <a href="#" onclick="switchTab(event, 'dados-sugestao', 'menu-sugestao')">Sugestão</a>
+                    </li>
                 </ul>
             </div>
 
@@ -645,6 +648,25 @@
 					
                 </form>
             </div>
+			
+            <!-- 5. ABA: Sugestão -->
+            <div id="dados-sugestao" class="tab-content">
+                <h2 class="section-header">Sugestão</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                     <div class="form-group">
+                        <label for="area">Sugestão<span class="required">*</span></label>
+                        <select id="area">
+                            <option value="" disabled selected hidden>Selecione da sugestão...</option>
+                            <option value="1P">1° Período</option>
+                            <option value="2P">2° Período</option>
+                            <option value="3P">3° Período</option>
+                            <option value="4P">4° Período</option>							
+                        </select>
+                    </div>
+                    
+  
 
 
 
