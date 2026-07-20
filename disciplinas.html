@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITEC - Cadastro de Curso</title>
+    <style>
+        :root {
+            --bg-page: #f0f2f5;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --bg-subcard: #f4f6f9;
+            --text-main: #333333;
+            --text-muted: #8898aa;
+            --color-primary: #1e3a8a; /* Azul Escuro */
+            --color-required: #ef4444; /* Vermelho */
+            --sidebar-active-bg: #eef2f7;
+            --sidebar-active-text: #1e3a8a;
+            --border-color: #e2e8f0;
+            --border-focus: #3b82f6;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Container Principal */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            gap: 20px;
+        }
+
+        /* Sidebar - Menu Lateral */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-item a {
+            text-decoration: none;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+            display: block;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .sidebar-item a:hover {
+            background-color: #f7fafc;
+            color: var(--color-primary);
+        }
+
+        .sidebar-item.active a {
+            background-color: var(--sidebar-active-bg);
+            color: var(--sidebar-active-text);
+            font-weight: 600;
+            box-shadow: inset 3px 0 0 var(--color-primary);
+        }
+
+        /* Área de Conteúdo Principal */
+        .main-content {
+            flex-grow: 1;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Abas de Conteúdo (Gerenciamento de Visibilidade) */
+        .tab-content {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        /* Títulos de Seção */
+        .section-header {
+            color: var(--color-primary);
+            font-size: 22px;
+            font-weight: 600;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        /* Formulários Comuns */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Classe utilitária para ocupar duas colunas no grid */
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        label, legend {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        label .required, legend .required {
+            color: var(--color-required);
+            margin-left: 2px;
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .radio-list {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            height: 40px;
+        }
+
+        .radio-list label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        /* CSS Unificado para Inputs e Selects */
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            font-family: inherit;
+            font-size: 14px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #ffffff;
+            width: 100%;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* Layout Específico: Filiação / Responsáveis */
+        .filiacao-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .parent-card {
+            background-color: var(--bg-subcard);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .parent-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a202c;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 10px;
+            margin-bottom: 4px;
+        }
+
+        /* Placeholders de Desenvolvimento */
+        .development-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+            gap: 12px;
+        }
+
+        .development-placeholder h2 {
+            font-size: 18px;
+            color: #4a5568;
+        }
+		
+        /* Botão Voltar Inteligente */
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Dinâmica -->
+        <aside class="sidebar">
+            <!-- Botão Voltar para Página Principal -->
+            <a href="index.html" class="btn-back">
+                <span>&larr;</span> Voltar ao Portal
+            </a>		
+            <div class="sidebar-section">
+                <div class="sidebar-title">Cadastro</div>
+                <ul class="sidebar-menu">
+                    <!-- Apenas a primeira aba recebe a classe 'active' inicialmente -->
+                    <li class="sidebar-item" id="menu-dados-disciplina">
+                        <a href="#" onclick="switchTab(event, 'dados-disciplina', 'menu-dados-disciplina')">Dados da disciplina</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-cargahoraria">
+                        <a href="#" onclick="switchTab(event, 'dados-cargahoraria', 'menu-cargahoraria')">Carga Horária</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-dados-bilbiografia">
+                        <a href="#" onclick="switchTab(event, 'dados-bilbiografia', 'menu-dados-bilbiografia')">Bibliografia</a>
+                    </li>                   
+                    <li class="sidebar-item" id="menu-programa">
+                        <a href="#" onclick="switchTab(event, 'dados-programa', 'menu-programa')">Conteúdo Programático</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-dados-requisito">
+                        <a href="#" onclick="switchTab(event, 'dados-requisito', 'menu-requisito')">Pré-requisito</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Área de Conteúdo Principal -->
+        <main class="main-content">
+
+            <!-- 1. ABA: Dados geral curso (A única com classe 'active' inicial) -->
+            <div id="dados-disciplina" class="tab-content active">
+                <h2 class="section-header">Dados da disciplina</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <!-- Código do curso -->
+                    <div class="form-group">
+                        <label for="codigo">Código da disciplina<span class="required">*</span></label>
+                        <input type="text" id="codigo" placeholder="Digite o código do curso">
+                    </div>
+
+                    <!-- Situação do curso (Corrigido para fieldset acessível) -->
+                    <fieldset class="form-group span-2">
+                        <legend>Situação<span class="required">*</span></legend>
+                        <div class="radio-list">
+                            <label><input type="radio" name="situacao" value="ativo" checked> Ativo</label>
+                            <label><input type="radio" name="situacao" value="inativo"> Inativo</label>
+                        </div>
+                    </fieldset>             
+                    
+                    <!-- Nome da disciplina -->
+                    <div class="parent-card span-2">
+                        <h3>Nome da disciplina</h3>
+                        <div class="form-group">
+                            <label for="nome-curso-portugues">Português<span class="required">*</span></label>
+                            <input type="text" id="nome-curso-portugues" placeholder="Nome completo em português">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome-curso-ingles">Inglês</label>
+                            <input type="text" id="nome-curso-ingles" placeholder="Nome completo em inglês">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome-curso-espanhol">Espanhol</label>
+                            <input type="text" id="nome-curso-espanhol" placeholder="Nome completo em espanhol">
+                        </div>                        
+                    </div>              
+                    <div class="form-group">
+                        <label for="area">Área de conhecimento<span class="required">*</span></label>
+                        <select id="area">
+                            <option value="" disabled selected hidden>Selecione uma área...</option>
+                            <option value="tecnico1">LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS</option>
+                            <option value="tecnico2">CIÊNCIAS HUMANAS E SUAS TECNOLOGIAS</option>
+                            <option value="tecnico3">CIÊNCIAS DA NATUREZA, MATEMÁTICA E SUAS TECNOLOGIAS</option>
+                            <option value="tecnico4">PARTE DIVERSIFICADA</option>
+                            <option value="tecnico5">INDÚSTRIA</option>
+                            <option value="tecnico6">SAÚDE</option>
+                            <option value="tecnico7">INFORMÁTICA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo de aprovação<span class="required">*</span></label>
+                        <select id="tipo">
+                            <option value="" disabled selected hidden>Selecione o tipo de aprovação...</option>
+                            <option value="tecnico">Nota e frequência</option>
+                            <option value="medio">Nota</option>
+                            <option value="extensao">Frequência</option>
+                            <option value="especializacao">Conceito</option>
+                            <option value="segundo">Nota</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo de disciplina<span class="required">*</span></label>
+                        <select id="tipo">
+                            <option value="enfermagem">Teórica</option>
+                            <option value="plasticos">Pratica</option>
+                            <option value="alimentos">EaD/Híbrida</option>
+                        </select>
+                    </div>  					
+                    <div class="form-group">
+                        <label for="tipo">Define a destinação: Ensino Médio (M) ou Curso Técnico (T)<span class="required">*</span></label>
+                        <select id="tipo">
+                            <option value="medio">Ensino Médio</option>
+                            <option value="tecnico">Curso técnico</option>
+                        </select>
+                    </div>  										
+                    <div class="parent-card span-2">
+                        <h3>Ementa</h3>
+                        <div class="form-group">
+                            <label for="nome-curso-portugues">Português<span class="required">*</span></label>
+                            <input type="text" id="nome-curso-portugues" placeholder="Nome completo em português">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome-curso-ingles">Inglês</label>
+                            <input type="text" id="nome-curso-ingles" placeholder="Nome completo em inglês">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome-curso-espanhol">Espanhol</label>
+                            <input type="text" id="nome-curso-espanhol" placeholder="Nome completo em espanhol">
+                        </div>                        
+                    </div>    
+                    <div class="form-group">
+                        <label for="departamento">Departamento<span class="required">*</span></label>
+                        <select id="departamento">
+                            <option value="enfermagem">Enfermagem</option>
+                            <option value="plasticos">Plásticos</option>
+                            <option value="alimentos">Alimentos</option>
+                        </select>
+                    </div>   
+
+                    <div class="form-group span-2">
+                        <label for="observacoes-disciplina">Observação</label>
+                        <textarea 
+                            id="observacoes-disciplina" 
+                            placeholder="Digite aqui informações detalhe da disciplina.." 
+                            rows="2" 
+                            maxlength="500">
+                        </textarea>
+                    </div>
+                </form>
+            </div>
+
+
+<!--Caraterística Regular - Tópicos - Monografia - Seminário - Estágio obrigatório - Estágio opcional - Iniciação Científica)
+Tipo de período - Semestral - Anual
+Percentual Mínimo de Frequência 
+Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A critério
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+				
+        
+            <!-- 3. ABA: Carga Horária -->
+            <div id="dados-cargahoraria" class="tab-content">
+                <h2 class="section-header">Carga Horário</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <div class="form-group span-2">                
+                        <label for="carga1">Total da carga horária<span class="required">*</span></label>
+                        <input type="text" id="carga" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                    </div>              
+                    <div class="form-group span-2">                
+                        <label for="carga2">Total aula_quadro<span class="required">*</span></label>
+                        <input type="text" id="carga" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                    </div>              
+                    <div class="form-group span-2">                
+                        <label for="carga3">Total ch_presencial<span class="required">*</span></label>
+                        <input type="text" id="carga" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                    </div>              
+                    <div class="form-group span-2">                
+                        <label for="carga4">Total ch_n_presencial<span class="required">*</span></label>
+                        <input type="text" id="carga" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                    </div>      
+                    <div class="form-group span-2">                
+                        <label for="carga5">ch_pratica_presencial<span class="required">*</span></label>
+                        <input type="text" id="carga" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                    </div>					
+                    <div class="form-group span-2">                
+                        <label for="carga6">Total creditos<span class="required">*</span></label>
+                        <input type="text" id="carga" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                    </div>              									
+                </form>
+            </div>
+
+
+            <!-- 2. ABA: Dados do bilbiografia (Sem a classe active) -->
+            <div id="dados-bilbiografia" class="tab-content">
+                <h2 class="section-header">Dados da bibliografia</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="observacoes-bas">Básica</label>
+                        <textarea 
+                            id="observacoes-bas" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>              
+                    <div class="form-group span-2">
+                        <label for="observacoes-comp">Complementar</label>
+                        <textarea 
+                            id="observacoes-comp" 
+                            placeholder="Digite aqui informações adicionais .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>									
+                </form>
+            </div>   
+
+            <!-- 2. ABA: Dados do bilbiografia (Sem a classe active) -->
+            <div id="dados-programa" class="tab-content">
+                <h2 class="section-header">Conteúdo Programático</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="programa-bas">Conteúdo Programático</label>
+                        <textarea 
+                            id="programa-bas" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>              									
+                </form>
+            </div>   
+
+            <!-- 2. ABA: Dados do bilbiografia (Sem a classe active) -->
+            <div id="dados-requisito" class="tab-content">
+                <h2 class="section-header">Pré - Requisito</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="requisito-bas">Pré-Requisito</label>
+                        <textarea 
+                            id="requisito-bas" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>              									
+                </form>
+            </div>
+
+
+
+
+
+        </main>
+    </div>
+
+    <!-- Script de Alternância Dinâmica das Abas -->
+    <script>
+        function switchTab(event, tabId, menuItemId) {
+            // Evita o comportamento padrão do link
+            event.preventDefault();
+
+            // 1. Ocultar todas as abas
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 2. Desativar destaque de todos os itens do menu
+            const menuItems = document.querySelectorAll('.sidebar-item');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // 3. Exibir a aba selecionada
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // 4. Ativar destaque no item do menu clicado
+            const targetMenu = document.getElementById(menuItemId);
+            if (targetMenu) {
+                targetMenu.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
