@@ -288,6 +288,325 @@
             transition: all 0.2s ease;
         }
 
+
+    /* Botão pré-requisito */
+	.prereq-box {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .prereq-fieldset {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 24px;
+        background-color: #ffffff;
+    }
+
+    .prereq-legend {
+        font-size: 14px;
+        font-weight: 600;
+        color: #334155;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .help-tooltip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        background: linear-gradient(180deg, #93c5fd 0%, #3b82f6 100%);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: bold;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .prereq-actions {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .btn-system {
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        color: #475569;
+        background-color: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        padding: 6px 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .btn-system:hover {
+        background-color: #e2e8f0;
+        color: #1e293b;
+    }
+
+    .prereq-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .prereq-label {
+        font-weight: 500;
+        color: #1e293b;
+    }
+
+    .prereq-connector {
+        color: #64748b;
+        font-style: italic;
+    }
+
+    .chain-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+    }
+
+    .chain-badge a {
+        color: #1d4ed8;
+        text-decoration: underline;
+        font-weight: 600;
+    }
+
+    .badge-gray { background-color: #e2e8f0; border-color: #cbd5e1; }
+    .badge-green { background-color: #dcfee7; border-color: #bbf7d0; }
+
+    /* Área de Situação */
+    .situacao-container {
+        margin-bottom: 16px;
+        font-size: 14px;
+    }
+    
+    .situacao-label {
+        color: #4a5568;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .situacao-valor {
+        font-weight: 700;
+        color: #1a202c;
+    }
+
+    /* Estilização da Tabela de Cadeias */
+    .cadeia-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .cadeia-table th {
+        background-color: #4c3d8c; /* Roxo/indigo escuro idêntico ao cabeçalho original */
+        color: #ffffff;
+        font-weight: 600;
+        text-align: left;
+        padding: 10px 12px;
+        border: 1px solid #4c3d8c;
+    }
+
+    .cadeia-table td {
+        padding: 8px 12px;
+        border: 1px solid #cbd5e1;
+        color: #2d3748;
+        vertical-align: middle;
+    }
+
+    .cadeia-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* Elementos Internos da Tabela */
+    .btn-delete-row {
+        color: #dc2626;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input-table {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 13px;
+    }
+
+    .select-table {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        background-color: #fff;
+        font-family: inherit;
+        font-size: 13px;
+    }
+
+ /* equivalência*/
+ .equiv-box {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .equiv-fieldset {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 24px;
+        background-color: #ffffff;
+    }
+
+    .equiv-legend {
+        font-size: 14px;
+        font-weight: 600;
+        color: #334155;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .help-tooltip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        background: linear-gradient(180deg, #93c5fd 0%, #3b82f6 100%);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: bold;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .equiv-actions {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .btn-system {
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        color: #475569;
+        background-color: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        padding: 6px 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .btn-system:hover {
+        background-color: #e2e8f0;
+        color: #1e293b;
+    }
+
+    .equiv-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .equiv-label {
+        font-weight: 500;
+        color: #1e293b;
+    }
+
+    .equiv-connector {
+        color: #64748b;
+        font-style: italic;
+    }
+
+    .chain-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+    }
+
+    .chain-badge a {
+        color: #475569;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .badge-gray { background-color: #e2e8f0; }
+
+    /* Estilização da Tabela de Equivalências */
+    .equiv-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .equiv-table th {
+        background-color: #4c3d8c; /* Roxo exato da imagem */
+        color: #ffffff;
+        font-weight: 600;
+        text-align: left;
+        padding: 10px 12px;
+        border: 1px solid #4c3d8c;
+    }
+
+    .equiv-table td {
+        padding: 8px 12px;
+        border: 1px solid #cbd5e1;
+        color: #2d3748;
+        vertical-align: middle;
+        height: 40px;
+    }
+
+    .equiv-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .btn-delete-equiv {
+        color: #dc2626;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input-equiv-code {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+
+
     </style>
 </head>
 <body>
@@ -318,6 +637,9 @@
                     </li>
                     <li class="sidebar-item" id="menu-dados-requisito">
                         <a href="#" onclick="switchTab(event, 'dados-requisito', 'menu-requisito')">Pré-requisito</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-dados-equivalencia">
+                        <a href="#" onclick="switchTab(event, 'dados-equivalencia', 'menu-equivalencia')">Equivalência</a>
                     </li>
                 </ul>
             </div>
@@ -403,19 +725,31 @@
                         </select>
                     </div>  										
                     <div class="parent-card span-2">
-                        <h3>Ementa</h3>
-                        <div class="form-group">
-                            <label for="nome-curso-portugues">Português<span class="required">*</span></label>
-                            <input type="text" id="nome-curso-portugues" placeholder="Nome completo em português">
-                        </div>
-                        <div class="form-group">
-                            <label for="nome-curso-ingles">Inglês</label>
-                            <input type="text" id="nome-curso-ingles" placeholder="Nome completo em inglês">
-                        </div>
-                        <div class="form-group">
-                            <label for="nome-curso-espanhol">Espanhol</label>
-                            <input type="text" id="nome-curso-espanhol" placeholder="Nome completo em espanhol">
-                        </div>                        
+                        <h3>Ementa</h3>					
+                        <label for="nome-curso-portugues">Português</label>
+                        <textarea 
+                            id="nome-curso-portugues" 
+                            placeholder="Digite aqui informações da ementa da disciplina.." 
+                            rows="2" 
+                            maxlength="500">
+                        </textarea>						
+
+                        <label for="nome-curso-ingles">Inglês</label>
+                        <textarea 
+                            id="nome-curso-ingles" 
+                            placeholder="Digite aqui informações da ementa da disciplina.." 
+                            rows="2" 
+                            maxlength="500">
+                        </textarea>						
+					
+                        <label for="nome-curso-espanhol">Espanhol</label>
+                        <textarea 
+                            id="nome-curso-espanhol" 
+                            placeholder="Digite aqui informações da ementa da disciplina.." 
+                            rows="2" 
+                            maxlength="500">
+                        </textarea>						
+					                        
                     </div>    
                     <div class="form-group">
                         <label for="departamento">Departamento<span class="required">*</span></label>
@@ -444,17 +778,6 @@ Tipo de período - Semestral - Anual
 Percentual Mínimo de Frequência 
 Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A critério
 -->
-
-
-
-
-
-
-
-
-
-
-
 
 				
         
@@ -543,18 +866,163 @@ Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A 
                 <h3>Catálogo 2027</h3>
                 <br>
                 <form class="form-grid">
-                    <div class="form-group span-2">
-                        <label for="requisito-bas">Pré-Requisito</label>
-                        <textarea 
-                            id="requisito-bas" 
-                            placeholder="Digite aqui informações .." 
-                            rows="4" 
-                            maxlength="500">
-                        </textarea>
-                    </div>              									
+
+				<div class="prereq-box">
+					<!-- Bloco 1: Seleção de Cadeia -->
+					<fieldset class="prereq-fieldset">
+						<legend class="prereq-legend">
+							Selecione Cadeia de Pré-Requisitos
+							<span class="help-tooltip" title="Clique para obter ajuda">?</span>
+						</legend>
+
+						<div class="prereq-actions">
+							<button type="button" class="btn-system">Nova Cadeia</button>
+							<button type="button" class="btn-system">Reverter Alterações</button>
+						</div>
+
+						<div class="prereq-row">
+							<span class="prereq-label">Cadeia(s):</span>
+							
+							<!-- Link configurado para abrir os dados do grupo 1 -->
+							<span class="chain-badge badge-gray">
+								<a href="#" onclick="gerenciarCadeia(event, 'cadeia1')">AA935</a>
+							</span>
+							
+							<span class="prereq-connector">ou</span>
+							
+							<!-- Link configurado para abrir os dados do grupo 2 -->
+							<span class="chain-badge badge-green">
+								<a href="#" onclick="gerenciarCadeia(event, 'cadeia2')">*EE400 & EE523</a>
+							</span>
+
+							<span class="prereq-connector">ou</span>
+
+							<!-- Opção 1: Bloco completo com as 4 disciplinas exigidas -->
+							<span class="chain-badge badge-gray">
+								<a href="#" onclick="gerenciarCadeia(event, 'cadeia3')">EN205 + EN109 + EN110 + EN207</a>
+							</span>
+								
+							<span class="prereq-connector">ou</span>
+								
+							<!-- Opção 2: Atalho usando a disciplina alternativa AA200 -->
+							<span class="chain-badge badge-green">
+								<a href="#" onclick="gerenciarCadeia(event, 'cadeia4')">EN205 + AA200</a>
+							</span>
+
+
+
+						</div>
+					</fieldset>
+
+					<!-- Bloco 2: Manter Cadeia (Inicia oculto e abre dinamicamente abaixo) -->
+					<fieldset id="section-manter-cadeia" class="prereq-fieldset dynamic-section" style="display: none; margin-top: 20px;">
+						<legend class="prereq-legend">Manter Cadeia</legend>
+						
+						<div class="situacao-container">
+							<span class="situacao-label">Situação:</span>
+							<span class="situacao-valor">Vigente</span>
+						</div>
+
+						<!-- Tabela Estruturada Baseada na Imagem -->
+						<table class="cadeia-table">
+							<thead>
+								<tr>
+									<th style="width: 40px; text-align: center;"></th>
+									<th style="width: 130px;">Código</th>
+									<th style="width: 140px;">Característica</th>
+									<th style="width: 150px;">Nível</th>
+									<th>Nome</th>
+									<th style="width: 180px;">Último Oferecimento</th>
+								</tr>
+							</thead>
+							<tbody id="table-body-cadeia">
+								<!-- As linhas serão injetadas via JavaScript dependendo do clique -->
+							</tbody>
+						</table>
+
+						<!-- Ações Inferiores -->
+						<div class="prereq-actions" style="margin-top: 20px; margin-bottom: 0;">
+							<button type="button" class="btn-system btn-primary-action">Salvar Cadeia</button>
+							<button type="button" class="btn-system">Nova Disciplina</button>
+							<button type="button" class="btn-system">Excluir Cadeia</button>
+							<button type="button" class="btn-system" onclick="fecharManterCadeia()">Cancelar</button>
+						</div>
+					</fieldset>
+				</div>
+				<br>
+				<h3>Exemplo</h3>
+				<br>
+				<h3>(EE207 & (EE213 | EE208 | EE209)) | AA935</h3>
+				<br>
+				<h3>EN205 & ( (EN109 & EN110 & EN207) | AA200 )</h3>
+                </form>
+            </div>   
+
+            <!-- 2. ABA: Equivalência -->
+            <div id="dados-equivalencia" class="tab-content">
+                <h2 class="section-header">Equivalência</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+
+					<div class="equiv-box">
+						<!-- Bloco 1: Seleção de Cadeia de Equivalência -->
+						<fieldset class="equiv-fieldset">
+							<legend class="equiv-legend">
+								Selecione Cadeia de Equivalência
+								<span class="help-tooltip" title="Clique para obter ajuda">?</span>
+							</legend>
+
+							<div class="equiv-actions">
+								<button type="button" class="btn-system" onclick="novaCadeiaEquiv()">Nova Cadeia</button>
+							</div>
+
+							<div class="equiv-row">
+								<span class="equiv-label">Cadeia(s):</span>
+								
+								<span class="chain-badge badge-gray">
+									<a href="#" onclick="carregarCadeiaEquiv(event, 'EF814')">EF814</a>
+								</span>
+								
+								<span class="equiv-connector">ou</span>
+								
+								<span class="chain-badge badge-gray">
+									<a href="#" onclick="carregarCadeiaEquiv(event, 'EF824')">EF824</a>
+								</span>
+							</div>
+						</fieldset>
+
+						<!-- Bloco 2: Manter Cadeia (Aparece ao clicar em uma cadeia ou em Nova Cadeia) -->
+						<fieldset id="section-manter-equiv" class="equiv-fieldset" style="display: none; margin-top: 20px;">
+							<legend class="equiv-legend">Manter Cadeia</legend>
+							
+							<table class="equiv-table">
+								<thead>
+									<tr>
+										<th style="width: 40px; text-align: center;"></th>
+										<th style="width: 150px;">Código</th>
+										<th>Nome</th>
+										<th style="width: 180px;">Carga Horária</th>
+									</tr>
+								</thead>
+								<tbody id="table-body-equiv">
+									<!-- As linhas da tabela serão injetadas aqui -->
+								</tbody>
+							</table>
+
+							<!-- Ações do Formulário -->
+							<div class="equiv-actions" style="margin-top: 20px; margin-bottom: 0;">
+								<button type="button" class="btn-system btn-primary-action">Salvar Cadeia</button>
+								<button type="button" class="btn-system" onclick="adicionarLinhaEquiv('')">Nova Disciplina</button>
+								<button type="button" class="btn-system" onclick="fecharManterEquiv()">Cancelar</button>
+							</div>
+						</fieldset>
+					</div>                   
+				   
+				   
+				   
                 </form>
             </div>
-
 
 
 
@@ -592,6 +1060,150 @@ Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A 
                 targetMenu.classList.add('active');
             }
         }
+		
+// Base de dados simulada para as diferentes combinações de chaves
+    const bancoDeDadosCadeias = {
+        cadeia1: [
+            { codigo: 'AA935', caracteristica: 'Especial', nivel: 'Técnico', nome: 'Requerimento de autorização da Coordenadoria responsável', ultimo: '2026' }
+        ],
+        cadeia2: [
+            { codigo: 'EE400', caracteristica: 'Parcial', nivel: 'Graduação', nome: 'Métodos da Engenharia Elétrica', ultimo: '2026' },
+            { codigo: 'EE523', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Circuitos Eletrônicos Não-Lineares', ultimo: '2026' }
+        ],
+		cadeia3: [
+        { codigo: 'EN205', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Introdução à Engenharia', ultimo: '2026' },
+        { codigo: 'EN109', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Física Geral I', ultimo: '2026' },
+        { codigo: 'EN110', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Cálculo Diferencial e Integral I', ultimo: '2026' },
+        { codigo: 'EN207', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Álgebra Linear', ultimo: '2026' }
+		],
+		
+		// Se clicar na segunda badge, renderiza apenas o par simplificado
+		cadeia4: [
+			{ codigo: 'EN205', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Introdução à Engenharia', ultimo: '2026' },
+			{ codigo: 'AA200', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Eletiva de Humanidades / Equivalente', ultimo: '2026' }
+		]
+		};
+
+    function gerenciarCadeia(event, chaveCadeia) {
+        event.preventDefault(); // Impede o link de recarregar o layout
+        
+        const containerManter = document.getElementById('section-manter-cadeia');
+        const corpoTabela = document.getElementById('table-body-cadeia');
+        
+        // Limpa qualquer registro prévio da tabela
+        corpoTabela.innerHTML = '';
+        
+        // Busca os dados da cadeia selecionada
+        const dadosLinhas = bancoDeDadosCadeias[chaveCadeia];
+        
+        if (dadosLinhas) {
+            // Constrói as linhas dinamicamente no DOM com os inputs e seletores da imagem
+            dadosLinhas.forEach(info => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="text-align: center;"><span class="btn-delete-row" title="Remover">✕</span></td>
+                    <td><input type="text" class="input-table" value="${info.codigo}"></td>
+                    <td>
+                        <select class="select-table">
+                            <option value="Pleno" ${info.caracteristica === 'Pleno' ? 'selected' : ''}>Pleno</option>
+                            <option value="Eletiva">Eletiva</option>
+                        </select>
+                    </td>
+                    <td>${info.nivel}</td>
+                    <td>${info.nome}</td>
+                    <td>${info.ultimo}</td>
+                `;
+                corpoTabela.appendChild(tr);
+            });
+            
+            // Exibe o painel flutuante logo abaixo
+            containerManter.style.display = 'block';
+            
+            // Rola suavemente a tela até a área de edição para melhorar a usabilidade
+            containerManter.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+
+    function fecharManterCadeia() {
+        document.getElementById('section-manter-cadeia').style.display = 'none';
+    }
+		
+// Dicionário simulando banco de dados para autocompletar ao digitar o código
+    const catalogoDisciplinas = {
+        'EF814': { nome: 'Mecânica Geral e Estática', ch: '60 horas' },
+        'EF824': { nome: 'Dinâmica de Sistemas Rígidos', ch: '45 horas' },
+        'EF900': { nome: 'Termodinâmica Aplicada', ch: '60 horas' }
+    };
+
+    // Abre a tabela vazia com 4 linhas idênticas ao layout da imagem para inserção limpa
+    function novaCadeiaEquiv() {
+        const corpoTabela = document.getElementById('table-body-equiv');
+        corpoTabela.innerHTML = '';
+        
+        // Renderiza 4 linhas vazias iniciais conforme a imagem do cliente
+        for(let i = 0; i < 4; i++) {
+            adicionarLinhaEquiv('');
+        }
+        document.getElementById('section-manter-equiv').style.display = 'block';
+    }
+
+    // Carrega os dados de uma cadeia existente clicada na lista
+    function carregarCadeiaEquiv(event, codigo) {
+        event.preventDefault();
+        const corpoTabela = document.getElementById('table-body-equiv');
+        corpoTabela.innerHTML = '';
+        
+        // Adiciona a disciplina clicada + 3 linhas em branco para edições futuras
+        adicionarLinhaEquiv(codigo);
+        for(let i = 0; i < 3; i++) {
+            adicionarLinhaEquiv('');
+        }
+        
+        document.getElementById('section-manter-equiv').style.display = 'block';
+    }
+
+    // Função que adiciona uma linha estruturada à tabela
+    function adicionarLinhaEquiv(codigo = '') {
+        const corpoTabela = document.getElementById('table-body-equiv');
+        const tr = document.createElement('tr');
+        
+        // Verifica se a matéria já tem dados no catálogo
+        const info = catalogoDisciplinas[codigo.toUpperCase()] || { nome: '', ch: '' };
+
+        tr.innerHTML = `
+            <td style="text-align: center;"><span class="btn-delete-equiv" onclick="removerLinhaEquiv(this)">✕</span></td>
+            <td><input type="text" class="input-equiv-code" value="${codigo}" oninput="verificarCodigoEquiv(this)"></td>
+            <td class="col-nome">${info.nome}</td>
+            <td class="col-ch">${info.ch}</td>
+        `;
+        corpoTabela.appendChild(tr);
+    }
+
+    // Evento disparado enquanto o usuário digita no campo Código
+    function verificarCodigoEquiv(input) {
+        const codigoDigitado = input.value.toUpperCase();
+        const tr = input.closest('tr');
+        const celulaNome = tr.querySelector('.col-nome');
+        const celulaCh = tr.querySelector('.col-ch');
+        
+        if (catalogoDisciplinas[codigoDigitado]) {
+            celulaNome.textContent = catalogoDisciplinas[codigoDigitado].nome;
+            celulaCh.textContent = catalogoDisciplinas[codigoDigitado].ch;
+        } else {
+            celulaNome.textContent = '';
+            celulaCh.textContent = '';
+        }
+    }
+
+    function removerLinhaEquiv(botao) {
+        const linha = botao.closest('tr');
+        linha.remove();
+    }
+
+    function fecharManterEquiv() {
+        document.getElementById('section-manter-equiv').style.display = 'none';
+    }
+		
     </script>
 </body>
 </html>
