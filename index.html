@@ -9,6 +9,7 @@
             --bg-page: #f8fafc;
             --color-primary: #1e3a8a; /* Azul Escuro */
             --color-secondary: #ef4444; /* Vermelho Cotuca/Cotil */
+            --color-tertiary: #3b82f6; /* Azul Calendário */
             --color-dark: #0f172a;
             --color-text: #334155;
             --color-card-bg: #ffffff;
@@ -88,17 +89,17 @@
         .hero p {
             font-size: 18px;
             color: #64748b;
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto;
         }
 
-        /* Grid de Módulos (Links Obrigatórios) */
+        /* Grid de Módulos (Ajustado para 3 Módulos) */
         .modules-grid {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 40px auto;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
             padding: 0 20px;
         }
 
@@ -106,7 +107,7 @@
             background: var(--color-card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 35px;
+            padding: 30px;
             text-decoration: none;
             color: inherit;
             display: flex;
@@ -139,8 +140,13 @@
             width: 8px;
         }
 
+        /* Detalhes de Cores para cada Card */
         .module-card.disciplinas::before {
             background-color: var(--color-secondary);
+        }
+
+        .module-card.calendario::before {
+            background-color: var(--color-tertiary);
         }
 
         .module-icon {
@@ -157,9 +163,10 @@
 
         .module-card p {
             color: #64748b;
-            font-size: 15px;
+            font-size: 14px;
             margin-bottom: 25px;
             flex-grow: 1;
+            line-height: 1.5;
         }
 
         .btn-access {
@@ -167,13 +174,17 @@
             align-items: center;
             gap: 8px;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--color-primary);
             transition: color 0.2s;
         }
 
         .module-card.disciplinas .btn-access {
             color: var(--color-secondary);
+        }
+
+        .module-card.calendario .btn-access {
+            color: var(--color-tertiary);
         }
 
         .btn-access .arrow {
@@ -235,8 +246,14 @@
         }
 
         /* Responsividade */
+        @media (max-width: 992px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
-            .modules-grid, .features-grid {
+            .features-grid {
                 grid-template-columns: 1fr;
             }
             .main-header {
@@ -264,10 +281,10 @@
     <!-- Seção Principal / Boas-vindas -->
     <section class="hero">
         <h1>Gestão <span> dos colégios</span></h1>
-        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas e catálogos anuais com máxima fluidez visual.</p>
+        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas, calendários e catálogos anuais com máxima fluidez visual.</p>
     </section>
 
-    <!-- Grid de Links para as Páginas Solicitadas -->
+    <!-- Grid de Links para as Páginas do Sistema -->
     <main class="modules-grid">
         
         <!-- Link para Curso e Currículo -->
@@ -291,6 +308,18 @@
             </div>
             <div class="btn-access">
                 Acessar Módulo de Componentes <span class="arrow">&rarr;</span>
+            </div>
+        </a>
+
+        <!-- Link para Calendário Acadêmico -->
+        <a href="calendario.html" class="module-card calendario">
+            <div>
+                <div class="module-icon">📅</div>
+                <h2>Calendário Acadêmico</h2>
+                <p>Configure semestres, bimestres, recessos e feriados. Visualize o calendário mensal e acompanhe o total de semanas, dias letivos e distribuição de dias úteis por dia da semana.</p>
+            </div>
+            <div class="btn-access">
+                Acessar Módulo de Calendário <span class="arrow">&rarr;</span>
             </div>
         </a>
 
