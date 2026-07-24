@@ -1,3 +1,10 @@
+<!-- Botão Voltar para Página Principal -->
+<!-- Container do Botão Voltar -->
+<div style="background: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+        <a href="index.html" class="btn-back-portal">
+            &larr; Voltar ao Portal
+        </a>
+    </div>
 <div class="app-viewport">
     
     <!-- Cabeçalho Principal -->
@@ -774,7 +781,28 @@
         line-height: 1.1;
     }
 	
-	
+	/* Botão Voltar ao Portal */
+	.btn-back-portal {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background-color: #f0f4f9; /* Tom suave de fundo */
+		color: #1e3a8a;            /* Cor do texto em azul */
+		border: 1px solid #dbe2ef;  /* Borda sutil */
+		padding: 10px 20px;
+		border-radius: 10px;
+		font-size: 15px;
+		font-weight: 500;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		cursor: pointer;
+	}
+
+	.btn-back-portal:hover {
+		background-color: #e2e8f0;
+		border-color: #cbd5e1;
+		transform: translateX(-3px); /* Animação suave para a esquerda */
+	}
 	
 	
 </style>
