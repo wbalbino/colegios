@@ -266,23 +266,8 @@
             margin-bottom: 4px;
         }
 
-        .development-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: var(--text-muted);
-            text-align: center;
-            gap: 12px;
-        }
-
-        .development-placeholder h2 {
-            font-size: 18px;
-            color: #4a5568;
-        }
 		/* Documentos */
-	.docs-oficiais-container {
+		.docs-oficiais-container {
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			width: 100%;
 		}
@@ -293,7 +278,6 @@
 			margin-top: -12px;
 		}
 
-		/* Tabela Institucional */
 		.docs-table {
 			width: 100%;
 			border-collapse: collapse;
@@ -305,7 +289,7 @@
 		}
 
 		.docs-table th {
-			background-color: #4c3d8c; /* Roxo SITEC */
+			background-color: #4c3d8c;
 			color: #ffffff;
 			font-weight: 600;
 			text-align: left;
@@ -331,7 +315,6 @@
 			font-style: italic;
 		}
 
-		/* Badges de Status */
 		.badge {
 			display: inline-block;
 			padding: 4px 10px;
@@ -344,7 +327,6 @@
 		.badge-info { background-color: #e0f2fe; color: #0284c7; }
 		.badge-success { background-color: #dcfce7; color: #15803d; }
 
-		/* Botões */
 		.btn-system {
 			font-family: inherit;
 			font-size: 13px;
@@ -382,7 +364,6 @@
 			margin-left: 8px;
 		}
 
-		/* Modal de Assinatura */
 		.modal-overlay {
 			position: fixed;
 			top: 0;
@@ -469,6 +450,7 @@
 			justify-content: flex-end;
 			gap: 10px;
 		}	
+
 		/* Disciplina no curriculo */
 		.disciplina-container {
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -503,7 +485,6 @@
 			color: #000000;
 		}
 
-		/* Form na horizontal */
 		.disciplina-form {
 			display: flex;
 			align-items: flex-end;
@@ -535,7 +516,6 @@
 		.field-creditos { width: 80px; }
 		.field-btn { width: auto; }
 
-		/* Inputs */
 		.input-editable {
 			height: 26px;
 			padding: 2px 8px;
@@ -564,7 +544,6 @@
 			outline: none;
 		}
 
-		/* Botão Adicionar */
 		.btn-adicionar {
 			height: 26px;
 			padding: 0 14px;
@@ -584,7 +563,6 @@
 			color: #111111;
 		}
 
-		/* Tabela da Lista de Disciplinas */
 		.lista-container {
 			margin-top: 20px;
 		}
@@ -605,7 +583,7 @@
 		}
 
 		.disciplinas-table th {
-			background-color: #4c3d8c; /* Roxo Institucional SITEC */
+			background-color: #4c3d8c;
 			color: #ffffff;
 			font-weight: 600;
 			text-align: left;
@@ -638,8 +616,8 @@
 		.btn-remover-row:hover {
 			color: #991b1b;
 		}
-		
-		/* Card da Legislação */
+
+        /* Card da Legislação */
         .legis-card {
             background-color: var(--card-legis-bg);
             border: 2px solid var(--card-legis-border);
@@ -661,10 +639,9 @@
             gap: 12px;
         }
 
-		/* Ajuste das Células da Legislação */
 		.cell-ano, .cell-legis {
 			background-color: var(--cell-bg);
-			border: 1px solid var(--cell-border); /* Garante a borda em volta de cada informação */
+			border: 1px solid var(--cell-border);
 			border-radius: 6px;
 			padding: 10px 14px;
 			font-size: 13px;
@@ -685,7 +662,6 @@
             border-color: var(--cell-border);
         }
 
-        /* Botão de Adicionar (Ícone +) */
         .legis-footer {
             display: flex;
             justify-content: flex-end;
@@ -715,20 +691,357 @@
             background: linear-gradient(135deg, #0369a1, #075985);
         }
 
-        /* Responsividade */
+        /* =========================================================
+           ESTILOS DA ABA SÉRIES
+           ========================================================= */
+        .series-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .btn-green {
+            background-color: #16a34a;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-green:hover {
+            background-color: #15803d;
+        }
+
+        .btn-blue-save {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-blue-save:hover {
+            background-color: #2563eb;
+        }
+
+        .series-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .series-search-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .series-search-group label {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .series-search-group select {
+            width: 280px;
+            height: 32px;
+            padding: 4px 10px;
+            font-size: 13px;
+        }
+
+        .series-actions-right {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .period-control-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+
+        .period-control-bar select {
+            width: 150px;
+            height: 32px;
+            padding: 4px 8px;
+            font-size: 13px;
+        }
+
+        .period-info-text {
+            color: #4b5563;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .series-main-grid {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+            align-items: flex-start;
+            min-height: 250px;
+        }
+
+        /* Coluna Lateral de Períodos Dinâmica */
+        .period-sidebar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 90px;
+            flex-shrink: 0;
+        }
+
+        .period-badge-card {
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 6px 4px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .period-badge-card.active {
+            border-color: #ef4444;
+            background-color: #fff5f5;
+        }
+
+        .period-badge-card:hover {
+            border-color: #94a3b8;
+        }
+
+        .period-badge-num {
+            font-weight: 700;
+            font-size: 13px;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .period-badge-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-icon-mini {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.7;
+            padding: 2px;
+        }
+
+        .btn-icon-mini:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Tabela de Disciplinas */
+        .series-table-wrapper {
+            flex-grow: 1;
+            overflow-x: auto;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background-color: #ffffff;
+            min-height: 200px;
+        }
+
+        .period-table-content {
+            width: 100%;
+        }
+
+        .series-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .series-table th {
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            padding: 8px 6px;
+            border-bottom: 1px solid #cbd5e1;
+            border-right: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .series-table td {
+            padding: 6px 6px;
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            vertical-align: middle;
+            color: #334155;
+        }
+
+        .series-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .dica-icon {
+            color: #0284c7;
+            font-size: 11px;
+            cursor: help;
+            font-weight: normal;
+        }
+
+        .input-arrow-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .input-arrow-box input,
+        .input-arrow-box select,
+        .table-cell-select {
+            height: 24px;
+            padding: 2px 4px;
+            font-size: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 3px;
+            width: auto;
+        }
+
+        .input-number-sm {
+            width: 46px !important;
+            text-align: center;
+        }
+
+        .btn-down-arrow {
+            background-color: #16a34a;
+            color: #ffffff;
+            border: none;
+            border-radius: 3px;
+            width: 18px;
+            height: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-down-arrow:hover {
+            background-color: #15803d;
+        }
+
+        .td-disc-details {
+            white-space: normal;
+            min-width: 220px;
+        }
+
+        .disc-name-link {
+            color: #0284c7;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .disc-name-link:hover {
+            text-decoration: underline;
+        }
+
+        .disc-meta {
+            font-size: 10px;
+            color: #64748b;
+            line-height: 1.3;
+        }
+
+        .totals-row td {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            border-top: 2px solid #cbd5e1;
+        }
+
+        .btn-table-action {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-table-action.delete {
+            color: #dc2626;
+        }
+
+        .series-footer-actions {
+            margin-top: 15px;
+        }
+
+        .empty-state-box {
+            padding: 50px 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+        }
+
         @media (max-width: 768px) {
-            .page-top-bar {
+            .series-main-grid {
                 flex-direction: column;
-                align-items: stretch;
             }
-            .legis-row {
-                grid-template-columns: 1fr;
-                gap: 5px;
-            }
-            .header-row {
-                display: none; /* Esconde cabeçalho em telas muito pequenas */
+            .period-sidebar-list {
+                flex-direction: row;
+                width: 100%;
+                overflow-x: auto;
             }
         }
+		
+		
+		
+		/* Configuração da 1ª Tabela (Fundamento Legal - 3 Colunas) */
+		.tabela-3col .legis-row {
+			display: grid !important;
+			grid-template-columns: 160px 160px 1fr !important; /* Tipo | Ano | Legislação */
+			gap: 12px;
+			align-items: center;
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
     </style>
 </head>
 <body>
@@ -737,7 +1050,6 @@
         
         <!-- Sidebar Dinâmica -->
         <aside class="sidebar">
-            <!-- Botão Voltar para Página Principal -->
             <a href="index.html" class="btn-back">
                 <span>&larr;</span> Voltar ao Portal
             </a>
@@ -760,14 +1072,14 @@
                         <a href="#" onclick="switchTab(event, 'dados-qualificacao', 'menu-dados-qualificacao')">Qualificação</a>
                     </li>                   
                     <li class="sidebar-item" id="menu-series">
-                        <a href="#" onclick="switchTab(event, 'dados-series', 'menu-series')">Séries</a>
+                        <a href="#" onclick="switchTab(event, 'dados-series', 'menu-series')">Matriz pedagógica</a>
                     </li>
                     <li class="sidebar-item" id="menu-dados-matriz">
                         <a href="#" onclick="switchTab(event, 'dados-matriz', 'menu-dados-matriz')">Matriz Curricular</a>
                     </li>
-                    <li class="sidebar-item" id="menu-sugestao">
+                  <!--  <li class="sidebar-item" id="menu-sugestao">
                         <a href="#" onclick="switchTab(event, 'dados-sugestao', 'menu-sugestao')">Sugestão</a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
 
@@ -829,7 +1141,7 @@
                     </div>
                     <div class="form-group">
                         <label for="data-criacao">Data de Criação<span class="required">*</span></label>
-                        <input type="date" id="data-criacao" name="data-criacao" value="2026-07-15" min="2020-01-01" max="2030-12-31">
+                        <input type="date" id="data-criacao" name="data-criacao" value="2026-07-15">
                     </div>
                     <div class="form-group">
                         <label for="tipo">Tipo do curso<span class="required">*</span></label>
@@ -1009,14 +1321,15 @@
                 </form>
             </div>
 
-            <!-- 3. ABA: Legislação -->
+            <!-- 5. ABA: Legislação -->
             <div id="dados-legislacao" class="tab-content">
                 <h2 class="section-header">Legislação</h2>
                 <h3>Catálogo 2027</h3>
                 <br>
                 <form class="form-grid">                
 
-                    <div class="parent-card span-2">
+                    <!--<div class="parent-card span-3"> -->
+					<div class="tabela-3col">
                         <h3>Fundamento legal</h3>						                  
 						<div class="legis-row header-row">
 							<div class="cell-ano">Tipo</div>
@@ -1068,72 +1381,78 @@
 							<button class="btn-add" title="Adicionar Legislação">+</button>
 						</div>
 
-
-
-
-
-						
-						
                     </div> 
                 </form>
             </div>
 
-
-            <!-- 4. ABA: Qualificação -->
-            <div id="dados-qualificacao" class="tab-content">
-                <h2 class="section-header">Dados da Qualificação</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
-                <form class="form-grid">
-                    <div class="form-group span-2">
-                         <label for="nome-titulo">Título</label>
-                         <input type="text" id="nome-titulo" placeholder="Título para emissão de certificados">
-                    </div>
-                    <div class="form-group span-2">
-                        <label for="observacoes-qualificacao">Observações </label>
-                        <textarea id="observacoes-qualificacao" placeholder="Digite aqui informações adicionais ou observações sobre a titulação.." rows="4" maxlength="500"></textarea>
-                    </div>
-                </form>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- 5. ABA: Séries -->
+            <!-- 6. ABA: Séries (DINÂMICA) -->
             <div id="dados-series" class="tab-content">
-                <h2 class="section-header">Séries</h2>
-                <h3>Catálogo 2027</h3>
+                <h2 class="section-header">Matriz pedagógica</h2>
+				<h3>Catálogo 2027</h3>
                 <br>
-                <div class="development-placeholder">
-                    <h2>Configuração de Séries</h2>
-                    <p>Espaço destinado ao gerenciamento de anos letivos, períodos e seriação do curso.</p>
+                <div class="series-container">
+                    <!-- Barra de Topo: Busca e Ações -->
+                    <div class="series-top-bar">
+                        <div class="series-search-group">
+                            <label for="select-disciplina-add">Busque uma disciplina para adicionar:</label>
+                            <select id="select-disciplina-add">
+                                <option value="MARK">MBI10 - Biologia</option>
+                                <option value="CEIANB">MC101 - Introdução aos Algorítmos de Programação</option>
+                                <option value="MAT">MC102 - Eletricidade Básica</option>
+                                <option value="GEST">MC103 - Desenho Técnico e Projetos de Máquinas I</option>
+                            </select>
+                            <button type="button" class="btn-green" onclick="adicionarDisciplinaMatriz()">+ Adicionar disciplina à matriz</button>
+                           <!--  <button type="button" class="btn-green">📝 Cadastrar nova disciplina no sistema</button>
+                        </div>
+
+                        <div class="series-actions-right">
+                           <!-- <button type="button" class="btn-green">← Voltar ao cadastro da matriz</button> -->
+                            <button type="button" class="btn-green">🖨 Imprimir matriz</button>
+                        </div>
+                    </div>
+
+                    <!-- Controle de Períodos -->
+                    <div class="period-control-bar">
+                        <select id="select-periodo-opcao">
+                            <option value="">Escolha...</option>
+                            <option value="1º">1º Período</option>
+                            <option value="2º">2º Período</option>
+                            <option value="3º">3º Período</option>
+                            <option value="4º">4º Período</option>
+                            <option value="5º">5º Período</option>
+                            <option value="6º">6º Período</option>
+                        </select>
+                        <button type="button" class="btn-green" onclick="adicionarPeriodo()">+ Adicionar período/série</button>
+                        <span class="period-info-text">
+                            <span class="dica-icon">ℹ️</span> Essa matriz é organizada em cada divisão, escolha o período acima para gerar a caixa e a tabela.
+                        </span>
+                    </div>
+
+                    <!-- Layout Principal Dinâmico: Seleção de Períodos + Tabela de Disciplinas -->
+                    <div class="series-main-grid">
+                        
+                        <!-- Lista Lateral de Períodos (Dinâmica) -->
+                        <div class="period-sidebar-list" id="period-sidebar-list">
+                            <!-- Os botões de períodos criados aparecerão aqui -->
+                        </div>
+
+                        <!-- Container de Tabelas de Disciplinas (Dinâmico) -->
+                        <div class="series-table-wrapper" id="period-tables-container">
+                            <div id="empty-period-msg" class="empty-state-box">
+                                Nenhum período adicionado. Selecione um período no menu acima e clique em <strong>"+ Adicionar período"</strong> para começar.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Botão Salvar (Rodapé) -->
+                    <div class="series-footer-actions">
+                        <button type="button" class="btn-blue-save">✔ Salvar</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- 6. ABA: Matriz Curricular -->
+            <!-- 7. ABA: Matriz Curricular -->
             <div id="dados-matriz" class="tab-content">
                 <h2 class="section-header">Matriz Curricular</h2>
                 <h3>Catálogo 2027</h3>
@@ -1201,15 +1520,12 @@
                 </form>
             </div>
 			
-            <!-- 7. ABA: Sugestão -->
+            <!-- 8. ABA: Sugestão -->
             <div id="dados-sugestao" class="tab-content">
                 <h2 class="section-header">Sugestão</h2>
                 <h3>Catálogo 2027</h3>
                 <br>
                 <form class="form-grid">
-				
-				
-				
                      <div class="form-group span-2">
                         <label for="formacao">Formação Básica<span class="required">*</span></label>
                         <select id="formacao">
@@ -1242,7 +1558,6 @@
                     </div>					
 										
 					<div class="disciplina-container">
-						<!-- 1. Formulário de Busca e Adição -->
 						<fieldset class="disciplina-fieldset">
 							<legend class="disciplina-legend">Disciplina</legend>
 
@@ -1251,38 +1566,32 @@
 							</p>
 
 							<div class="disciplina-form">
-								<!-- Campo Código -->
 								<div class="form-field field-codigo">
 									<label for="input-codigo"><span class="required-asterisk">*</span> Código:</label>
 									<input type="text" id="input-codigo" class="input-editable" autocomplete="off" oninput="autopreencherCampos(this)">
 								</div>
 
-								<!-- Campo Nível -->
 								<div class="form-field field-nivel">
 									<label for="input-nivel">Nível:</label>
 									<input type="text" id="input-nivel" class="input-readonly" readonly tabindex="-1">
 								</div>
 
-								<!-- Campo Nome -->
 								<div class="form-field field-nome">
 									<label for="input-nome">Nome:</label>
 									<input type="text" id="input-nome" class="input-readonly" readonly tabindex="-1">
 								</div>
 
-								<!-- Campo Créditos -->
 								<div class="form-field field-creditos">
 									<label for="input-creditos">Créditos:</label>
 									<input type="text" id="input-creditos" class="input-readonly" readonly tabindex="-1">
 								</div>
 
-								<!-- Botão Adicionar -->
 								<div class="form-field field-btn">
 									<button type="button" class="btn-adicionar" onclick="adicionarDisciplinaNaLista()">Adicionar</button>
 								</div>
 							</div>
 						</fieldset>
 
-						<!-- 2. Lista de Disciplinas Adicionadas (Exibida dinamicamente) -->
 						<div id="container-lista-disciplinas" class="lista-container" style="display: none;">
 							<h3 class="lista-titulo">Disciplinas Adicionadas</h3>
 							
@@ -1297,34 +1606,23 @@
 									</tr>
 								</thead>
 								<tbody id="lista-disciplinas-body">
-									<!-- As linhas adicionadas aparecerão aqui -->
 								</tbody>
 							</table>
 						</div>
 					</div>					
-					
-					
-					
-					
-					
-					
-					
-					
                 </form>
             </div>
 					
-            <!-- 8. ABA: Documentos Básicos (CORRIGIDA) -->
+            <!-- 9. ABA: Documentos Básicos -->
             <div id="docs-basicos" class="tab-content">
                 <h2 class="section-header">Documentos Básicos</h2>
                 <h3>Catálogo 2027</h3>
   
-				<!-- início upload -->
 				<div class="docs-oficiais-container">
 					<h2 class="section-header">Documentação Oficial e Homologação</h2>
 					<p class="section-subtitle">Envie e assine digitalmente os documentos obrigatórios do curso.</p>
 					<br>
 
-					<!-- Tabela de Documentos Obrigatórios -->
 					<table class="docs-table">
 						<thead>
 							<tr>
@@ -1335,7 +1633,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 1. PCC -->
 							<tr id="row-pcc">
 								<td>
 									<strong>PPC</strong>
@@ -1349,7 +1646,6 @@
 								</td>
 							</tr>
 
-							<!-- 2. Documento dos Pareceristas -->
 							<tr id="row-pareceristas">
 								<td>
 									<strong>Pareceristas</strong>
@@ -1363,7 +1659,6 @@
 								</td>
 							</tr>
 
-							<!-- 3. Publicação do DOE -->
 							<tr id="row-doe">
 								<td>
 									<strong>Publicação do DOE</strong>
@@ -1377,7 +1672,6 @@
 								</td>
 							</tr>
 
-							<!-- 4. Homologação SEDUC -->
 							<tr id="row-seduc">
 								<td>
 									<strong>Homologação SEDUC</strong>
@@ -1430,11 +1724,6 @@
 						</div>
 					</div>
 				</div>				
-				
-				
-				
-				<!-- fim upload -->
-				
 			</div>
 
         </main>
@@ -1453,192 +1742,483 @@
             if (targetMenu) targetMenu.classList.add('active');
         }
 
-		// Armazena o estado dos documentos
-			const estadoDocumentos = {
-				pcc: { nomeDoc: 'PPC (Processo Pedagócio Curso)', arquivo: null, assinado: false, funcao: '' },
-				pareceristas: { nomeDoc: 'Documento dos Pareceristas', arquivo: null, assinado: false, funcao: '' },
-				doe: { nomeDoc: 'Publicação do DOE', arquivo: null, assinado: false, funcao: '' },
-				seduc: { nomeDoc: 'Homologação SEDUC', arquivo: null, assinado: false, funcao: '' }
+        /* =========================================================
+           LÓGICA DINÂMICA DA ABA SÉRIES (Criação de Períodos e Tabelas)
+           ========================================================= */
+        let periodoAtivoId = null;
+
+        function adicionarPeriodo() {
+            const select = document.getElementById('select-periodo-opcao');
+            const valor = select.value;
+            const texto = select.options[select.selectedIndex]?.text || valor;
+
+            if (!valor) {
+                alert('Por favor, selecione um período na lista para adicionar.');
+                return;
+            }
+
+            const periodoId = 'per-' + Date.now();
+
+            // Oculta a mensagem inicial de estado vazio
+            const emptyMsg = document.getElementById('empty-period-msg');
+            if (emptyMsg) emptyMsg.style.display = 'none';
+
+            // 1. Criar Badge na Lista Lateral
+            const sidebarList = document.getElementById('period-sidebar-list');
+            const badgeCard = document.createElement('div');
+            badgeCard.className = 'period-badge-card';
+            badgeCard.id = 'badge-' + periodoId;
+            badgeCard.onclick = () => selecionarPeriodo(periodoId);
+            badgeCard.innerHTML = `
+                <span class="period-badge-num">${valor}</span>
+                <div class="period-badge-actions">
+                    <button type="button" class="btn-icon-mini" title="Remover o período" onclick="removerPeriodo('${periodoId}', event)">🗑️</button>
+                    <button type="button" class="btn-icon-mini" title="Duplicar o período" onclick="duplicarPeriodo('${periodoId}', event)">📄</button>
+                </div>
+            `;
+            sidebarList.appendChild(badgeCard);
+
+            // 2. Criar Estrutura de Tabela em Branco
+            const containerTabelas = document.getElementById('period-tables-container');
+            const tableWrapper = document.createElement('div');
+            tableWrapper.className = 'period-table-content';
+            tableWrapper.id = 'table-' + periodoId;
+            tableWrapper.style.display = 'none';
+            tableWrapper.innerHTML = gerarHTMLTabela(periodoId);
+            containerTabelas.appendChild(tableWrapper);
+
+            // Selecionar automaticamente o período criado
+            selecionarPeriodo(periodoId);
+        }
+
+        function gerarHTMLTabela(periodoId) {
+            return `
+                <table class="series-table" id="grid-${periodoId}">
+                    <thead>
+                        <tr>
+                            <th style="width: 30px;">ID</th>
+                            <th style="width: 60px;">Ordem <span class="dica-icon" title="Ordem">ℹ️ Dica</span></th>
+                            <th style="width: 50px;">Ano <span class="dica-icon" title="Ano">ℹ️ Dica</span></th>
+                            <th style="width: 50px;">Sem. <span class="dica-icon" title="Semestre">ℹ️ Dica</span></th>
+                            <th>Disciplina</th>
+                            <th style="width: 90px;">Seletiva/ Optativa <span class="dica-icon" title="Dica">ℹ️ Dica</span></th>
+                            <th style="width: 65px;">Cálculo</th>
+                            <th style="width: 65px;">Reprova?</th>
+                            <th style="width: 55px;">Créd</th>
+                            <th style="width: 90px;">C.H. Diária/ Por aula</th>
+                            <th style="width: 75px;">C.H. Semanal</th>
+                            <th style="width: 75px;">C.H. Mensal</th>
+                            <th style="width: 85px;">C.H.AnualTotal</th>
+                            <th style="width: 60px;">Configurar</th>
+                            <th style="width: 50px;">Remover</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-${periodoId}">
+                        <tr class="row-empty">
+                            <td colspan="15" style="text-align: center; color: #94a3b8; padding: 25px;">
+                                Nenhuma disciplina adicionada neste período. Escolha uma disciplina acima e clique em <strong>"+ Adicionar disciplina à matriz"</strong>.
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="totals-row">
+                            <td colspan="8" style="text-align: right; padding-right: 12px;">Totais</td>
+                            <td class="text-center" id="tot-cred-${periodoId}">0</td>
+                            <td class="text-center" id="tot-diaria-${periodoId}">0 horas</td>
+                            <td class="text-center" id="tot-semanal-${periodoId}">0 horas</td>
+                            <td class="text-center" id="tot-mensal-${periodoId}">0 horas</td>
+                            <td class="text-center" id="tot-anual-${periodoId}">0 horas</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+        }
+
+        function selecionarPeriodo(periodoId) {
+            periodoAtivoId = periodoId;
+
+            document.querySelectorAll('.period-badge-card').forEach(card => card.classList.remove('active'));
+            const activeBadge = document.getElementById('badge-' + periodoId);
+            if (activeBadge) activeBadge.classList.add('active');
+
+            document.querySelectorAll('.period-table-content').forEach(tbl => tbl.style.display = 'none');
+            const activeTable = document.getElementById('table-' + periodoId);
+            if (activeTable) activeTable.style.display = 'block';
+        }
+
+        function removerPeriodo(periodoId, event) {
+            if (event) event.stopPropagation();
+
+            const badge = document.getElementById('badge-' + periodoId);
+            const table = document.getElementById('table-' + periodoId);
+
+            if (badge) badge.remove();
+            if (table) table.remove();
+
+            if (periodoAtivoId === periodoId) {
+                const restante = document.querySelector('.period-badge-card');
+                if (restante) {
+                    const novoId = restante.id.replace('badge-', '');
+                    selecionarPeriodo(novoId);
+                } else {
+                    periodoAtivoId = null;
+                    const emptyMsg = document.getElementById('empty-period-msg');
+                    if (emptyMsg) emptyMsg.style.display = 'block';
+                }
+            }
+        }
+
+        function duplicarPeriodo(periodoId, event) {
+            if (event) event.stopPropagation();
+
+            const activeBadge = document.getElementById('badge-' + periodoId);
+            const activeTable = document.getElementById('table-' + periodoId);
+            if (!activeBadge || !activeTable) return;
+
+            const nomeOriginal = activeBadge.querySelector('.period-badge-num').textContent;
+            const novoId = 'per-' + Date.now();
+
+            // Duplica Badge
+            const sidebarList = document.getElementById('period-sidebar-list');
+            const badgeCard = document.createElement('div');
+            badgeCard.className = 'period-badge-card';
+            badgeCard.id = 'badge-' + novoId;
+            badgeCard.onclick = () => selecionarPeriodo(novoId);
+            badgeCard.innerHTML = `
+                <span class="period-badge-num">${nomeOriginal} (Cópia)</span>
+                <div class="period-badge-actions">
+                    <button type="button" class="btn-icon-mini" title="Remover o período" onclick="removerPeriodo('${novoId}', event)">🗑️</button>
+                    <button type="button" class="btn-icon-mini" title="Duplicar o período" onclick="duplicarPeriodo('${novoId}', event)">📄</button>
+                </div>
+            `;
+            sidebarList.appendChild(badgeCard);
+
+            // Duplica Tabela
+            const containerTabelas = document.getElementById('period-tables-container');
+            const tableWrapper = document.createElement('div');
+            tableWrapper.className = 'period-table-content';
+            tableWrapper.id = 'table-' + novoId;
+            tableWrapper.style.display = 'none';
+
+            let contentHTML = activeTable.innerHTML;
+            contentHTML = contentHTML.replaceAll(periodoId, novoId);
+            tableWrapper.innerHTML = contentHTML;
+
+            containerTabelas.appendChild(tableWrapper);
+
+            selecionarPeriodo(novoId);
+        }
+
+        function adicionarDisciplinaMatriz() {
+            if (!periodoAtivoId) {
+                alert('Selecione ou crie um período primeiro!');
+                return;
+            }
+
+            const select = document.getElementById('select-disciplina-add');
+            const nomeDisc = select.options[select.selectedIndex]?.text || 'Disciplina Generica';
+            const siglaDisc = select.value || 'DISC';
+
+            const tbody = document.getElementById('tbody-' + periodoAtivoId);
+            if (!tbody) return;
+
+            const rowEmpty = tbody.querySelector('.row-empty');
+            if (rowEmpty) rowEmpty.remove();
+
+            const qtdLinhas = tbody.querySelectorAll('tr').length + 1;
+            const idGerado = Math.floor(Math.random() * 90) + 10;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="text-center">${idGerado}</td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm" value="${qtdLinhas}" min="1">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm" value="1" min="1">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm" value="1" min="1">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td class="td-disc-details">
+                    <a href="#" class="disc-name-link">${nomeDisc}</a>
+                    <div class="disc-meta">Sigla: ${siglaDisc}</div>
+                    <div class="disc-meta">Validade: 00/00/0000 &nbsp; até: 00/00/0000</div>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <select class="table-cell-select">
+                            <option value="nao" selected>nao</option>
+                            <option value="sim">sim</option>
+                        </select>
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td>
+                    <select class="table-cell-select">
+                        <option value="med" selected>med</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="table-cell-select">
+                        <option value="sim" selected>sim</option>
+                        <option value="nao">nao</option>
+                    </select>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm val-cred" value="0" onchange="atualizarTotaisPeriodo('${periodoAtivoId}')">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm val-diaria" value="0" onchange="atualizarTotaisPeriodo('${periodoAtivoId}')">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm val-semanal" value="0" onchange="atualizarTotaisPeriodo('${periodoAtivoId}')">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm val-mensal" value="0" onchange="atualizarTotaisPeriodo('${periodoAtivoId}')">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-arrow-box">
+                        <input type="number" class="input-number-sm val-anual" value="4" onchange="atualizarTotaisPeriodo('${periodoAtivoId}')">
+                        <button type="button" class="btn-down-arrow">⬇</button>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn-table-action" title="Configurar">⚙️</button>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn-table-action delete" title="Remover" onclick="removerLinhaMatriz(this, '${periodoAtivoId}')">❌</button>
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+            atualizarTotaisPeriodo(periodoAtivoId);
+        }
+
+        function removerLinhaMatriz(btn, periodoId) {
+            const tr = btn.closest('tr');
+            const tbody = tr.parentElement;
+            tr.remove();
+
+            if (tbody.querySelectorAll('tr').length === 0) {
+                tbody.innerHTML = `
+                    <tr class="row-empty">
+                        <td colspan="15" style="text-align: center; color: #94a3b8; padding: 25px;">
+                            Nenhuma disciplina adicionada neste período. Escolha uma disciplina acima e clique em <strong>"+ Adicionar disciplina à matriz"</strong>.
+                        </td>
+                    </tr>
+                `;
+            }
+            atualizarTotaisPeriodo(periodoId);
+        }
+
+        function atualizarTotaisPeriodo(periodoId) {
+            const tbody = document.getElementById('tbody-' + periodoId);
+            if (!tbody) return;
+
+            let totalCred = 0, totalDiaria = 0, totalSemanal = 0, totalMensal = 0, totalAnual = 0;
+
+            tbody.querySelectorAll('tr:not(.row-empty)').forEach(row => {
+                totalCred += parseFloat(row.querySelector('.val-cred')?.value || 0);
+                totalDiaria += parseFloat(row.querySelector('.val-diaria')?.value || 0);
+                totalSemanal += parseFloat(row.querySelector('.val-semanal')?.value || 0);
+                totalMensal += parseFloat(row.querySelector('.val-mensal')?.value || 0);
+                totalAnual += parseFloat(row.querySelector('.val-anual')?.value || 0);
+            });
+
+            document.getElementById('tot-cred-' + periodoId).textContent = totalCred;
+            document.getElementById('tot-diaria-' + periodoId).textContent = totalDiaria + ' horas';
+            document.getElementById('tot-semanal-' + periodoId).textContent = totalSemanal + ' horas';
+            document.getElementById('tot-mensal-' + periodoId).textContent = totalMensal + ' horas';
+            document.getElementById('tot-anual-' + periodoId).textContent = totalAnual + ' horas';
+        }
+
+		/* LÓGICA DE DOCUMENTOS E SUGESTÕES */
+		const estadoDocumentos = {
+			pcc: { nomeDoc: 'PPC (Processo Pedagócio Curso)', arquivo: null, assinado: false, funcao: '' },
+			pareceristas: { nomeDoc: 'Documento dos Pareceristas', arquivo: null, assinado: false, funcao: '' },
+			doe: { nomeDoc: 'Publicação do DOE', arquivo: null, assinado: false, funcao: '' },
+			seduc: { nomeDoc: 'Homologação SEDUC', arquivo: null, assinado: false, funcao: '' }
+		};
+
+		let docEmAssinaturaKey = null;
+
+		function anexarArquivo(key, event) {
+			const file = event.target.files[0];
+			if (!file) return;
+
+			estadoDocumentos[key].arquivo = file.name;
+			
+			const row = document.getElementById(`row-${key}`);
+			row.querySelector('.cell-arquivo').innerHTML = `<strong>📄 ${file.name}</strong>`;
+			row.querySelector('.cell-status').innerHTML = `<span class="badge badge-info">Aguardando Assinatura</span>`;
+			
+			row.querySelector('.cell-acoes').innerHTML = `
+				<button type="button" class="btn-system btn-sign" onclick="abrirModalAssinatura('${key}')">Assinar Digitalmente</button>
+				<button type="button" class="btn-action-delete" title="Remover" onclick="removerDocumento('${key}')">✕</button>
+			`;
+		}
+
+		function abrirModalAssinatura(key) {
+			docEmAssinaturaKey = key;
+			const docInfo = estadoDocumentos[key];
+			
+			document.getElementById('modalDocNome').textContent = `${docInfo.nomeDoc} (${docInfo.arquivo})`;
+			document.getElementById('funcaoAssinante').value = '';
+			document.getElementById('senhaAssinante').value = '';
+			document.getElementById('modalAssinatura').style.display = 'flex';
+		}
+
+		function fecharModalAssinatura() {
+			document.getElementById('modalAssinatura').style.display = 'none';
+			docEmAssinaturaKey = null;
+		}
+
+		function processarAssinatura(event) {
+			event.preventDefault();
+			
+			const funcao = document.getElementById('funcaoAssinante').value;
+			const senha = document.getElementById('senhaAssinante').value;
+
+			if (!funcao || !senha) return;
+
+			const doc = estadoDocumentos[docEmAssinaturaKey];
+			doc.assinado = true;
+			doc.funcao = funcao;
+
+			const row = document.getElementById(`row-${docEmAssinaturaKey}`);
+			row.querySelector('.cell-status').innerHTML = `<span class="badge badge-success">✓ Assinado Digitalmente</span>`;
+			
+			row.querySelector('.cell-arquivo').innerHTML = `
+				<strong>📄 ${doc.arquivo}</strong>
+				<span class="doc-subtext">Assinado por: ${funcao}</span>
+			`;
+
+			row.querySelector('.cell-acoes').innerHTML = `
+				<span style="color: #15803d; font-weight: 600; font-size: 12px;">Assinado</span>
+				<button type="button" class="btn-action-delete" title="Remover" onclick="removerDocumento('${docEmAssinaturaKey}')">✕</button>
+			`;
+
+			fecharModalAssinatura();
+		}
+
+		function removerDocumento(key) {
+			estadoDocumentos[key].arquivo = null;
+			estadoDocumentos[key].assinado = false;
+			estadoDocumentos[key].funcao = '';
+
+			const row = document.getElementById(`row-${key}`);
+			row.querySelector('.cell-arquivo').innerHTML = `<span class="text-muted">Nenhum arquivo enviado</span>`;
+			row.querySelector('.cell-status').innerHTML = `<span class="badge badge-warning">Pendente</span>`;
+			
+			row.querySelector('.cell-acoes').innerHTML = `
+				<input type="file" id="file-${key}" hidden onchange="anexarArquivo('${key}', event)">
+				<button type="button" class="btn-system btn-sm" onclick="document.getElementById('file-${key}').click()">Anexar</button>
+			`;
+		}
+		
+		const bancoDisciplinas = {
+			'EE400': { nivel: 'Graduação', nome: 'Métodos da Engenharia Elétrica', creditos: '4' },
+			'EE521': { nivel: 'Graduação', nome: 'Introdução à Teoria Eletromagnética', creditos: '4' },
+			'EN109': { nivel: 'Graduação', nome: 'Física Geral I', creditos: '6' },
+			'EF814': { nivel: 'Graduação', nome: 'Mecânica Geral e Estática', creditos: '4' },
+			'MA111': { nivel: 'Graduação', nome: 'Cálculo I', creditos: '6' }
+		};
+
+		function autopreencherCampos(input) {
+			const codigo = input.value.trim().toUpperCase();
+			const info = bancoDisciplinas[codigo];
+
+			if (info) {
+				document.getElementById('input-nivel').value = info.nivel;
+				document.getElementById('input-nome').value = info.nome;
+				document.getElementById('input-creditos').value = info.creditos;
+			} else {
+				document.getElementById('input-nivel').value = '';
+				document.getElementById('input-nome').value = '';
+				document.getElementById('input-creditos').value = '';
+			}
+		}
+
+		const inputCodigoElem = document.getElementById('input-codigo');
+		if (inputCodigoElem) {
+			inputCodigoElem.addEventListener('keypress', function(e) {
+				if (e.key === 'Enter') {
+					e.preventDefault();
+					adicionarDisciplinaNaLista();
+				}
+			});
+		}
+
+		function adicionarDisciplinaNaLista() {
+			const inputCodigo = document.getElementById('input-codigo');
+			const codigo = inputCodigo.value.trim().toUpperCase();
+
+			if (!codigo) {
+				alert('Por favor, informe o código da disciplina.');
+				return;
+			}
+
+			const info = bancoDisciplinas[codigo] || {
+				nivel: document.getElementById('input-nivel').value || 'Graduação',
+				nome: document.getElementById('input-nome').value || ('Disciplina ' + codigo),
+				creditos: document.getElementById('input-creditos').value || '4'
 			};
 
-			let docEmAssinaturaKey = null;
+			const bodyTabela = document.getElementById('lista-disciplinas-body');
 
-			// 1. Ação de Anexar Arquivo
-			function anexarArquivo(key, event) {
-				const file = event.target.files[0];
-				if (!file) return;
+			const tr = document.createElement('tr');
+			tr.innerHTML = `
+				<td><strong>${codigo}</strong></td>
+				<td>${info.nivel}</td>
+				<td>${info.nome}</td>
+				<td style="text-align: center;">${info.creditos}</td>
+				<td style="text-align: center;">
+					<button type="button" class="btn-remover-row" title="Remover Disciplina" onclick="removerDisciplina(this)">✕</button>
+				</td>
+			`;
 
-				estadoDocumentos[key].arquivo = file.name;
-				
-				// Atualiza a linha na tabela
-				const row = document.getElementById(`row-${key}`);
-				row.querySelector('.cell-arquivo').innerHTML = `<strong>📄 ${file.name}</strong>`;
-				row.querySelector('.cell-status').innerHTML = `<span class="badge badge-info">Aguardando Assinatura</span>`;
-				
-				// Atualiza os botões de ação (adiciona a opção "Assinar Digitalmente")
-				row.querySelector('.cell-acoes').innerHTML = `
-					<button type="button" class="btn-system btn-sign" onclick="abrirModalAssinatura('${key}')">Assinar Digitalmente</button>
-					<button type="button" class="btn-action-delete" title="Remover" onclick="removerDocumento('${key}')">✕</button>
-				`;
+			bodyTabela.appendChild(tr);
+			document.getElementById('container-lista-disciplinas').style.display = 'block';
+
+			inputCodigo.value = '';
+			document.getElementById('input-nivel').value = '';
+			document.getElementById('input-nome').value = '';
+			document.getElementById('input-creditos').value = '';
+			inputCodigo.focus();
+		}
+
+		function removerDisciplina(btn) {
+			const tr = btn.closest('tr');
+			tr.remove();
+
+			const bodyTabela = document.getElementById('lista-disciplinas-body');
+			if (bodyTabela.children.length === 0) {
+				document.getElementById('container-lista-disciplinas').style.display = 'none';
 			}
-
-			// 2. Abrir Modal de Assinatura
-			function abrirModalAssinatura(key) {
-				docEmAssinaturaKey = key;
-				const docInfo = estadoDocumentos[key];
-				
-				document.getElementById('modalDocNome').textContent = `${docInfo.nomeDoc} (${docInfo.arquivo})`;
-				document.getElementById('funcaoAssinante').value = '';
-				document.getElementById('senhaAssinante').value = '';
-				document.getElementById('modalAssinatura').style.display = 'flex';
-			}
-
-			// 3. Fechar Modal
-			function fecharModalAssinatura() {
-				document.getElementById('modalAssinatura').style.display = 'none';
-				docEmAssinaturaKey = null;
-			}
-
-			// 4. Processar a Assinatura Digital
-			function processarAssinatura(event) {
-				event.preventDefault();
-				
-				const funcao = document.getElementById('funcaoAssinante').value;
-				const senha = document.getElementById('senhaAssinante').value;
-
-				if (!funcao || !senha) return;
-
-				// Atualiza estado interno
-				const doc = estadoDocumentos[docEmAssinaturaKey];
-				doc.assinado = true;
-				doc.funcao = funcao;
-
-				// Atualiza interface da tabela
-				const row = document.getElementById(`row-${docEmAssinaturaKey}`);
-				row.querySelector('.cell-status').innerHTML = `<span class="badge badge-success">✓ Assinado Digitalmente</span>`;
-				
-				row.querySelector('.cell-arquivo').innerHTML = `
-					<strong>📄 ${doc.arquivo}</strong>
-					<span class="doc-subtext">Assinado por: ${funcao}</span>
-				`;
-
-				row.querySelector('.cell-acoes').innerHTML = `
-					<span style="color: #15803d; font-weight: 600; font-size: 12px;">Assinado</span>
-					<button type="button" class="btn-action-delete" title="Remover" onclick="removerDocumento('${docEmAssinaturaKey}')">✕</button>
-				`;
-
-				fecharModalAssinatura();
-			}
-
-			// 5. Remover/Resetar Documento
-			function removerDocumento(key) {
-				estadoDocumentos[key].arquivo = null;
-				estadoDocumentos[key].assinado = false;
-				estadoDocumentos[key].funcao = '';
-
-				const row = document.getElementById(`row-${key}`);
-				row.querySelector('.cell-arquivo').innerHTML = `<span class="text-muted">Nenhum arquivo enviado</span>`;
-				row.querySelector('.cell-status').innerHTML = `<span class="badge badge-warning">Pendente</span>`;
-				
-				row.querySelector('.cell-acoes').innerHTML = `
-					<input type="file" id="file-${key}" hidden onchange="anexarArquivo('${key}', event)">
-					<button type="button" class="btn-system btn-sm" onclick="document.getElementById('file-${key}').click()">Anexar</button>
-				`;
-			}
-			
-			// Dicionário de disciplinas cadastradas no sistema
-				const bancoDisciplinas = {
-					'EE400': { nivel: 'Graduação', nome: 'Métodos da Engenharia Elétrica', creditos: '4' },
-					'EE521': { nivel: 'Graduação', nome: 'Introdução à Teoria Eletromagnética', creditos: '4' },
-					'EN109': { nivel: 'Graduação', nome: 'Física Geral I', creditos: '6' },
-					'EF814': { nivel: 'Graduação', nome: 'Mecânica Geral e Estática', creditos: '4' },
-					'MA111': { nivel: 'Graduação', nome: 'Cálculo I', creditos: '6' }
-				};
-
-				// Preenche automaticamente Nível, Nome e Créditos enquanto o usuário digita
-				function autopreencherCampos(input) {
-					const codigo = input.value.trim().toUpperCase();
-					const info = bancoDisciplinas[codigo];
-
-					if (info) {
-						document.getElementById('input-nivel').value = info.nivel;
-						document.getElementById('input-nome').value = info.nome;
-						document.getElementById('input-creditos').value = info.creditos;
-					} else {
-						document.getElementById('input-nivel').value = '';
-						document.getElementById('input-nome').value = '';
-						document.getElementById('input-creditos').value = '';
-					}
-				}
-
-				// Suporte para acionar o botão ao pressionar ENTER no campo de código
-				document.getElementById('input-codigo').addEventListener('keypress', function(e) {
-					if (e.key === 'Enter') {
-						e.preventDefault();
-						adicionarDisciplinaNaLista();
-					}
-				});
-
-				// Função que insere a disciplina na tabela abaixo
-				function adicionarDisciplinaNaLista() {
-					const inputCodigo = document.getElementById('input-codigo');
-					const codigo = inputCodigo.value.trim().toUpperCase();
-
-					if (!codigo) {
-						alert('Por favor, informe o código da disciplina.');
-						return;
-					}
-
-					// Pega valores do form ou usa fallback caso o código seja novo
-					const info = bancoDisciplinas[codigo] || {
-						nivel: document.getElementById('input-nivel').value || 'Graduação',
-						nome: document.getElementById('input-nome').value || ('Disciplina ' + codigo),
-						creditos: document.getElementById('input-creditos').value || '4'
-					};
-
-					const bodyTabela = document.getElementById('lista-disciplinas-body');
-
-					// Cria nova linha na tabela
-					const tr = document.createElement('tr');
-					tr.innerHTML = `
-						<td><strong>${codigo}</strong></td>
-						<td>${info.nivel}</td>
-						<td>${info.nome}</td>
-						<td style="text-align: center;">${info.creditos}</td>
-						<td style="text-align: center;">
-							<button type="button" class="btn-remover-row" title="Remover Disciplina" onclick="removerDisciplina(this)">✕</button>
-						</td>
-					`;
-
-					bodyTabela.appendChild(tr);
-
-					// Exibe o container da lista se estiver oculto
-					document.getElementById('container-lista-disciplinas').style.display = 'block';
-
-					// Limpa os campos para a próxima inserção
-					inputCodigo.value = '';
-					document.getElementById('input-nivel').value = '';
-					document.getElementById('input-nome').value = '';
-					document.getElementById('input-creditos').value = '';
-					inputCodigo.focus();
-				}
-
-				// Função para remover a disciplina da lista
-				function removerDisciplina(btn) {
-					const tr = btn.closest('tr');
-					tr.remove();
-
-					// Se a lista ficar vazia, oculta a tabela novamente
-					const bodyTabela = document.getElementById('lista-disciplinas-body');
-					if (bodyTabela.children.length === 0) {
-						document.getElementById('container-lista-disciplinas').style.display = 'none';
-					}
-				}			
-
-
-
-
-		
+		}
     </script>
 </body>
 </html>
