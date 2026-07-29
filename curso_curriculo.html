@@ -1029,19 +1029,197 @@
 		}
 
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		/* Matriz Curricular */
+        /* ESTILOS DOS ACCORDIONS */
+        .acc-parte {
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: border-color 0.2s;
+        }
+
+        .acc-parte.open {
+            border-color: #3b82f6;
+        }
+
+        .acc-parte-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .acc-parte-header:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+        }
+
+        .acc-parte-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .acc-parte-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .acc-parte-body {
+            display: none;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .acc-parte.open > .acc-parte-body {
+            display: block;
+        }
+
+        .acc-grupo {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-left: 5px solid #4c3d8c;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .acc-grupo-header {
+            padding: 12px 18px;
+            background-color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .acc-grupo-header:hover {
+            background-color: #f1f5f9;
+        }
+
+        .acc-grupo-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .acc-grupo-body {
+            display: none;
+            padding: 16px;
+            border-top: 1px solid #f1f5f9;
+            background-color: #ffffff;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .acc-grupo.open > .acc-grupo-body {
+            display: block;
+        }
+
+        .acc-icon {
+            font-size: 11px;
+            transition: transform 0.25s ease;
+            display: inline-block;
+        }
+
+        .acc-parte.open .acc-parte-icon,
+        .acc-grupo.open .acc-grupo-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .disc-add-inline {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+            background-color: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            align-items: center;
+        }
+
+        .disc-add-inline select {
+            flex-grow: 1;
+            font-size: 13px;
+            height: 38px;
+        }
+
+        .disciplinas-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #cbd5e1;
+            background-color: #ffffff;
+            font-size: 13px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .disciplinas-table th {
+            background-color: #4c3d8c;
+            color: #ffffff;
+            font-weight: 600;
+            text-align: left;
+            padding: 10px 12px;
+        }
+
+        .disciplinas-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .disciplinas-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .disciplinas-table tfoot td {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #1e293b;
+            border-top: 2px solid #cbd5e1;
+        }
+
+        .btn-remover-row {
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .empty-state-box {
+            padding: 30px 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            background-color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -1077,9 +1255,6 @@
                     <li class="sidebar-item" id="menu-dados-matriz">
                         <a href="#" onclick="switchTab(event, 'dados-matriz', 'menu-dados-matriz')">Matriz Curricular</a>
                     </li>
-                  <!--  <li class="sidebar-item" id="menu-sugestao">
-                        <a href="#" onclick="switchTab(event, 'dados-sugestao', 'menu-sugestao')">Sugestão</a>
-                    </li>-->
                 </ul>
             </div>
 
@@ -1327,8 +1502,6 @@
                 <h3>Catálogo 2027</h3>
                 <br>
                 <form class="form-grid">                
-
-                    <!--<div class="parent-card span-3"> -->
 					<div class="tabela-3col">
                         <h3>Fundamento legal</h3>						                  
 						<div class="legis-row header-row">
@@ -1391,7 +1564,6 @@
 				<h3>Catálogo 2027</h3>
                 <br>
                 <div class="series-container">
-                    <!-- Barra de Topo: Busca e Ações -->
                     <div class="series-top-bar">
                         <div class="series-search-group">
                             <label for="select-disciplina-add">Busque uma disciplina para adicionar:</label>
@@ -1402,16 +1574,13 @@
                                 <option value="GEST">MC103 - Desenho Técnico e Projetos de Máquinas I</option>
                             </select>
                             <button type="button" class="btn-green" onclick="adicionarDisciplinaMatriz()">+ Adicionar disciplina à matriz</button>
-                           <!--  <button type="button" class="btn-green">📝 Cadastrar nova disciplina no sistema</button>
                         </div>
 
                         <div class="series-actions-right">
-                           <!-- <button type="button" class="btn-green">← Voltar ao cadastro da matriz</button> -->
                             <button type="button" class="btn-green">🖨 Imprimir matriz</button>
                         </div>
                     </div>
 
-                    <!-- Controle de Períodos -->
                     <div class="period-control-bar">
                         <select id="select-periodo-opcao">
                             <option value="">Escolha...</option>
@@ -1428,95 +1597,99 @@
                         </span>
                     </div>
 
-                    <!-- Layout Principal Dinâmico: Seleção de Períodos + Tabela de Disciplinas -->
                     <div class="series-main-grid">
-                        
-                        <!-- Lista Lateral de Períodos (Dinâmica) -->
                         <div class="period-sidebar-list" id="period-sidebar-list">
-                            <!-- Os botões de períodos criados aparecerão aqui -->
+                            <!-- Botões dos períodos criados -->
                         </div>
 
-                        <!-- Container de Tabelas de Disciplinas (Dinâmico) -->
                         <div class="series-table-wrapper" id="period-tables-container">
                             <div id="empty-period-msg" class="empty-state-box">
                                 Nenhum período adicionado. Selecione um período no menu acima e clique em <strong>"+ Adicionar período"</strong> para começar.
                             </div>
                         </div>
-
                     </div>
 
-                    <!-- Botão Salvar (Rodapé) -->
                     <div class="series-footer-actions">
                         <button type="button" class="btn-blue-save">✔ Salvar</button>
                     </div>
                 </div>
             </div>
 
-            <!-- 7. ABA: Matriz Curricular -->
+            <!-- 7. ABA: Matriz Curricular (LAYOUT CORRIGIDO) -->
             <div id="dados-matriz" class="tab-content">
                 <h2 class="section-header">Matriz Curricular</h2>
                 <h3>Catálogo 2027</h3>
                 <br>
-                <form class="form-grid">
-                     <div class="form-group">
-                        <label for="selecao-matriz">Matriz<span class="required">*</span></label>
-                        <select id="selecao-matriz">
-                            <option value="" disabled selected hidden>Selecione uma matriz...</option>
-                            <option value="matriz1">Matriz 2025</option>
-                            <option value="matriz2">Matriz 2022</option>
-                            <option value="matriz3">Matriz 2001</option>
-                            <option value="matriz4">Matriz 1996</option>							
-                        </select>
+                <form style="display: flex; flex-direction: column; gap: 20px;">
+                    <p style="font-size: 13px; color: #64748b; margin-top: -15px;">
+                        Escolha uma parte cadastrada ou crie uma nova para estruturar os grupos e disciplinas da matriz.
+                    </p>
+
+                    <!-- CARD 1: Informações Gerais -->
+                    <div class="parent-card">
+                        <h3>Informações Gerais da Matriz</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="selecao-matriz">Matriz Selecionada<span class="required">*</span></label>
+                                <select id="selecao-matriz">
+                                    <option value="matriz1" selected>Matriz 2025 - Vigente</option>
+                                    <option value="matriz2">Matriz 2022</option>
+                                    <option value="matriz3">Matriz 2001</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="data-criacao-matriz">Data de Criação<span class="required">*</span></label>
+                                <input type="date" id="data-criacao-matriz" name="data-criacao-matriz" value="2026-07-15">
+                            </div>
+                            <div class="form-group span-2">
+                                <label for="observacoes-matriz">Descrição / Observações da Matriz</label>
+                                <textarea id="observacoes-matriz" placeholder="Digite informações detalhadas sobre esta estrutura..." rows="2" maxlength="500"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group span-2">
-                        <label for="observacoes-matriz">Descrição </label>
-                        <textarea id="observacoes-matriz" placeholder="Digite aqui informações detalhe desta matriz.." rows="2" maxlength="500"></textarea>
+
+                    <!-- CARD 2: Seleção e Adição de Partes + Accordion -->
+                    <div class="parent-card">
+                        <h3>Adicionar e Gerenciar Partes da Matriz</h3>
+
+                        <div class="form-grid" style="align-items: end;">
+                            <div class="form-group span-2">
+                                <label for="partes">Escolha uma Parte para incluir na Matriz:<span class="required">*</span></label>
+                                <div style="display: flex; gap: 10px;">
+                                    <select id="partes">
+                                        <option value="" disabled selected hidden>Selecione uma parte...</option>
+                                        <option value="parte1">ATIVIDADES COMPLEMENTARES</option>
+                                        <option value="parte2">ATIVIDADES CURRICULARES</option>
+                                        <option value="parte3">BASE NACIONAL</option>
+                                        <option value="parte4">BASE NACIONAL COMUM</option>
+                                        <option value="parte5">ENSINO RELIGIOSO</option>
+                                        <option value="parte6">ESTÁGIO</option>
+                                        <option value="parte7">FORMAÇÃO ESPECIAL - MÍNIMO PROFISSIONALIZANTE</option>
+                                        <option value="parte8">FORMAÇÃO GERAL</option>
+                                        <option value="parte9">FORMAÇÃO PROFISSIONAL</option>
+                                        <option value="parte10">NÚCLEO ARTICULADOR</option>
+                                        <option value="parte11">PARTE DIVERSIFICADA OBRIGATÓRIA</option>
+                                        <option value="parte12">PARTE DIVERSIFICADA</option>
+                                        <option value="parte14">PARTE DIVERSIFICADA OPTATIVA</option>
+                                        <option value="parte15">PARTE TÉCNICA</option>
+                                    </select>
+                                    <button type="button" class="btn-green" onclick="adicionarParteDoSelect()" style="white-space: nowrap;">+ Adicionar Parte</button>
+                                    <button type="button" class="btn-system" onclick="adicionarNovaParteCustomizada()" style="white-space: nowrap;">+ Criar Outra Parte</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px; border-top: 1px dashed #cbd5e1; padding-top: 15px;">
+                            <h4 style="font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 12px;">Partes Ativas nesta Matriz (Accordion)</h4>
+                            <div id="accordion-partes-container"></div>
+                        </div>
                     </div>
-                    <div class="form-group span-2">
-                        <label for="data-criacao-matriz">Data de Criação<span class="required">*</span></label>
-                        <input type="date" id="data-criacao-matriz" name="data-criacao-matriz" value="2026-07-15">
+
+                    <!-- Ações -->
+                    <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                        <button type="button" class="btn-system">Cancelar Alterações</button>
+                        <button type="button" class="btn-blue-save" onclick="salvarMatriz()">✔ Salvar Matriz Curricular</button>
                     </div>
-					<div class="form-group span-2">
-                    <label for="partes">Partes<span class="required">*</span></label>
-                        <select id="partes">
-                            <option value="" disabled selected hidden>Selecione uma parte...</option>
-							<option value="parte1">ATIVIDADES COMPLEMENTARES</option>
-							<option value="parte2">ATIVIDADES CURRICULARES</option>
-							<option value="parte3">BASE NACIONAL</option>
-							<option value="parte4">BASE NACIONAL COMUM</option>
-							<option value="parte5">ENSINO RELIGIOSO</option>
-							<option value="parte6">ESTÁGIO</option>
-							<option value="parte7">FORMAÇÃO ESPECIAL - MÍNIMO PROFISSIONALIZANTE</option>
-							<option value="parte8">FORMAÇÃO GERAL</option>
-							<option value="parte9">FORMAÇÃO PROFISSIONAL</option>
-							<option value="parte10">NÚCLEO ARTICULADOR</option>
-							<option value="parte11">PARTE DIVERISIFICADA OBRIGATÓRIA</option>
-							<option value="parte12">PARTE DIVERSIFICADA</option>
-							<option value="parte13">PARTE DIVERSIFICADA OBRIGATÓRIA</option>
-							<option value="parte14">PARTE DIVERSIFICADA OPTATIVA</option>
-							<option value="parte15">PARTE TÉCNICA</option>
-						</select>					
-					</div>
-					<div class="form-group span-2">
-                    <label for="grupo">Grupos<span class="required">*</span></label>
-                        <select id="grupo">
-                            <option value="" disabled selected hidden>Selecione a(s) parte(s)...</option>
-							<option value="grupo1">CIÊNCIAS HUMANAS E SOCIAIS APLICADAS</option>
-							<option value="grupo2">LÍNGUA ESTRANGEIRA</option>
-							<option value="grupo3">LINGUAGENS E SUAS TECNOLOGIAS</option>
-							<option value="grupo4">MATEMÁTICA E SUAS TECNOLOGIAS</option>
-						</select>					
-					</div>					
-					<div class="form-group span-2">
-                    <label for="disc">Disciplina<span class="required">*</span></label>
-                        <select id="disc">
-                            <option value="" disabled selected hidden>Selecione a(s) parte(s)...</option>
-							<option value="disc1">Matemática</option>
-							<option value="disc2">Biologia</option>
-							<option value="disc3">Geografia</option>
-							<option value="disc4">História</option>
-						</select>					
-					</div>					
                 </form>
             </div>
 			
@@ -1742,15 +1915,12 @@
             if (targetMenu) targetMenu.classList.add('active');
         }
 
-        /* =========================================================
-           LÓGICA DINÂMICA DA ABA SÉRIES (Criação de Períodos e Tabelas)
-           ========================================================= */
+        /* LÓGICA DA ABA SÉRIES */
         let periodoAtivoId = null;
 
         function adicionarPeriodo() {
             const select = document.getElementById('select-periodo-opcao');
             const valor = select.value;
-            const texto = select.options[select.selectedIndex]?.text || valor;
 
             if (!valor) {
                 alert('Por favor, selecione um período na lista para adicionar.');
@@ -1759,11 +1929,9 @@
 
             const periodoId = 'per-' + Date.now();
 
-            // Oculta a mensagem inicial de estado vazio
             const emptyMsg = document.getElementById('empty-period-msg');
             if (emptyMsg) emptyMsg.style.display = 'none';
 
-            // 1. Criar Badge na Lista Lateral
             const sidebarList = document.getElementById('period-sidebar-list');
             const badgeCard = document.createElement('div');
             badgeCard.className = 'period-badge-card';
@@ -1778,7 +1946,6 @@
             `;
             sidebarList.appendChild(badgeCard);
 
-            // 2. Criar Estrutura de Tabela em Branco
             const containerTabelas = document.getElementById('period-tables-container');
             const tableWrapper = document.createElement('div');
             tableWrapper.className = 'period-table-content';
@@ -1787,7 +1954,6 @@
             tableWrapper.innerHTML = gerarHTMLTabela(periodoId);
             containerTabelas.appendChild(tableWrapper);
 
-            // Selecionar automaticamente o período criado
             selecionarPeriodo(periodoId);
         }
 
@@ -1879,7 +2045,6 @@
             const nomeOriginal = activeBadge.querySelector('.period-badge-num').textContent;
             const novoId = 'per-' + Date.now();
 
-            // Duplica Badge
             const sidebarList = document.getElementById('period-sidebar-list');
             const badgeCard = document.createElement('div');
             badgeCard.className = 'period-badge-card';
@@ -1894,7 +2059,6 @@
             `;
             sidebarList.appendChild(badgeCard);
 
-            // Duplica Tabela
             const containerTabelas = document.getElementById('period-tables-container');
             const tableWrapper = document.createElement('div');
             tableWrapper.className = 'period-table-content';
@@ -2219,6 +2383,341 @@
 				document.getElementById('container-lista-disciplinas').style.display = 'none';
 			}
 		}
+
+        /* LÓGICA DA ABA MATRIZ CURRICULAR */
+        const catalogoDisciplinas = [
+            { codigo: 'MAT101', nome: 'Matemática e Suas Tecnologias I', ch: 80, creditos: 4 },
+            { codigo: 'BIO101', nome: 'Biologia Celular e Genética', ch: 60, creditos: 3 },
+            { codigo: 'GEO101', nome: 'Geografia do Brasil e Geral', ch: 60, creditos: 3 },
+            { codigo: 'HIST101', nome: 'História Contemporânea', ch: 60, creditos: 3 },
+            { codigo: 'PORT101', nome: 'Língua Portuguesa e Literatura', ch: 100, creditos: 5 },
+            { codigo: 'ING101', nome: 'Língua Estrangeira: Inglês Técnico', ch: 40, creditos: 2 },
+            { codigo: 'ALGO10', nome: 'Algoritmos e Lógica de Programação', ch: 90, creditos: 4 },
+            { codigo: 'ELET10', nome: 'Eletricidade Básica e Circuitos', ch: 80, creditos: 4 }
+        ];
+
+        const matrizEstado = {
+            'BASE NACIONAL COMUM': {
+                nome: 'BASE NACIONAL COMUM',
+                aberto: true,
+                grupos: [
+                    {
+                        id: 'grp_1',
+                        nome: 'CIÊNCIAS HUMANAS E SOCIAIS APLICADAS',
+                        aberto: true,
+                        disciplinas: [
+                            { codigo: 'HIST101', nome: 'História Contemporânea', ch: 60, creditos: 3 },
+                            { codigo: 'GEO101', nome: 'Geografia do Brasil e Geral', ch: 60, creditos: 3 }
+                        ]
+                    }
+                ]
+            },
+            'PARTE DIVERSIFICADA': {
+                nome: 'PARTE DIVERSIFICADA',
+                aberto: false,
+                grupos: [
+                    {
+                        id: 'grp_2',
+                        nome: 'LÍNGUA ESTRANGEIRA',
+                        aberto: true,
+                        disciplinas: [
+                            { codigo: 'ING101', nome: 'Língua Estrangeira: Inglês Técnico', ch: 40, creditos: 2 }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        function renderizarMatrizAccordions() {
+            const container = document.getElementById('accordion-partes-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const chavesPartes = Object.keys(matrizEstado);
+
+            if (chavesPartes.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state-box">
+                        Nenhuma Parte foi adicionada a esta Matriz ainda. Selecione uma opção na lista acima e clique em <strong>"+ Adicionar Parte"</strong>.
+                    </div>
+                `;
+                return;
+            }
+
+            chavesPartes.forEach(chaveParte => {
+                const parte = matrizEstado[chaveParte];
+
+                let totalCHParte = 0;
+                parte.grupos.forEach(g => {
+                    g.disciplinas.forEach(d => totalCHParte += d.ch);
+                });
+
+                const parteCard = document.createElement('div');
+                parteCard.className = `acc-parte ${parte.aberto ? 'open' : ''}`;
+
+                const headerParte = document.createElement('div');
+                headerParte.className = 'acc-parte-header';
+                headerParte.onclick = () => toggleParte(chaveParte);
+                headerParte.innerHTML = `
+                    <div class="acc-parte-title">
+                        <span>📌 ${parte.nome}</span>
+                        <span class="badge badge-info">${parte.grupos.length} Grupo(s)</span>
+                        <span class="badge badge-dark">${totalCHParte} hrs Totais</span>
+                    </div>
+                    <div class="acc-parte-meta">
+                        <button type="button" class="btn-green" style="padding: 4px 10px; font-size: 12px;" onclick="adicionarNovoGrupo(event, '${chaveParte}')">+ Criar Grupo</button>
+                        <button type="button" class="btn-system" style="color: #dc2626; border-color: #fca5a5; padding: 4px 8px; font-size: 11px;" onclick="removerParte(event, '${chaveParte}')">Excluir Parte</button>
+                        <span class="acc-icon acc-parte-icon">▼</span>
+                    </div>
+                `;
+
+                const bodyParte = document.createElement('div');
+                bodyParte.className = 'acc-parte-body';
+
+                if (parte.grupos.length === 0) {
+                    bodyParte.innerHTML = `
+                        <div class="empty-state-box">
+                            Nenhum grupo cadastrado nesta Parte. Clique no botão <strong>"+ Criar Grupo"</strong> acima para começar.
+                        </div>
+                    `;
+                } else {
+                    parte.grupos.forEach((grupo, idxGrupo) => {
+                        let totalCHGrupo = 0;
+                        let totalCreditosGrupo = 0;
+                        grupo.disciplinas.forEach(d => {
+                            totalCHGrupo += d.ch;
+                            totalCreditosGrupo += d.creditos;
+                        });
+
+                        const grupoCard = document.createElement('div');
+                        grupoCard.className = `acc-grupo ${grupo.aberto ? 'open' : ''}`;
+
+                        const headerGrupo = document.createElement('div');
+                        headerGrupo.className = 'acc-grupo-header';
+                        headerGrupo.onclick = () => toggleGrupo(chaveParte, grupo.id);
+                        headerGrupo.innerHTML = `
+                            <div class="acc-grupo-title">
+                                📂 Grupo ${idxGrupo + 1}: ${grupo.nome}
+                                <span style="font-weight: normal; color: #64748b; font-size: 12px;">(${grupo.disciplinas.length} disc. | ${totalCHGrupo}h | ${totalCreditosGrupo} crd)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <button type="button" class="btn-system" style="color: #dc2626; border-color: #fca5a5; padding: 4px 8px; font-size: 11px;" onclick="removerGrupo(event, '${chaveParte}', '${grupo.id}')">Excluir Grupo</button>
+                                <span class="acc-icon acc-grupo-icon">▼</span>
+                            </div>
+                        `;
+
+                        const bodyGrupo = document.createElement('div');
+                        bodyGrupo.className = 'acc-grupo-body';
+
+                        let opcoesHtml = '<option value="" disabled selected>Selecione uma disciplina do catálogo...</option>';
+                        catalogoDisciplinas.forEach(d => {
+                            opcoesHtml += `<option value="${d.codigo}">${d.codigo} - ${d.nome} (${d.ch}h / ${d.creditos} crd)</option>`;
+                        });
+
+                        let linhasTabelaHtml = '';
+                        if (grupo.disciplinas.length === 0) {
+                            linhasTabelaHtml = `
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: #94a3b8; padding: 12px;">
+                                        Nenhuma disciplina vinculada a este grupo.
+                                    </td>
+                                </tr>
+                            `;
+                        } else {
+                            grupo.disciplinas.forEach((disc, discIdx) => {
+                                linhasTabelaHtml += `
+                                    <tr>
+                                        <td style="width: 110px;"><strong>${disc.codigo}</strong></td>
+                                        <td>${disc.nome}</td>
+                                        <td style="width: 110px; text-align: center;">${disc.ch} horas</td>
+                                        <td style="width: 90px; text-align: center;">${disc.creditos}</td>
+                                        <td style="width: 50px; text-align: center;">
+                                            <button type="button" class="btn-remover-row" title="Remover" onclick="removerDisciplina('${chaveParte}', '${grupo.id}', ${discIdx})">✕</button>
+                                        </td>
+                                    </tr>
+                                `;
+                            });
+                        }
+
+                        bodyGrupo.innerHTML = `
+                            <div class="disc-add-inline">
+                                <select id="select-disc-${grupo.id}">
+                                    ${opcoesHtml}
+                                </select>
+                                <button type="button" class="btn-green" onclick="adicionarDisciplina('${chaveParte}', '${grupo.id}')">+ Vincular</button>
+                            </div>
+
+                            <table class="disciplinas-table">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Disciplina</th>
+                                        <th style="text-align: center;">Carga Horária</th>
+                                        <th style="text-align: center;">Créditos</th>
+                                        <th style="text-align: center;">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${linhasTabelaHtml}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2" style="text-align: right;">Totais do Grupo:</td>
+                                        <td style="text-align: center;">${totalCHGrupo} horas</td>
+                                        <td style="text-align: center;">${totalCreditosGrupo}</td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        `;
+
+                        grupoCard.appendChild(headerGrupo);
+                        grupoCard.appendChild(bodyGrupo);
+                        bodyParte.appendChild(grupoCard);
+                    });
+                }
+
+                parteCard.appendChild(headerParte);
+                parteCard.appendChild(bodyParte);
+                container.appendChild(parteCard);
+            });
+        }
+
+        function adicionarParteDoSelect() {
+            const selectElem = document.getElementById('partes');
+            const optionSelecionada = selectElem.options[selectElem.selectedIndex];
+
+            if (!selectElem.value) {
+                alert('Por favor, escolha uma parte na lista suspensa primeiro.');
+                return;
+            }
+
+            const nomeParte = optionSelecionada.text.trim();
+
+            if (matrizEstado[nomeParte]) {
+                alert('Esta parte já foi adicionada à Matriz Curricular.');
+                matrizEstado[nomeParte].aberto = true;
+                renderizarMatrizAccordions();
+                return;
+            }
+
+            matrizEstado[nomeParte] = {
+                nome: nomeParte,
+                aberto: true,
+                grupos: []
+            };
+
+            renderizarMatrizAccordions();
+        }
+
+        function adicionarNovaParteCustomizada() {
+            const nomeParte = prompt('Digite o nome da Nova Parte Personalizada:');
+            if (!nomeParte || !nomeParte.trim()) return;
+
+            const nomeUpper = nomeParte.trim().toUpperCase();
+
+            if (matrizEstado[nomeUpper]) {
+                alert('Esta parte já existe na Matriz.');
+                return;
+            }
+
+            matrizEstado[nomeUpper] = {
+                nome: nomeUpper,
+                aberto: true,
+                grupos: []
+            };
+
+            const selectElem = document.getElementById('partes');
+            const newOption = document.createElement('option');
+            newOption.value = 'parte_custom_' + Date.now();
+            newOption.text = nomeUpper;
+            newOption.selected = true;
+            selectElem.add(newOption);
+
+            renderizarMatrizAccordions();
+        }
+
+        function removerParte(event, chaveParte) {
+            event.stopPropagation();
+            if (!confirm(`Deseja realmente remover a parte "${chaveParte}" e todos os seus grupos?`)) return;
+
+            delete matrizEstado[chaveParte];
+            renderizarMatrizAccordions();
+        }
+
+        function toggleParte(chaveParte) {
+            matrizEstado[chaveParte].aberto = !matrizEstado[chaveParte].aberto;
+            renderizarMatrizAccordions();
+        }
+
+        function toggleGrupo(chaveParte, grupoId) {
+            const grupo = matrizEstado[chaveParte].grupos.find(g => g.id === grupoId);
+            if (grupo) {
+                grupo.aberto = !grupo.aberto;
+                renderizarMatrizAccordions();
+            }
+        }
+
+        function adicionarNovoGrupo(event, chaveParte) {
+            event.stopPropagation();
+            const nomeGrupo = prompt('Digite o nome do novo Grupo:');
+            if (!nomeGrupo || !nomeGrupo.trim()) return;
+
+            matrizEstado[chaveParte].aberto = true;
+            matrizEstado[chaveParte].grupos.push({
+                id: 'grp_' + Date.now(),
+                nome: nomeGrupo.trim().toUpperCase(),
+                aberto: true,
+                disciplinas: []
+            });
+
+            renderizarMatrizAccordions();
+        }
+
+        function removerGrupo(event, chaveParte, grupoId) {
+            event.stopPropagation();
+            if (!confirm('Deseja remover este grupo?')) return;
+
+            matrizEstado[chaveParte].grupos = matrizEstado[chaveParte].grupos.filter(g => g.id !== grupoId);
+            renderizarMatrizAccordions();
+        }
+
+        function adicionarDisciplina(chaveParte, grupoId) {
+            const select = document.getElementById(`select-disc-${grupoId}`);
+            const codigo = select.value;
+
+            if (!codigo) {
+                alert('Selecione uma disciplina da lista.');
+                return;
+            }
+
+            const grupo = matrizEstado[chaveParte].grupos.find(g => g.id === grupoId);
+            if (grupo) {
+                if (grupo.disciplinas.some(d => d.codigo === codigo)) {
+                    alert('Disciplina já vinculada a este grupo!');
+                    return;
+                }
+
+                const discObj = catalogoDisciplinas.find(d => d.codigo === codigo);
+                grupo.disciplinas.push({ ...discObj });
+                grupo.aberto = true;
+                renderizarMatrizAccordions();
+            }
+        }
+
+        function removerDisciplina(chaveParte, grupoId, discIndex) {
+            const grupo = matrizEstado[chaveParte].grupos.find(g => g.id === grupoId);
+            if (grupo) {
+                grupo.disciplinas.splice(discIndex, 1);
+                renderizarMatrizAccordions();
+            }
+        }
+
+        function salvarMatriz() {
+            alert('Matriz Curricular salva com sucesso!');
+        }
+
+        document.addEventListener('DOMContentLoaded', renderizarMatrizAccordions);
     </script>
 </body>
 </html>
