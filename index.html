@@ -10,6 +10,7 @@
             --color-primary: #1e3a8a; /* Azul Escuro */
             --color-secondary: #ef4444; /* Vermelho Cotuca/Cotil */
             --color-tertiary: #3b82f6; /* Azul Calendário */
+            --color-diarios: #10b981; /* Verde Diários */
             --color-dark: #0f172a;
             --color-text: #334155;
             --color-card-bg: #ffffff;
@@ -93,13 +94,13 @@
             margin: 0 auto;
         }
 
-        /* Grid de Módulos (Ajustado para 3 Módulos) */
+        /* Grid de Módulos (Ajustado para 4 Módulos) */
         .modules-grid {
             max-width: 1200px;
             margin: 40px auto;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             padding: 0 20px;
         }
 
@@ -107,7 +108,7 @@
             background: var(--color-card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 30px;
+            padding: 25px;
             text-decoration: none;
             color: inherit;
             display: flex;
@@ -149,13 +150,17 @@
             background-color: var(--color-tertiary);
         }
 
+        .module-card.diarios::before {
+            background-color: var(--color-diarios);
+        }
+
         .module-icon {
             font-size: 32px;
             margin-bottom: 20px;
         }
 
         .module-card h2 {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--color-dark);
             margin-bottom: 12px;
             font-weight: 700;
@@ -174,7 +179,7 @@
             align-items: center;
             gap: 8px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--color-primary);
             transition: color 0.2s;
         }
@@ -185,6 +190,10 @@
 
         .module-card.calendario .btn-access {
             color: var(--color-tertiary);
+        }
+
+        .module-card.diarios .btn-access {
+            color: var(--color-diarios);
         }
 
         .btn-access .arrow {
@@ -246,9 +255,9 @@
         }
 
         /* Responsividade */
-        @media (max-width: 992px) {
+        @media (max-width: 1100px) {
             .modules-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -263,6 +272,12 @@
             }
             .hero h1 {
                 font-size: 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -281,7 +296,7 @@
     <!-- Seção Principal / Boas-vindas -->
     <section class="hero">
         <h1>Gestão <span> dos colégios</span></h1>
-        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas, calendários e catálogos anuais com máxima fluidez visual.</p>
+        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas, calendários, diários de classe e catálogos anuais com máxima fluidez visual.</p>
     </section>
 
     <!-- Grid de Links para as Páginas do Sistema -->
@@ -320,6 +335,18 @@
             </div>
             <div class="btn-access">
                 Acessar Módulo de Calendário <span class="arrow">&rarr;</span>
+            </div>
+        </a>
+
+        <!-- Link para Diários Acadêmicos (Novo Módulo Adicionado) -->
+        <a href="diarios.html" class="module-card diarios">
+            <div>
+                <div class="module-icon">📝</div>
+                <h2>Diários Acadêmicos</h2>
+                <p>Gerencie diários de classe com lançamento de frequências, controle de conteúdo ministrado, avaliações dinâmicas e opção de impressão em branco ou preenchido.</p>
+            </div>
+            <div class="btn-access">
+                Acessar Módulo de Diários <span class="arrow">&rarr;</span>
             </div>
         </a>
 

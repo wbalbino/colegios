@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITEC - Módulo de Gestão Acadêmica</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --success: #5cb85c; 
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --border: #d1d5db;
+            --bg: #f9fafb;
+            --table-blue: #e0f2fe;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { background-color: var(--bg); color: var(--dark); display: flex; height: 100vh; overflow: hidden; }
+
+        /* Sidebar */
+        .sidebar { width: 250px; background-color: var(--dark); color: white; display: flex; flex-direction: column; padding: 20px 0; }
+        .sidebar-logo { font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 30px; letter-spacing: 1px; color: #60a5fa;}
+        .menu-item { padding: 15px 20px; color: #9ca3af; text-decoration: none; display: block; transition: 0.3s; cursor: pointer; }
+        .menu-item:hover, .menu-item.active { background-color: #374151; color: white; border-left: 4px solid var(--primary); }
+
+        /* Main Content */
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; background-color: #f1f5f9; }
+        
+        /* Barra de Filtros */
+        .top-filter-bar { background: #e2e8f0; padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; }
+        .filter-label { font-size: 12px; color: #475569; font-weight: 600; }
+        .filter-control { padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 4px; background-color: white; font-size: 13px; color: #334155; outline: none; min-width: 140px; }
+
+        /* Botões Globais */
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: #4cae4c; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--dark); }
+        .btn-outline:hover { background: var(--light); }
+
+        .content-area { padding: 25px; }
+
+        /* Dashboard */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .card-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: var(--primary-dark); }
+        .card-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 15px; }
+
+        /* Workspace Header & Impressão */
+        .workspace { display: none; background: white; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
+        .workspace-header { background: white; padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+
+        .print-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-print {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #ffffff;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .btn-print:hover {
+            background-color: #f8fafc;
+            border-color: #94a3b8;
+            color: #0f172a;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+
+        .btn-print-filled {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            border-color: #bae6fd;
+        }
+
+        .btn-print-filled:hover {
+            background-color: #e0f2fe;
+            border-color: #7dd3fc;
+            color: #0284c7;
+        }
+
+        /* Menu Principal do Workspace */
+        .action-toolbar { display: flex; background: #0284c7; padding: 0; overflow-x: auto; }
+        .action-btn { background: transparent; color: rgba(255, 255, 255, 0.8); border: none; padding: 15px 25px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; border-bottom: 3px solid transparent; }
+        .action-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+        .action-btn.active { color: white; border-bottom-color: white; background: rgba(255, 255, 255, 0.15); }
+
+        .workspace-content { padding: 20px; }
+        .workspace-view { display: none; }
+        .workspace-view.active { display: block; }
+
+        /* Tabela Base */
+        .frequencia-container { width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; }
+        .table-caderneta { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .table-caderneta th, .table-caderneta td { border: 1px solid var(--border); padding: 8px; text-align: center; white-space: nowrap; }
+        .table-caderneta th { background-color: #f1f5f9; color: #334155; font-weight: 600; }
+        .col-id { text-align: left !important; min-width: 250px; background: white; }
+        .table-caderneta td:nth-child(1), .table-caderneta td:nth-child(2), .table-caderneta td:nth-child(3) { background: white; }
+        .cell-check { background-color: var(--table-blue); width: 45px; }
+        .table-caderneta tbody tr:hover td { background-color: #f8fafc; }
+        .table-caderneta tbody tr:hover .cell-check { background-color: #bae6fd; }
+        .student-photo { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #cbd5e1; }
+        .legenda-frequencia { font-size: 12px; color: #64748b; margin-bottom: 15px; text-align: right; }
+        input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
+        .date-header { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+        .date-header span { font-weight: bold; }
+
+        /* Estilos da Aba Avaliação (Pílulas, Fórmula & UX) */
+        .pills-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .pills-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-right: 5px;
+        }
+        .pill-button {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .pill-button:hover {
+            background-color: #0369a1;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos da Área da Fórmula de Média */
+        .formula-bar {
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .formula-input {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            background-color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .input-nota {
+            width: 70px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #1e293b;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-nota:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Estilos do Controle de Conteúdo (Encontros) */
+        .encounter-list { display: flex; flex-direction: column; gap: 15px; }
+        .encounter-item { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+        .encounter-header { padding: 15px; background: var(--light); display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid transparent; transition: 0.2s; }
+        .encounter-info { display: flex; align-items: center; gap: 12px; }
+        .encounter-number { background: var(--primary-dark); color: white; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 12px; font-weight: bold; flex-shrink: 0; }
+        .btn-icon-delete { background: none; border: none; color: var(--danger); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 6px; border-radius: 4px; transition: 0.2s; opacity: 0.7; }
+        .btn-icon-delete:hover { background: #fee2e2; opacity: 1; }
+        .encounter-info strong { color: var(--primary-dark); font-size: 15px;}
+        .encounter-info span { color: #6b7280; font-size: 13px; }
+        .encounter-actions { display: flex; align-items: center; gap: 15px; }
+        .status-pill { font-size: 11px; padding: 3px 8px; border-radius: 12px; font-weight: bold; }
+        .status-ok { background: #dcfce7; color: #166534; }
+        .status-warn { background: #fef9c3; color: #854d0e; }
+        .encounter-details { background: white; display: none; border-top: 1px solid var(--border); padding: 20px; }
+        
+        /* Formulários Base */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: bold; color: #4b5563; margin-bottom: 8px; font-size: 14px; }
+        .form-control { width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; color: #333; outline: none; }
+        .form-control:focus { border-color: var(--primary); }
+
+        /* Modal Base */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background-color: white; padding: 30px; border-radius: 6px; width: 100%; max-width: 450px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .modal-title { font-size: 22px; color: #333; margin-bottom: 20px; font-weight: 600; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 25px; }
+        .radio-group { display: flex; gap: 15px; margin-top: -5px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-logo">SITEC</div>
+        <a class="menu-item active" onclick="showView('dashboard')">Painel Inicial</a>
+        <a class="menu-item">Meus Dados</a>
+    </div>
+
+    <div class="main-content">
+        <!-- HEADER DE FILTROS SUPERIOR -->
+        <div class="top-filter-bar">
+
+            <div class="filter-group">
+                <label class="filter-label">Ano Letivo Entre:</label>
+                <div class="year-control-wrapper">
+                    <div class="year-spinner">
+                        <button class="arrow-btn" onclick="adjustYear('startYear', -1)">◄</button>
+                        <input type="text" id="startYear" value="2026" readonly>
+                        <button class="arrow-btn" onclick="adjustYear('startYear', 1)">►</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+				<label class="filter-label">Curso:</label>
+					<select class="filter-control">
+						<option value="" disabled selected hidden>Selecione um curso...</option>
+						<option value="c1">18 - Técnico em Enfermagem Integrado ao Ensino Médio</option>
+						<option value="c2">19 - Técnico em Informática Integrado ao Ensino Médio</option>
+						<option value="c3">20 - Técnico em Mecatrônica Integrado ao Ensino Médio</option>
+						<option value="c4">21 - Técnico Eletroeletrônica Integrado ao Ensino Médio</option>			
+					</select>
+			</div>
+
+
+            <div class="filter-group">
+				<label class="filter-label">Período/ Série:</label>
+					<select class="filter-control">
+						<option value="" disabled selected hidden>Selecione um período...</option>
+						<option value="p1">Período 1</option>
+						<option value="p2">Período 2</option>
+						<option value="p3">Período 3</option>
+						<option value="p4">Período 4</option>			
+					</select>
+			</div>
+
+
+            <div class="filter-group">
+				<label class="filter-label">Disciplina/ Turma:</label>
+					<select class="filter-control">
+						<option value="" disabled selected hidden>Selecione uma disciplina/turma...</option>
+						<option value="disc1">BI101 - Biologia - Turma 1</option>
+						<option value="disc2">BI201 - Biologia - Turma 1</option>	
+						<option value="disc3">BI300 - Biologia - Turma 1</option>						
+					</select>
+			</div>
+			
+        </div>
+
+        <div class="content-area">
+            <!-- VIEW: DASHBOARD -->
+            <div id="view-dashboard" class="dashboard-grid">
+                <div class="card">
+                    <div class="card-title">BI101 - Biologia</div>
+                    <div class="card-subtitle">Período 1 - Turma 1</div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="openWorkspace()">Acessar Diário</button>
+                </div>
+            </div>
+
+            <!-- VIEW: WORKSPACE -->
+            <div id="view-workspace" class="workspace">
+                <div class="workspace-header">
+                    <div>
+                        <button class="btn btn-outline" style="margin-bottom: 10px; padding: 4px 8px; font-size: 12px;" onclick="showView('dashboard')">← Voltar aos Diários</button>
+                        <h2 style="color: var(--primary-dark);">BI101 - Biologia</h2>
+                        <span style="color: #6b7280; font-size: 14px;">Período 1 - Turma 1 / 2026</span>
+                    </div>
+
+                    <!-- BOTÕES DE IMPRESSÃO (NOVA FUNCIONALIDADE) -->
+                    <div class="print-actions">
+                        <button class="btn-print" onclick="imprimirDiario('branco')" title="Imprimir diário em branco (sem notas e lançamentos)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                <rect x="6" y="14" width="12" height="8"></rect>
+                            </svg>
+                            Imprimir Diário em branco
+                        </button>
+
+                        <button class="btn-print btn-print-filled" onclick="imprimirDiario('preenchido')" title="Imprimir diário com dados, frequência e notas lançadas">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                <rect x="6" y="14" width="12" height="8"></rect>
+                                <path d="M10 18l1.5 1.5 3-3"></path>
+                            </svg>
+                            Imprimir Diário preenchido
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BARRA DE FERRAMENTAS DO PROFESSOR -->
+                <div class="action-toolbar">
+                    <button class="action-btn active" onclick="switchAction('frequencia', this)">📅 Registro de Frequência</button>
+                    <button class="action-btn" onclick="switchAction('conteudo', this)">📝 Controle de Conteúdo</button>
+                    <button class="action-btn" onclick="switchAction('avaliacao', this)">📊 Avaliação</button>
+                    <button class="action-btn" onclick="switchAction('recuperacao', this)">🔄 Recuperação</button>
+                    <button class="action-btn" onclick="switchAction('fiap', this)">📑 FIAP</button>
+                </div>
+
+                <div class="workspace-content">
+                    
+                    <!-- ABA: FREQUÊNCIA -->
+                    <div id="action-frequencia" class="workspace-view active">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3>Controle de Frequência</h3>
+                            <button class="btn btn-success">Salvar Frequências</button>
+                        </div>
+                        <div class="legenda-frequencia">
+                            Legenda: <strong>F</strong> = Falta | <strong>O</strong> = Ocorrência
+                        </div>
+
+                        <div class="frequencia-container">
+                            <table class="table-caderneta">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2" style="width: 80px;">Código</th>
+                                        <th rowspan="2" style="width: 50px;">Foto</th>
+                                        <th rowspan="2" class="col-id">Nome do Aluno</th>
+                                        <th rowspan="2" style="width: 40px;">Freq. Relativa</th>
+                                        <th colspan="2"><div class="date-header"><span>04/08/2026</span> <span>...</span></div></th>
+                                        <th colspan="2"><div class="date-header"><span>11/08/2026</span> <span>...</span></div></th>
+                                        <th colspan="2"><div class="date-header"><span>18/08/2026</span> <span>...</span></div></th>
+                                        <th colspan="2"><div class="date-header"><span>25/08/2026</span> <span>...</span></div></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-weight: normal; font-size: 11px;">F</th><th style="font-weight: normal; font-size: 11px;">O</th>
+                                        <th style="font-weight: normal; font-size: 11px;">F</th><th style="font-weight: normal; font-size: 11px;">O</th>
+                                        <th style="font-weight: normal; font-size: 11px;">F</th><th style="font-weight: normal; font-size: 11px;">O</th>
+                                        <th style="font-weight: normal; font-size: 11px;">F</th><th style="font-weight: normal; font-size: 11px;">O</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>206022</td>
+                                        <td><img src="https://ui-avatars.com/api/?name=Beatriz+Serafim&background=random" class="student-photo" alt="Foto"></td>
+                                        <td class="col-id">Beatriz Serafim da Silva</td>
+                                        <td>75%</td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+										<td>
+											<div style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+												<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" title="Pessoa com Deficiência / Atendimento Especial">
+													<circle cx="12" cy="12" r="10" fill="#2563eb"/>
+													<circle cx="12" cy="6.5" r="1.5" fill="white"/>
+													<path d="M7.5 10C7.22386 10 7 10.2239 7 10.5C7 10.7761 7.22386 11 7.5 11H11.25V13.8L9.62 18.15C9.52 18.41 9.65 18.7 9.91 18.8 10.17 18.9 10.46 18.77 10.56 18.51L12 14.67L13.44 18.51C13.54 18.77 13.83 18.9 14.09 18.8C14.35 18.7 14.48 18.41 14.38 18.15L12.75 13.8V11H16.5C16.7761 11 17 10.7761 17 10.5C17 10.2239 16.7761 10 16.5 10H7.5Z" fill="white"/>
+												</svg>
+												<span>206317</span>
+											</div>
+										</td>
+                                        <td><img src="https://ui-avatars.com/api/?name=Bianca+Amaro&background=random" class="student-photo" alt="Foto"></td>
+                                        <td class="col-id">Bianca Amaro</td>
+                                        <td>75%</td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>206328</td>
+                                        <td><img src="https://ui-avatars.com/api/?name=Caroline+Ferranda&background=random" class="student-photo" alt="Foto"></td>
+                                        <td class="col-id">Caroline Fernanda de Lima</td>
+                                        <td>80%</td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ABA: CONTEÚDO -->
+                    <div id="action-conteudo" class="workspace-view">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center;">
+                            <h3>Diário de Aulas - Conteúdo</h3>
+                            <button class="btn btn-primary" onclick="abrirModal()">+ Novo Encontro</button>
+                        </div>
+                        
+                        <div class="encounter-list" id="lista-encontros">
+                            <div class="encounter-item" style="border-color: var(--primary-dark);">
+                                <div class="encounter-header" onclick="toggleEncounterDetails(this)">
+                                    <div class="encounter-info">
+                                        <div class="encounter-number">1</div>
+                                        <button class="btn-icon-delete" onclick="excluirEncontro(this, event)" title="Excluir Encontro">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            </svg>
+                                        </button>
+                                        <strong>04/08/2026</strong> 
+                                        <span>2 aulas (Realizada)</span>
+                                    </div>
+                                    <div class="encounter-actions">
+                                        <span class="status-pill status-warn">Conteúdo Pendente</span>
+                                        <span style="color: var(--primary-dark); font-size: 12px; margin-left: 10px; width: 120px; text-align: right;">▼ Ocultar Detalhes</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="encounter-details" style="display: block;">
+                                    <div class="form-group">
+                                        <label>Assunto / Conteúdo Ministrado</label>
+                                        <textarea class="form-control" rows="3">Verbo To Be - Introdução e Exercícios Práticos.</textarea>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 10px;">
+                                        <label>Material de Apoio (Anexos)</label>
+                                        <input type="file" class="form-control" style="padding: 5px;" multiple>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <button class="btn btn-primary" style="padding: 6px 16px;">Salvar Conteúdo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA: AVALIAÇÃO -->
+                    <div id="action-avaliacao" class="workspace-view">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3>Lançamento de Avaliações e Notas</h3>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-primary" onclick="abrirModalAvaliacao()">+ Adicionar Avaliação</button>
+                                <button class="btn btn-success">Salvar Notas</button>
+                            </div>
+                        </div>
+
+                        <!-- SEÇÃO DE PÍLULAS DE AVALIAÇÃO DA TURMA -->
+                        <div class="pills-bar">
+                            <span class="pills-label">Avaliações Cadastradas:</span>
+                            <div id="pills-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <!-- Pílulas são geradas dinamicamente via JS -->
+                            </div>
+                        </div>
+
+                        <!-- EXPRESSÃO PARA CÁLCULO DE MÉDIA -->
+                        <div class="formula-bar">
+                            <label for="campoFormulaMedia" class="pills-label" style="display: block; margin-bottom: 8px;">Expressão para cálculo de média</label>
+                            <input type="text" id="campoFormulaMedia" class="form-control formula-input" 
+                                   value="(((P1+P3)/2)*0.3)+(((P2+P4)/2)*0.7)" 
+                                   placeholder="Ex: (((P1+P3)/2)*0.3)+(((P2+P4)/2)*0.7)">
+                        </div>
+
+                        <!-- TABELA COM ALUNOS E COLUNAS DINÂMICAS DE NOTA -->
+                        <div class="frequencia-container">
+                            <table class="table-caderneta">
+                                <thead>
+                                    <tr id="header-avaliacoes-tr">
+                                        <th style="width: 80px;">Código</th>
+                                        <th style="width: 50px;">Foto</th>
+                                        <th class="col-id">Nome do Aluno</th>
+                                        <th style="width: 40px;">Nº</th>
+                                        <!-- Colunas de Avaliações são geradas dinamicamente aqui -->
+                                    </tr>
+                                </thead>
+                                <tbody id="body-avaliacoes-tr">
+                                    <!-- Linhas com alunos e notas geradas dinamicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ABA: RECUPERAÇÃO -->
+                    <div id="action-recuperacao" class="workspace-view">
+                        <h3>Recuperação</h3>
+                        <p style="color: #64748b; margin-top: 10px;">Interface de recuperação paralela em desenvolvimento...</p>
+                    </div>
+
+                    <!-- ABA: FIAP -->
+                    <div id="action-fiap" class="workspace-view">
+                        <h3>FIAP (Ficha Individual de Avaliação de Progressão)</h3>
+                        <p style="color: #64748b; margin-top: 10px;">Interface do FIAP em desenvolvimento...</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL NOVO ENCONTRO -->
+    <div id="modalNovoEncontro" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="modal-title">Cadastrar novo encontro</h2>
+            
+            <div class="form-group">
+                <label>Data</label>
+                <input type="date" id="campoData" class="form-control" value="2026-08-11">
+            </div>
+            
+            <div class="form-group">
+                <label>Número de aulas</label>
+                <select id="campoAulas" class="form-control" style="width: 80px;">
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Assunto / Conteúdo Ministrado</label>
+                <textarea id="campoAssunto" class="form-control" rows="2" placeholder="Opcional. Poderá ser editado depois."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Material de Apoio (Anexos)</label>
+                <input type="file" id="campoAnexos" class="form-control" style="padding: 5px;" multiple>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                <label style="margin-bottom: 0;">Aula ministrada?</label>
+                <div class="radio-group">
+                    <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="aulaMinistrada" value="sim"> Sim</label>
+                    <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="aulaMinistrada" value="nao" checked> Não</label>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-success" onclick="salvarEncontro()">Criar Encontro</button>
+                <button class="btn btn-outline" onclick="fecharModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AVALIAÇÃO (ADICIONAR / EDITAR) -->
+    <div id="modalAvaliacao" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="modal-title" id="modalAvaliacaoTitulo">Adicionar Avaliação</h2>
+            <input type="hidden" id="evalId">
+            
+            <div class="form-group">
+                <label for="evalSigla">Sigla (máx. 3 caracteres)*</label>
+                <input type="text" id="evalSigla" class="form-control" maxlength="3" placeholder="Ex: P1, P2, TC" style="text-transform: uppercase;">
+            </div>
+            
+            <div class="form-group">
+                <label for="evalData">Data*</label>
+                <input type="date" id="evalData" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="evalDescricao">Descrição*</label>
+                <textarea id="evalDescricao" class="form-control" rows="3" placeholder="Descrição ou título detalhado da avaliação"></textarea>
+            </div>
+
+            <div class="modal-actions" style="justify-content: space-between;">
+                <div>
+                    <button class="btn btn-danger" id="btnExcluirEval" style="display: none;" onclick="excluirAvaliacaoAtual()">Excluir</button>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-success" onclick="salvarAvaliacao()">Salvar</button>
+                    <button class="btn btn-outline" onclick="fecharModalAvaliacao()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados do Sistema
+        const alunos = [
+            { id: "206022", photo: "https://ui-avatars.com/api/?name=Beatriz+Serafim&background=random", nome: "Beatriz Serafim da Silva", num: 6 },
+            { id: "206317", photo: "https://ui-avatars.com/api/?name=Bianca+Amaro&background=random", nome: "Bianca Amaro", num: 7 },
+            { id: "206328", photo: "https://ui-avatars.com/api/?name=Caroline+Ferranda&background=random", nome: "Caroline Fernanda de Lima", num: 8 }
+        ];
+
+        // Avaliações Cadastradas (Exemplo inicial)
+        let avaliacoes = [
+            { id: 1, sigla: "P1", data: "2026-08-04", descricao: "Prova 1" },
+            { id: 2, sigla: "P2", data: "2026-08-10", descricao: "Prova 2" },
+            { id: 3, sigla: "P3", data: "2026-08-18", descricao: "Prova 3" },
+            { id: 4, sigla: "P4", data: "2026-08-25", descricao: "Prova 4" }
+        ];
+
+        // Armazenamento em memória das notas cadastradas { "alunoId_evalId": nota }
+        let notasGuardadas = {
+            "206022_1": "10",
+            "206317_1": "9",
+            "206328_1": "8",
+            "206022_2": "10",
+            "206317_2": "10",
+            "206328_2": "7",
+            "206022_3": "9",
+            "206317_3": "8",
+            "206328_3": "9",
+            "206022_4": "10",
+            "206317_4": "9",
+            "206328_4": "8"
+        };
+
+        // Função de Impressão do Diário
+        function imprimirDiario(tipo) {
+            if (tipo === 'branco') {
+                alert('Abertura do layout de impressão: Diário em Branco (modelo sem registros).');
+            } else {
+                alert('Abertura do layout de impressão: Diário Preenchido (com notas, presenças e registros).');
+            }
+        }
+
+        // Navegação Geral
+        function showView(viewId) {
+            document.getElementById('view-dashboard').style.display = 'none';
+            document.getElementById('view-workspace').style.display = 'none';
+            document.getElementById('view-' + viewId).style.display = (viewId === 'dashboard') ? 'grid' : 'block';
+        }
+        
+        function openWorkspace() { 
+            showView('workspace'); 
+        }
+
+        // Navegação entre as ferramentas do Diário
+        function switchAction(actionId, btnElement) {
+            document.querySelectorAll('.action-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.workspace-view').forEach(view => view.classList.remove('active'));
+            
+            btnElement.classList.add('active');
+            document.getElementById('action-' + actionId).classList.add('active');
+
+            if (actionId === 'avaliacao') {
+                renderAvaliacoes();
+            }
+        }
+
+        // --- LÓGICA DA ABA AVALIAÇÃO ---
+        function renderAvaliacoes() {
+            const containerPills = document.getElementById('pills-container');
+            const headerTr = document.getElementById('header-avaliacoes-tr');
+            const bodyTr = document.getElementById('body-avaliacoes-tr');
+
+            // 1. Renderizar Pílulas
+            if (avaliacoes.length === 0) {
+                containerPills.innerHTML = '<span style="font-size: 13px; color: #94a3b8; font-style: italic;">Nenhuma avaliação cadastrada. Clique em "+ Adicionar Avaliação".</span>';
+            } else {
+                containerPills.innerHTML = avaliacoes.map(evalObj => `
+                    <button class="pill-button" onclick="abrirModalAvaliacao(${evalObj.id})" title="${evalObj.descricao} (${formatarDataBR(evalObj.data)})">
+                        <span>${evalObj.sigla}</span>
+                    </button>
+                `).join('');
+            }
+
+            // 2. Renderizar Cabeçalho da Tabela
+            let headerHtml = `
+                <th style="width: 80px;">Código</th>
+                <th style="width: 50px;">Foto</th>
+                <th class="col-id">Nome do Aluno</th>
+                <th style="width: 40px;">Nº</th>
+            `;
+
+            avaliacoes.forEach(evalObj => {
+                headerHtml += `
+                    <th style="min-width: 110px; background-color: #0284c7; color: white;">
+                        <div style="font-size: 13px; font-weight: bold;">${evalObj.sigla}</div>
+                        <div style="font-size: 10px; font-weight: normal; opacity: 0.9;">${formatarDataBR(evalObj.data)}</div>
+                    </th>
+                `;
+            });
+
+            headerTr.innerHTML = headerHtml;
+
+            // 3. Renderizar Linhas dos Alunos com Inputs Dinâmicos de Notas
+            let bodyHtml = '';
+            alunos.forEach(aluno => {
+                bodyHtml += `
+                    <tr>
+                        <td>${aluno.id}</td>
+                        <td><img src="${aluno.photo}" class="student-photo" alt="Foto"></td>
+                        <td class="col-id">${aluno.nome}</td>
+                        <td>${aluno.num}</td>
+                `;
+
+                avaliacoes.forEach(evalObj => {
+                    const key = `${aluno.id}_${evalObj.id}`;
+                    const notaValor = notasGuardadas[key] !== undefined ? notasGuardadas[key] : '';
+
+                    bodyHtml += `
+                        <td style="background-color: var(--table-blue);">
+                            <input type="number" 
+                                   class="input-nota" 
+                                   min="0" max="10" step="0.1" 
+                                   value="${notaValor}" 
+                                   placeholder="-" 
+                                   onchange="salvarNota('${aluno.id}', ${evalObj.id}, this.value)">
+                        </td>
+                    `;
+                });
+
+                bodyHtml += `</tr>`;
+            });
+
+            bodyTr.innerHTML = bodyHtml;
+        }
+
+        function salvarNota(alunoId, evalId, valor) {
+            notasGuardadas[`${alunoId}_${evalId}`] = valor;
+        }
+
+        function abrirModalAvaliacao(id = null) {
+            const modal = document.getElementById('modalAvaliacao');
+            const title = document.getElementById('modalAvaliacaoTitulo');
+            const evalIdInput = document.getElementById('evalId');
+            const siglaInput = document.getElementById('evalSigla');
+            const dataInput = document.getElementById('evalData');
+            const descInput = document.getElementById('evalDescricao');
+            const btnExcluir = document.getElementById('btnExcluirEval');
+
+            if (id) {
+                const evalObj = avaliacoes.find(a => a.id === id);
+                if (!evalObj) return;
+
+                title.innerText = "Editar Avaliação";
+                evalIdInput.value = evalObj.id;
+                siglaInput.value = evalObj.sigla;
+                dataInput.value = evalObj.data;
+                descInput.value = evalObj.descricao;
+                btnExcluir.style.display = "block";
+            } else {
+                title.innerText = "Adicionar Avaliação";
+                evalIdInput.value = "";
+                siglaInput.value = "";
+                dataInput.value = new Date().toISOString().split('T')[0];
+                descInput.value = "";
+                btnExcluir.style.display = "none";
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function fecharModalAvaliacao() {
+            document.getElementById('modalAvaliacao').style.display = 'none';
+        }
+
+        function salvarAvaliacao() {
+            const id = document.getElementById('evalId').value;
+            const sigla = document.getElementById('evalSigla').value.trim().toUpperCase();
+            const data = document.getElementById('evalData').value;
+            const descricao = document.getElementById('evalDescricao').value.trim();
+
+            if (!sigla) {
+                alert("Por favor, informe a sigla da avaliação.");
+                return;
+            }
+            if (sigla.length > 3) {
+                alert("A sigla deve conter no máximo 3 caracteres.");
+                return;
+            }
+            if (!data) {
+                alert("Por favor, selecione a data.");
+                return;
+            }
+            if (!descricao) {
+                alert("Por favor, preencha a descrição.");
+                return;
+            }
+
+            if (id) {
+                // Editar existente
+                const evalObj = avaliacoes.find(a => a.id == id);
+                if (evalObj) {
+                    evalObj.sigla = sigla;
+                    evalObj.data = data;
+                    evalObj.descricao = descricao;
+                }
+            } else {
+                // Adicionar nova
+                const novoId = avaliacoes.length > 0 ? Math.max(...avaliacoes.map(a => a.id)) + 1 : 1;
+                avaliacoes.push({
+                    id: novoId,
+                    sigla: sigla,
+                    data: data,
+                    descricao: descricao
+                });
+            }
+
+            fecharModalAvaliacao();
+            renderAvaliacoes();
+        }
+
+        function excluirAvaliacaoAtual() {
+            const id = document.getElementById('evalId').value;
+            if (!id) return;
+
+            if (confirm("Tem certeza que deseja excluir esta avaliação? As colunas de notas associadas serão removidas.")) {
+                avaliacoes = avaliacoes.filter(a => a.id != id);
+                fecharModalAvaliacao();
+                renderAvaliacoes();
+            }
+        }
+
+        // Funções do Controle de Conteúdo
+        function atualizarNumeracao() {
+            const items = document.querySelectorAll('.encounter-item');
+            const total = items.length;
+            
+            items.forEach((item, index) => {
+                const numeroEl = item.querySelector('.encounter-number');
+                if (numeroEl) {
+                    numeroEl.textContent = total - index; 
+                }
+            });
+        }
+
+        function excluirEncontro(btnElement, event) {
+            event.stopPropagation(); 
+            if (confirm("Tem certeza que deseja excluir este encontro? O conteúdo registrado será apagado.")) {
+                const itemParaExcluir = btnElement.closest('.encounter-item');
+                itemParaExcluir.remove(); 
+                atualizarNumeracao();     
+            }
+        }
+
+        function abrirModal() { document.getElementById('modalNovoEncontro').style.display = 'flex'; }
+        
+        function fecharModal() { 
+            document.getElementById('modalNovoEncontro').style.display = 'none'; 
+            document.getElementById('campoAssunto').value = ''; 
+            document.getElementById('campoAnexos').value = ''; 
+        }
+        
+        function formatarDataBR(dataISO) { 
+            if(!dataISO) return ''; 
+            const p = dataISO.split('-'); 
+            return `${p[2]}/${p[1]}/${p[0]}`; 
+        }
+
+        function salvarEncontro() {
+            const dataInput = document.getElementById('campoData').value;
+            const numAulas = document.getElementById('campoAulas').value;
+            const assunto = document.getElementById('campoAssunto').value; 
+            const statusTexto = document.querySelector('input[name="aulaMinistrada"]:checked').value === 'sim' ? 'Realizada' : 'Pendente';
+            
+            const html = `
+                <div class="encounter-item">
+                    <div class="encounter-header" onclick="toggleEncounterDetails(this)">
+                        <div class="encounter-info">
+                            <div class="encounter-number">0</div>
+                            <button class="btn-icon-delete" onclick="excluirEncontro(this, event)" title="Excluir Encontro">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                            <strong>${formatarDataBR(dataInput)}</strong> <span>${numAulas} aulas (${statusTexto})</span>
+                        </div>
+                        <div class="encounter-actions">
+                            <span class="status-pill status-warn">Pendente</span>
+                            <span style="color: #6b7280; font-size: 12px; margin-left: 10px; width: 120px; text-align: right;">▶ Expandir Detalhes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="encounter-details" style="display: none;">
+                        <div class="form-group">
+                            <label>Assunto / Conteúdo Ministrado</label>
+                            <textarea class="form-control" rows="3">${assunto}</textarea>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <label>Material de Apoio (Anexos)</label>
+                            <input type="file" class="form-control" style="padding: 5px;" multiple>
+                        </div>
+                        <div style="text-align: right;"><button class="btn btn-primary" style="padding: 6px 16px;">Salvar Conteúdo</button></div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('lista-encontros').insertAdjacentHTML('afterbegin', html);
+            atualizarNumeracao(); 
+            fecharModal();
+        }
+
+        function toggleEncounterDetails(headerElement) {
+            const panel = headerElement.nextElementSibling;
+            const actionText = headerElement.querySelector('.encounter-actions span:last-child');
+            
+            if (panel && panel.classList.contains('encounter-details')) {
+                if (panel.style.display === 'none' || panel.style.display === '') {
+                    panel.style.display = 'block';
+                    actionText.innerText = '▼ Ocultar Detalhes';
+                    headerElement.parentElement.style.borderColor = 'var(--primary-dark)';
+                } else {
+                    panel.style.display = 'none';
+                    actionText.innerText = '▶ Expandir Detalhes';
+                    headerElement.parentElement.style.borderColor = 'var(--border)';
+                }
+            }
+        }
+
+        // Inicializar renderização caso acesse diretamente
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAvaliacoes();
+        });
+    </script>
+</body>
+</html>
