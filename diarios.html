@@ -16,6 +16,9 @@
             --border: #d1d5db;
             --bg: #f9fafb;
             --table-blue: #e0f2fe;
+            --occurrence-bg: #fef3c7;
+            --occurrence-border: #f59e0b;
+            --occurrence-text: #92400e;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -128,6 +131,41 @@
         input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
         .date-header { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
         .date-header span { font-weight: bold; }
+
+        /* Botão de Ocorrência */
+        .btn-ocorrencia {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            border: 1px dashed #cbd5e1;
+            background-color: #ffffff;
+            color: #94a3b8;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-ocorrencia:hover {
+            border-color: var(--occurrence-border);
+            color: var(--occurrence-text);
+            background-color: #fffbeb;
+        }
+
+        .btn-ocorrencia.has-occurrence {
+            border: 1px solid var(--occurrence-border);
+            background-color: var(--occurrence-bg);
+            color: var(--occurrence-text);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn-ocorrencia.has-occurrence:hover {
+            background-color: #fde68a;
+            transform: scale(1.08);
+        }
 
         /* Estilos da Aba Avaliação (Pílulas, Fórmula & UX) */
         .pills-bar {
@@ -309,7 +347,7 @@
                         <span style="color: #6b7280; font-size: 14px;">Período 1 - Turma 1 / 2026</span>
                     </div>
 
-                    <!-- BOTÕES DE IMPRESSÃO (NOVA FUNCIONALIDADE) -->
+                    <!-- BOTÕES DE IMPRESSÃO -->
                     <div class="print-actions">
                         <button class="btn-print" onclick="imprimirDiario('branco')" title="Imprimir diário em branco (sem notas e lançamentos)">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -338,7 +376,7 @@
                     <button class="action-btn" onclick="switchAction('conteudo', this)">📝 Controle de Conteúdo</button>
                     <button class="action-btn" onclick="switchAction('avaliacao', this)">📊 Avaliação</button>
                     <button class="action-btn" onclick="switchAction('recuperacao', this)">🔄 Recuperação</button>
-                    <button class="action-btn" onclick="switchAction('fiap', this)">📑 FIAP</button>
+                <!--    <button class="action-btn" onclick="switchAction('fiap', this)">📑 FIAP</button> -->
                 </div>
 
                 <div class="workspace-content">
@@ -357,7 +395,7 @@
                             <table class="table-caderneta">
                                 <thead>
                                     <tr>
-                                        <th rowspan="2" style="width: 80px;">Código</th>
+                                        <th rowspan="2" style="width: 80px;">RA</th>
                                         <th rowspan="2" style="width: 50px;">Foto</th>
                                         <th rowspan="2" class="col-id">Nome do Aluno</th>
                                         <th rowspan="2" style="width: 40px;">Freq. Relativa</th>
@@ -373,46 +411,8 @@
                                         <th style="font-weight: normal; font-size: 11px;">F</th><th style="font-weight: normal; font-size: 11px;">O</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>206022</td>
-                                        <td><img src="https://ui-avatars.com/api/?name=Beatriz+Serafim&background=random" class="student-photo" alt="Foto"></td>
-                                        <td class="col-id">Beatriz Serafim da Silva</td>
-                                        <td>75%</td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-										<td>
-											<div style="display: flex; align-items: center; justify-content: center; gap: 5px;">
-												<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" title="Pessoa com Deficiência / Atendimento Especial">
-													<circle cx="12" cy="12" r="10" fill="#2563eb"/>
-													<circle cx="12" cy="6.5" r="1.5" fill="white"/>
-													<path d="M7.5 10C7.22386 10 7 10.2239 7 10.5C7 10.7761 7.22386 11 7.5 11H11.25V13.8L9.62 18.15C9.52 18.41 9.65 18.7 9.91 18.8 10.17 18.9 10.46 18.77 10.56 18.51L12 14.67L13.44 18.51C13.54 18.77 13.83 18.9 14.09 18.8C14.35 18.7 14.48 18.41 14.38 18.15L12.75 13.8V11H16.5C16.7761 11 17 10.7761 17 10.5C17 10.2239 16.7761 10 16.5 10H7.5Z" fill="white"/>
-												</svg>
-												<span>206317</span>
-											</div>
-										</td>
-                                        <td><img src="https://ui-avatars.com/api/?name=Bianca+Amaro&background=random" class="student-photo" alt="Foto"></td>
-                                        <td class="col-id">Bianca Amaro</td>
-                                        <td>75%</td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>206328</td>
-                                        <td><img src="https://ui-avatars.com/api/?name=Caroline+Ferranda&background=random" class="student-photo" alt="Foto"></td>
-                                        <td class="col-id">Caroline Fernanda de Lima</td>
-                                        <td>80%</td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                        <td class="cell-check"><input type="checkbox"></td><td class="cell-check"><input type="checkbox"></td>
-                                    </tr>
+                                <tbody id="body-frequencia-tr">
+                                    <!-- Renderizado dinamicamente via JS -->
                                 </tbody>
                             </table>
                         </div>
@@ -478,7 +478,7 @@
                         <div class="pills-bar">
                             <span class="pills-label">Avaliações Cadastradas:</span>
                             <div id="pills-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
-                                <!-- Pílulas são geradas dinamicamente via JS -->
+                                <!-- Pílulas geradas dinamicamente -->
                             </div>
                         </div>
 
@@ -487,23 +487,24 @@
                             <label for="campoFormulaMedia" class="pills-label" style="display: block; margin-bottom: 8px;">Expressão para cálculo de média</label>
                             <input type="text" id="campoFormulaMedia" class="form-control formula-input" 
                                    value="(((P1+P3)/2)*0.3)+(((P2+P4)/2)*0.7)" 
-                                   placeholder="Ex: (((P1+P3)/2)*0.3)+(((P2+P4)/2)*0.7)">
+                                   placeholder="Ex: (((P1+P3)/2)*0.3)+(((P2+P4)/2)*0.7)"
+                                   oninput="recalcularTodasMedias()">
                         </div>
 
-                        <!-- TABELA COM ALUNOS E COLUNAS DINÂMICAS DE NOTA -->
+                        <!-- TABELA COM ALUNOS E COLUNAS DINÂMICAS DE NOTA + MÉDIA PREVISTA -->
                         <div class="frequencia-container">
                             <table class="table-caderneta">
                                 <thead>
                                     <tr id="header-avaliacoes-tr">
-                                        <th style="width: 80px;">Código</th>
+                                        <th style="width: 80px;">RA</th>
                                         <th style="width: 50px;">Foto</th>
                                         <th class="col-id">Nome do Aluno</th>
                                         <th style="width: 40px;">Nº</th>
-                                        <!-- Colunas de Avaliações são geradas dinamicamente aqui -->
+                                        <!-- Colunas de Avaliações e Média Prevista são geradas dinamicamente aqui -->
                                     </tr>
                                 </thead>
                                 <tbody id="body-avaliacoes-tr">
-                                    <!-- Linhas com alunos e notas geradas dinamicamente -->
+                                    <!-- Linhas com alunos, notas e média prevista geradas dinamicamente -->
                                 </tbody>
                             </table>
                         </div>
@@ -578,6 +579,12 @@
                 <label for="evalSigla">Sigla (máx. 3 caracteres)*</label>
                 <input type="text" id="evalSigla" class="form-control" maxlength="3" placeholder="Ex: P1, P2, TC" style="text-transform: uppercase;">
             </div>
+
+            <!-- CAMPO: PESO DA AVALIAÇÃO -->
+            <div class="form-group">
+                <label for="evalPeso">Peso*</label>
+                <input type="number" id="evalPeso" class="form-control" min="0.1" step="0.1" value="1" placeholder="Ex: 1, 2, 0.5">
+            </div>
             
             <div class="form-group">
                 <label for="evalData">Data*</label>
@@ -601,20 +608,108 @@
         </div>
     </div>
 
+    <!-- MODAL OCORRÊNCIA (ADICIONAR / EDITAR / EXCLUIR) -->
+	<div id="modalOcorrencia" class="modal-overlay">
+        <div class="modal-content" style="max-width: 750px; max-height: 90vh; overflow-y: auto; padding: 30px;">
+            
+            <h2 class="modal-title" style="border-bottom: 2px solid #3b82f6; padding-bottom: 10px; margin-bottom: 20px; font-size: 20px; color: #1e293b;">
+                Registro de ocorrências
+            </h2>
+            
+            <input type="hidden" id="ocorrenciaAlunoId">
+            <input type="hidden" id="ocorrenciaData">
+            
+            <!-- Cabeçalho de Informações -->
+            <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 6px; margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px; color: #334155;">
+                <div><strong>Aluno:</strong> <span id="ocorrenciaAlunoNome"></span></div>
+                <div><strong>RA:</strong> <span id="ocorrenciaAlunoRA"></span></div>
+                <div><strong>Data da Aula:</strong> <span id="ocorrenciaDataDisplay"></span></div>
+                <div><strong>Disciplina:</strong> <span id="ocorrenciaDisciplina">BI101 - Biologia</span></div>
+            </div>
+
+            <!-- SEÇÃO A -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <div style="background-color: #e0f2fe; color: #0369a1; padding: 8px 12px; font-weight: bold; border-radius: 4px; margin-bottom: 10px; font-size: 14px;">
+                    A - Indicativo das Dificuldades Apresentadas pelo Aluno
+                </div>
+                <textarea id="ocorrenciaDificuldades" class="form-control" rows="3" placeholder="Descreva as observações e dificuldades detectadas nesta aula..."></textarea>
+            </div>
+
+            <!-- SEÇÃO B -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <div style="background-color: #e0f2fe; color: #0369a1; padding: 8px 12px; font-weight: bold; border-radius: 4px; margin-bottom: 10px; font-size: 14px;">
+                    B - Recomendações do Professor ao Aluno
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; padding: 0 5px;">
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Prestar mais atenção às aulas, valorizando o aprendizado no momento"> Prestar mais atenção às aulas, valorizando o aprendizado no momento</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Evitar conversas paralelas durante as aulas"> Evitar conversas paralelas durante as aulas</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Esclarecer dúvidas com o professor"> Esclarecer dúvidas com o professor</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Convocado a participar regularmente da monitoria"> Convocado a participar regularmente da monitoria</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Estudar com frequência, conforme orientação do professor"> Estudar com frequência, conforme orientação do professor</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Dedicar-se à revisão de conceitos do ensino fundamental"> Dedicar-se à revisão de conceitos do ensino fundamental</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Realizar todas as tarefas solicitadas e sugeridas"> Realizar todas as tarefas solicitadas e sugeridas</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Organizar-se melhor: material de aula, agenda, livros, listas e outros"> Organizar-se melhor: material de aula, agenda, livros, listas e outros</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Refazer os exercícios já corrigidos e avaliações - aprenda com seus erros"> Refazer os exercícios já corrigidos e avaliações - aprenda com seus erros</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Ter sempre em mãos o material organizado e atualizado"> Ter sempre em mãos o material organizado e atualizado</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Ser pontual na elaboração e entrega de atividades e trabalhos"> Ser pontual na elaboração e entrega de atividades e trabalhos</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-aluno" value="Estar presente às aulas, evitando faltas desnecessárias e atrasos"> Estar presente às aulas, evitando faltas desnecessárias e atrasos</label>
+                </div>
+            </div>
+
+            <!-- SEÇÃO C -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <div style="background-color: #e0f2fe; color: #0369a1; padding: 8px 12px; font-weight: bold; border-radius: 4px; margin-bottom: 10px; font-size: 14px;">
+                    C - Recomendações do Professor aos Pais
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; padding: 0 5px;">
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-pais" value="Acompanhar a frequência e empenho do aluno na realização de tarefas"> Acompanhar a frequência e empenho do aluno na realização de tarefas</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-pais" value="Certificar-se de que o aluno possui todo o material necessário para os estudos"> Certificar-se de que o aluno possui todo o material necessário para os estudos</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-pais" value="Acompanhar o desempenho e notas do aluno"> Acompanhar o desempenho e notas do aluno</label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; gap: 8px; font-size: 13px; color: #374151; align-items: flex-start;"><input type="checkbox" class="cb-pais" value="Acompanhar a participação do aluno nas monitorias"> Acompanhar a participação do aluno nas monitorias</label>
+                </div>
+            </div>
+
+            <!-- SEÇÃO D -->
+            <div class="form-group" style="margin-bottom: 25px;">
+                <div style="background-color: #e0f2fe; color: #0369a1; padding: 8px 12px; font-weight: bold; border-radius: 4px; margin-bottom: 10px; font-size: 14px;">
+                    D - Outras Observações
+                </div>
+                <textarea id="ocorrenciaOutras" class="form-control" rows="2" placeholder="Observações complementares..."></textarea>
+            </div>
+
+            <!-- BOTÕES DE AÇÃO -->
+            <div class="modal-actions" style="justify-content: space-between; margin-top: 0;">
+                <div>
+                    <button class="btn btn-danger" id="btnExcluirOcorrencia" style="display: none; background-color: #dc2626;" onclick="excluirOcorrencia()">Excluir Registro</button>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-success" style="background-color: #4ade80; color: #166534; border: 1px solid #22c55e;" onclick="salvarOcorrencia()">Salvar Ocorrência</button>
+                    <button class="btn btn-outline" onclick="fecharModalOcorrencia()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Dados do Sistema
         const alunos = [
-            { id: "206022", photo: "https://ui-avatars.com/api/?name=Beatriz+Serafim&background=random", nome: "Beatriz Serafim da Silva", num: 6 },
-            { id: "206317", photo: "https://ui-avatars.com/api/?name=Bianca+Amaro&background=random", nome: "Bianca Amaro", num: 7 },
-            { id: "206328", photo: "https://ui-avatars.com/api/?name=Caroline+Ferranda&background=random", nome: "Caroline Fernanda de Lima", num: 8 }
+            { id: "206022", photo: "https://ui-avatars.com/api/?name=Beatriz+Serafim&background=random", nome: "Beatriz Serafim da Silva", num: 6, pcd: false },
+            { id: "206317", photo: "https://ui-avatars.com/api/?name=Bianca+Amaro&background=random", nome: "Bianca Amaro", num: 7, pcd: true },
+            { id: "206328", photo: "https://ui-avatars.com/api/?name=Caroline+Ferranda&background=random", nome: "Caroline Fernanda de Lima", num: 8, pcd: false }
         ];
 
-        // Avaliações Cadastradas (Exemplo inicial)
+        // Datas das colunas de frequência
+        const datasFrequencia = ["04/08/2026", "11/08/2026", "18/08/2026", "25/08/2026"];
+
+        // Armazenamento em memória das ocorrências { "alunoId_data": texto }
+        let ocorrenciasGuardadas = {};
+
+        // Avaliações Cadastradas
         let avaliacoes = [
-            { id: 1, sigla: "P1", data: "2026-08-04", descricao: "Prova 1" },
-            { id: 2, sigla: "P2", data: "2026-08-10", descricao: "Prova 2" },
-            { id: 3, sigla: "P3", data: "2026-08-18", descricao: "Prova 3" },
-            { id: 4, sigla: "P4", data: "2026-08-25", descricao: "Prova 4" }
+            { id: 1, sigla: "P1", data: "2026-08-04", descricao: "Prova 1", peso: 1 },
+            { id: 2, sigla: "P2", data: "2026-08-10", descricao: "Prova 2", peso: 1 },
+            { id: 3, sigla: "P3", data: "2026-08-18", descricao: "Prova 3", peso: 1 },
+            { id: 4, sigla: "P4", data: "2026-08-25", descricao: "Prova 4", peso: 1 }
         ];
 
         // Armazenamento em memória das notas cadastradas { "alunoId_evalId": nota }
@@ -661,8 +756,185 @@
             btnElement.classList.add('active');
             document.getElementById('action-' + actionId).classList.add('active');
 
-            if (actionId === 'avaliacao') {
+            if (actionId === 'frequencia') {
+                renderFrequencia();
+            } else if (actionId === 'avaliacao') {
                 renderAvaliacoes();
+            }
+        }
+
+        // --- LÓGICA DA ABA FREQUÊNCIA E OCORRÊNCIAS ---
+        function renderFrequencia() {
+            const tbody = document.getElementById('body-frequencia-tr');
+            if (!tbody) return;
+
+            let bodyHtml = '';
+            alunos.forEach(aluno => {
+                const pcdIcon = aluno.pcd ? `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" title="Pessoa com Deficiência / Atendimento Especial">
+                        <circle cx="12" cy="12" r="10" fill="#2563eb"/>
+                        <circle cx="12" cy="6.5" r="1.5" fill="white"/>
+                        <path d="M7.5 10C7.22386 10 7 10.2239 7 10.5C7 10.7761 7.22386 11 7.5 11H11.25V13.8L9.62 18.15C9.52 18.41 9.65 18.7 9.91 18.8 10.17 18.9 10.46 18.77 10.56 18.51L12 14.67L13.44 18.51C13.54 18.77 13.83 18.41 14.38 18.15L12.75 13.8V11H16.5C16.7761 11 17 10.7761 17 10.5C17 10.2239 16.7761 10 16.5 10H7.5Z" fill="white"/>
+                    </svg>
+                ` : '';
+
+                const raCellContent = aluno.pcd ? `
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+                        ${pcdIcon}
+                        <span>${aluno.id}</span>
+                    </div>
+                ` : aluno.id;
+
+                bodyHtml += `
+                    <tr>
+                        <td>${raCellContent}</td>
+                        <td><img src="${aluno.photo}" class="student-photo" alt="Foto"></td>
+                        <td class="col-id">${aluno.nome}</td>
+                        <td>75%</td>
+                `;
+
+                datasFrequencia.forEach(data => {
+					const key = `${aluno.id}_${data}`;
+                    const ocorrenciaDataObj = ocorrenciasGuardadas[key];
+                    
+                    let temOcorrencia = false;
+                    if (ocorrenciaDataObj) {
+                        if (typeof ocorrenciaDataObj === 'string') {
+                            temOcorrencia = true;
+                        } else {
+                            // Verifica se há pelo menos um campo preenchido no objeto FIAP
+                            temOcorrencia = (
+                                ocorrenciaDataObj.dificuldades || 
+                                ocorrenciaDataObj.outras || 
+                                (ocorrenciaDataObj.recAluno && ocorrenciaDataObj.recAluno.length > 0) || 
+                                (ocorrenciaDataObj.recPais && ocorrenciaDataObj.recPais.length > 0)
+                            );
+                        }
+                    }
+
+                    // Coluna F (Falta)
+                    bodyHtml += `<td class="cell-check"><input type="checkbox"></td>`;
+
+                    // Coluna O (Ocorrência) - Botão Dinâmico
+                    if (temOcorrencia) {
+                        bodyHtml += `
+                            <td class="cell-check">
+                                <button class="btn-ocorrencia has-occurrence" 
+                                        onclick="abrirModalOcorrencia('${aluno.id}', '${data}')" 
+                                        title="Editar ocorrência do dia">📝</button>
+                            </td>
+                        `;
+                    } else {
+                        bodyHtml += `
+                            <td class="cell-check">
+                                <button class="btn-ocorrencia" 
+                                        onclick="abrirModalOcorrencia('${aluno.id}', '${data}')" 
+                                        title="Registrar Ocorrência">+</button>
+                            </td>
+                        `;
+                    }
+                });
+
+                bodyHtml += `</tr>`;
+            });
+
+            tbody.innerHTML = bodyHtml;
+        }
+
+		function abrirModalOcorrencia(alunoId, data) {
+            const aluno = alunos.find(a => a.id === alunoId);
+            if (!aluno) return;
+
+            // Preencher cabeçalho
+            document.getElementById('ocorrenciaAlunoId').value = alunoId;
+            document.getElementById('ocorrenciaData').value = data;
+            document.getElementById('ocorrenciaAlunoNome').innerText = aluno.nome;
+            document.getElementById('ocorrenciaAlunoRA').innerText = aluno.id;
+            document.getElementById('ocorrenciaDataDisplay').innerText = data;
+
+            const key = `${alunoId}_${data}`;
+            const ocorrenciaSalva = ocorrenciasGuardadas[key];
+
+            let difTexto = '', outrasTexto = '';
+            let recAluno = [], recPais = [];
+
+            if (ocorrenciaSalva) {
+                if (typeof ocorrenciaSalva === 'string') {
+                    difTexto = ocorrenciaSalva; // Compatibilidade com dados velhos
+                } else {
+                    difTexto = ocorrenciaSalva.dificuldades || '';
+                    outrasTexto = ocorrenciaSalva.outras || '';
+                    recAluno = ocorrenciaSalva.recAluno || [];
+                    recPais = ocorrenciaSalva.recPais || [];
+                }
+            }
+
+            // Preencher Textareas
+            document.getElementById('ocorrenciaDificuldades').value = difTexto;
+            document.getElementById('ocorrenciaOutras').value = outrasTexto;
+
+            // Marcar Checkboxes Aluno
+            document.querySelectorAll('.cb-aluno').forEach(cb => {
+                cb.checked = recAluno.includes(cb.value);
+            });
+
+            // Marcar Checkboxes Pais
+            document.querySelectorAll('.cb-pais').forEach(cb => {
+                cb.checked = recPais.includes(cb.value);
+            });
+
+            const btnExcluir = document.getElementById('btnExcluirOcorrencia');
+            
+            if (ocorrenciaSalva) {
+                btnExcluir.style.display = 'block';
+            } else {
+                btnExcluir.style.display = 'none';
+            }
+
+            document.getElementById('modalOcorrencia').style.display = 'flex';
+        }
+
+        function fecharModalOcorrencia() {
+            document.getElementById('modalOcorrencia').style.display = 'none';
+        }
+
+		function salvarOcorrencia() {
+            const alunoId = document.getElementById('ocorrenciaAlunoId').value;
+            const data = document.getElementById('ocorrenciaData').value;
+            
+            const dificuldades = document.getElementById('ocorrenciaDificuldades').value.trim();
+            const outras = document.getElementById('ocorrenciaOutras').value.trim();
+            
+            const recAluno = Array.from(document.querySelectorAll('.cb-aluno:checked')).map(cb => cb.value);
+            const recPais = Array.from(document.querySelectorAll('.cb-pais:checked')).map(cb => cb.value);
+
+            const key = `${alunoId}_${data}`;
+
+            // Se tudo estiver vazio, exclui o registro
+            if (dificuldades === '' && outras === '' && recAluno.length === 0 && recPais.length === 0) {
+                delete ocorrenciasGuardadas[key];
+            } else {
+                ocorrenciasGuardadas[key] = {
+                    dificuldades: dificuldades,
+                    outras: outras,
+                    recAluno: recAluno,
+                    recPais: recPais
+                };
+            }
+
+            fecharModalOcorrencia();
+            renderFrequencia();
+        }
+
+        function excluirOcorrencia() {
+            const alunoId = document.getElementById('ocorrenciaAlunoId').value;
+            const data = document.getElementById('ocorrenciaData').value;
+            const key = `${alunoId}_${data}`;
+
+            if (confirm("Tem certeza que deseja excluir esta ocorrência?")) {
+                delete ocorrenciasGuardadas[key];
+                fecharModalOcorrencia();
+                renderFrequencia();
             }
         }
 
@@ -672,20 +944,20 @@
             const headerTr = document.getElementById('header-avaliacoes-tr');
             const bodyTr = document.getElementById('body-avaliacoes-tr');
 
-            // 1. Renderizar Pílulas
+            // 1. Renderizar Pílulas com Sigla, Data e Peso
             if (avaliacoes.length === 0) {
                 containerPills.innerHTML = '<span style="font-size: 13px; color: #94a3b8; font-style: italic;">Nenhuma avaliação cadastrada. Clique em "+ Adicionar Avaliação".</span>';
             } else {
                 containerPills.innerHTML = avaliacoes.map(evalObj => `
-                    <button class="pill-button" onclick="abrirModalAvaliacao(${evalObj.id})" title="${evalObj.descricao} (${formatarDataBR(evalObj.data)})">
-                        <span>${evalObj.sigla}</span>
+                    <button class="pill-button" onclick="abrirModalAvaliacao(${evalObj.id})" title="${evalObj.descricao} (${formatarDataBR(evalObj.data)}) - Peso: ${evalObj.peso}">
+                        <span>${evalObj.sigla} (Peso ${evalObj.peso})</span>
                     </button>
                 `).join('');
             }
 
             // 2. Renderizar Cabeçalho da Tabela
             let headerHtml = `
-                <th style="width: 80px;">Código</th>
+                <th style="width: 80px;">RA</th>
                 <th style="width: 50px;">Foto</th>
                 <th class="col-id">Nome do Aluno</th>
                 <th style="width: 40px;">Nº</th>
@@ -693,16 +965,23 @@
 
             avaliacoes.forEach(evalObj => {
                 headerHtml += `
-                    <th style="min-width: 110px; background-color: #0284c7; color: white;">
+                    <th style="min-width: 120px; background-color: #0284c7; color: white;">
                         <div style="font-size: 13px; font-weight: bold;">${evalObj.sigla}</div>
-                        <div style="font-size: 10px; font-weight: normal; opacity: 0.9;">${formatarDataBR(evalObj.data)}</div>
+                        <div style="font-size: 10px; font-weight: normal; opacity: 0.9;">${formatarDataBR(evalObj.data)} • Peso ${evalObj.peso}</div>
                     </th>
                 `;
             });
 
+            headerHtml += `
+                <th style="min-width: 120px; background-color: #0f172a; color: white;">
+                    <div style="font-size: 13px; font-weight: bold;">Média Prevista</div>
+                    <div style="font-size: 10px; font-weight: normal; opacity: 0.8;">Cálculo Automático</div>
+                </th>
+            `;
+
             headerTr.innerHTML = headerHtml;
 
-            // 3. Renderizar Linhas dos Alunos com Inputs Dinâmicos de Notas
+            // 3. Renderizar Linhas dos Alunos
             let bodyHtml = '';
             alunos.forEach(aluno => {
                 bodyHtml += `
@@ -724,10 +1003,17 @@
                                    min="0" max="10" step="0.1" 
                                    value="${notaValor}" 
                                    placeholder="-" 
-                                   onchange="salvarNota('${aluno.id}', ${evalObj.id}, this.value)">
+                                   onchange="salvarNota('${aluno.id}', ${evalObj.id}, this.value)"
+                                   oninput="salvarNota('${aluno.id}', ${evalObj.id}, this.value)">
                         </td>
                     `;
                 });
+
+                bodyHtml += `
+                    <td style="background-color: #f8fafc; font-weight: bold; color: #0369a1; font-size: 14px;" id="media-${aluno.id}">
+                        ${calcularMediaPrevista(aluno.id)}
+                    </td>
+                `;
 
                 bodyHtml += `</tr>`;
             });
@@ -735,8 +1021,53 @@
             bodyTr.innerHTML = bodyHtml;
         }
 
+        // Função de Cálculo Dinâmico da Média Prevista
+        function calcularMediaPrevista(alunoId) {
+            const formulaInput = document.getElementById('campoFormulaMedia');
+            if (!formulaInput) return '-';
+            let expressao = formulaInput.value.trim();
+            if (!expressao) return '-';
+
+            avaliacoes.forEach(evalObj => {
+                const key = `${alunoId}_${evalObj.id}`;
+                const valStr = notasGuardadas[key];
+                const nota = (valStr !== undefined && valStr !== '') ? parseFloat(valStr) : 0;
+                
+                const regex = new RegExp(`\\b${evalObj.sigla}\\b`, 'gi');
+                expressao = expressao.replace(regex, nota);
+            });
+
+            try {
+                if (!/^[0-9\.\s\+\-\*\/\(\)]+$/.test(expressao)) {
+                    return 'Fórmula Inválida';
+                }
+
+                const resultado = Function(`'use strict'; return (${expressao})`)();
+                if (isNaN(resultado) || !isFinite(resultado)) {
+                    return '-';
+                }
+                return resultado.toFixed(1);
+            } catch (e) {
+                return 'Erro';
+            }
+        }
+
         function salvarNota(alunoId, evalId, valor) {
             notasGuardadas[`${alunoId}_${evalId}`] = valor;
+            atualizarMediaAluno(alunoId);
+        }
+
+        function atualizarMediaAluno(alunoId) {
+            const el = document.getElementById(`media-${alunoId}`);
+            if (el) {
+                el.innerText = calcularMediaPrevista(alunoId);
+            }
+        }
+
+        function recalcularTodasMedias() {
+            alunos.forEach(aluno => {
+                atualizarMediaAluno(aluno.id);
+            });
         }
 
         function abrirModalAvaliacao(id = null) {
@@ -744,6 +1075,7 @@
             const title = document.getElementById('modalAvaliacaoTitulo');
             const evalIdInput = document.getElementById('evalId');
             const siglaInput = document.getElementById('evalSigla');
+            const pesoInput = document.getElementById('evalPeso');
             const dataInput = document.getElementById('evalData');
             const descInput = document.getElementById('evalDescricao');
             const btnExcluir = document.getElementById('btnExcluirEval');
@@ -755,6 +1087,7 @@
                 title.innerText = "Editar Avaliação";
                 evalIdInput.value = evalObj.id;
                 siglaInput.value = evalObj.sigla;
+                pesoInput.value = evalObj.peso !== undefined ? evalObj.peso : 1;
                 dataInput.value = evalObj.data;
                 descInput.value = evalObj.descricao;
                 btnExcluir.style.display = "block";
@@ -762,6 +1095,7 @@
                 title.innerText = "Adicionar Avaliação";
                 evalIdInput.value = "";
                 siglaInput.value = "";
+                pesoInput.value = 1;
                 dataInput.value = new Date().toISOString().split('T')[0];
                 descInput.value = "";
                 btnExcluir.style.display = "none";
@@ -777,6 +1111,8 @@
         function salvarAvaliacao() {
             const id = document.getElementById('evalId').value;
             const sigla = document.getElementById('evalSigla').value.trim().toUpperCase();
+            const pesoVal = document.getElementById('evalPeso').value;
+            const peso = pesoVal !== '' ? parseFloat(pesoVal) : 1;
             const data = document.getElementById('evalData').value;
             const descricao = document.getElementById('evalDescricao').value.trim();
 
@@ -786,6 +1122,10 @@
             }
             if (sigla.length > 3) {
                 alert("A sigla deve conter no máximo 3 caracteres.");
+                return;
+            }
+            if (isNaN(peso) || peso <= 0) {
+                alert("Por favor, informe um peso válido e maior que zero.");
                 return;
             }
             if (!data) {
@@ -798,19 +1138,19 @@
             }
 
             if (id) {
-                // Editar existente
                 const evalObj = avaliacoes.find(a => a.id == id);
                 if (evalObj) {
                     evalObj.sigla = sigla;
+                    evalObj.peso = peso;
                     evalObj.data = data;
                     evalObj.descricao = descricao;
                 }
             } else {
-                // Adicionar nova
                 const novoId = avaliacoes.length > 0 ? Math.max(...avaliacoes.map(a => a.id)) + 1 : 1;
                 avaliacoes.push({
                     id: novoId,
                     sigla: sigla,
+                    peso: peso,
                     data: data,
                     descricao: descricao
                 });
@@ -930,8 +1270,9 @@
             }
         }
 
-        // Inicializar renderização caso acesse diretamente
+        // Inicializar renderização das abas
         window.addEventListener('DOMContentLoaded', () => {
+            renderFrequencia();
             renderAvaliacoes();
         });
     </script>
