@@ -635,6 +635,18 @@
                     <li class="sidebar-item" id="menu-programa">
                         <a href="#" onclick="switchTab(event, 'dados-programa', 'menu-programa')">Conteúdo Programático</a>
                     </li>
+                    <li class="sidebar-item" id="menu-objetivo">
+                        <a href="#" onclick="switchTab(event, 'dados-objetivo', 'menu-objetivo')">Objetivos</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-habilidades">
+                        <a href="#" onclick="switchTab(event, 'dados-habilidades', 'menu-habilidades')">Habilidades</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-atividades">
+                        <a href="#" onclick="switchTab(event, 'dados-atividades', 'menu-atividades')">Atividades</a>
+                    </li>
+
+
+
                     <li class="sidebar-item" id="menu-dados-requisito">
                         <a href="#" onclick="switchTab(event, 'dados-requisito', 'menu-requisito')">Pré-requisito</a>
                     </li>
@@ -781,7 +793,7 @@ Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A 
 
 				
         
-            <!-- 3. ABA: Carga Horária -->
+            <!-- 2. ABA: Carga Horária -->
             <div id="dados-cargahoraria" class="tab-content">
                 <h2 class="section-header">Carga Horário</h2>
                 <h3>Catálogo 2027</h3>
@@ -815,7 +827,7 @@ Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A 
             </div>
 
 
-            <!-- 2. ABA: Dados do bilbiografia (Sem a classe active) -->
+            <!-- 3. ABA: Dados do bilbiografia (Sem a classe active) -->
             <div id="dados-bilbiografia" class="tab-content">
                 <h2 class="section-header">Dados da bibliografia</h2>
                 <h3>Catálogo 2027</h3>
@@ -842,7 +854,7 @@ Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A 
                 </form>
             </div>   
 
-            <!-- 2. ABA: Dados do bilbiografia (Sem a classe active) -->
+            <!-- 4. ABA: Dados do Conteúdo Programático (Sem a classe active) -->
             <div id="dados-programa" class="tab-content">
                 <h2 class="section-header">Conteúdo Programático</h2>
                 <h3>Catálogo 2027</h3>
@@ -858,9 +870,131 @@ Período de Oferecimento - Todos os períodos - 1º Período - 2º Período - A 
                         </textarea>
                     </div>              									
                 </form>
-            </div>   
+            </div> 
 
-            <!-- 2. ABA: Dados do bilbiografia (Sem a classe active) -->
+            <!-- 5. ABA: Dados do objetivo (Sem a classe active) -->
+            <div id="dados-objetivo" class="tab-content">
+                <h2 class="section-header">Objetivos</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="objetivo-bas">Geral</label>
+                        <textarea 
+                            id="objetivo-bas" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>              
+                    <div class="form-group span-2">
+                        <label for="objetivo-comp">Específico</label>
+                        <textarea 
+                            id="objetivo-comp" 
+                            placeholder="Digite aqui informações adicionais .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>									
+                </form>
+            </div> 
+			
+            <!-- 6. ABA: Dados habilidade (Sem a classe active) -->
+            <div id="dados-habilidades" class="tab-content">
+                <h2 class="section-header">Habilidades</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="habilidade-bas">Específico curso</label>
+                        <textarea 
+                            id="habilidade-bas" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>              
+                    <div class="form-group span-2">
+                        <label for="habilidade-comp">Específico área</label>
+                        <textarea 
+                            id="habilidade-comp" 
+                            placeholder="Digite aqui informações adicionais .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>									
+                </form>
+            </div> 	
+
+
+
+
+
+            <!-- 7. ABA: Dados atividades (Sem a classe active) -->
+            <div id="dados-atividades" class="tab-content">
+                <h2 class="section-header">Atividades</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="atividades-1">Atividades fora de aula</label>
+                        <textarea 
+                            id="atividades-1" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>              
+                    <div class="form-group span-2">
+                        <label for="atividades-2">Metodologia de ensino</label>
+                        <textarea 
+                            id="atividades-2" 
+                            placeholder="Digite aqui informações adicionais .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>
+                    <div class="form-group span-2">
+                        <label for="atividades-3">Recursos didaticos</label>
+                        <textarea 
+                            id="atividades-3" 
+                            placeholder="Digite aqui informações adicionais .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>		
+                    <div class="form-group span-2">
+                        <label for="atividades-4">Recuperacao</label>
+                        <textarea 
+                            id="atividades-4" 
+                            placeholder="Digite aqui informações adicionais .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>		
+                    <div class="form-group span-2">
+                        <label for="atividades-5">Competências específicas área</label>
+                        <textarea 
+                            id="atividades-5" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div>      
+                    <div class="form-group span-2">
+                        <label for="atividades-6">Objetos do conhecimento</label>
+                        <textarea 
+                            id="atividades-6" 
+                            placeholder="Digite aqui informações .." 
+                            rows="4" 
+                            maxlength="500">
+                        </textarea>
+                    </div> 					
+                </form>
+            </div> 	
+						
+			
+            <!-- . ABA: Pré-Requisisto (Sem a classe active) -->
             <div id="dados-requisito" class="tab-content">
                 <h2 class="section-header">Pré - Requisito</h2>
                 <h3>Catálogo 2027</h3>
