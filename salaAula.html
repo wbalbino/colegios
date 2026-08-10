@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITEC - Gestão de Salas</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --sitec-primary: #004b87;
+            --sitec-secondary: #f4f6f9;
+        }
+
+        body {
+            background-color: var(--sitec-secondary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Sidebar do SITEC */
+        .wrapper {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--sitec-primary);
+            color: white;
+            padding-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .sidebar h4 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #d1d5db;
+            display: block;
+            border-left: 4px solid transparent;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-left: 4px solid #fff;
+        }
+
+        /* Área de Conteúdo Principal */
+        .content {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .card-sitec {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .table-sortable th {
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .table-sortable th:hover {
+            background-color: #f8f9fa;
+        }
+
+        .sort-icon {
+            font-size: 0.8em;
+            color: #999;
+            margin-left: 5px;
+        }
+        
+        /* Estilos da barra de filtros */
+        .filter-bar {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        /* Classe para salas desativadas */
+        .sala-desativada {
+            opacity: 0.6;
+            background-color: #f8f9fa !important;
+        }
+        .sala-desativada td {
+            text-decoration: line-through;
+            text-decoration-color: #adb5bd;
+        }
+        .sala-desativada td:first-child, .sala-desativada td:last-child {
+            text-decoration: none; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav class="sidebar d-none d-md-block">
+        <h4><i class="fas fa-graduation-cap me-2"></i>SITEC</h4>
+        <a href="#"><i class="fas fa-home me-2"></i> Início</a>
+        <a href="#"><i class="fas fa-book me-2"></i> Cursos e Currículos</a>
+        <a href="#" class="active"><i class="fas fa-door-open me-2"></i> Infraestrutura (Salas)</a>
+        <a href="#"><i class="fas fa-calendar-alt me-2"></i> Calendário Acadêmico</a>
+    </nav>
+
+    <!-- Conteúdo -->
+    <div class="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="mb-0 text-dark">Gestão de Salas de Aula</h2>
+                <small class="text-muted">Cadastre, edite e organize o espaço físico da instituição.</small>
+            </div>
+            <button class="btn btn-primary" style="background-color: var(--sitec-primary);" onclick="abrirModalCadastro()">
+                <i class="fas fa-plus me-2"></i> Nova Sala
+            </button>
+        </div>
+
+        <!-- Barra de Filtros -->
+        <div class="filter-bar row g-3">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-light"><i class="fas fa-search text-muted"></i></span>
+                    <input type="text" id="filtroCodigo" class="form-control" placeholder="Filtrar por Código/Nome..." onkeyup="filtrarTabela()">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-light"><i class="fas fa-map-marker-alt text-muted"></i></span>
+                    <select id="filtroLocalizacao" class="form-select" onchange="filtrarTabela()">
+                        <option value="">Todas as Localizações...</option>
+                        <option value="Colégio">Colégio</option>
+                        <option value="Anglo">Anglo</option>
+                        <option value="Campus">Campus</option>
+                        <option value="sem_local">Sem Localização</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-secondary w-100" onclick="limparFiltros()">Limpar Filtros</button>
+            </div>
+        </div>
+
+        <!-- Card da Tabela -->
+        <div class="card card-sitec">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sortable mb-0" id="tabelaSalas">
+                        <thead class="table-light">
+                            <tr>
+                                <th onclick="ordenarTabela('codigo')">Código/Nome <i class="fas fa-sort sort-icon" id="icon-codigo"></i></th>
+                                <th onclick="ordenarTabela('departamento')">Departamento <i class="fas fa-sort sort-icon" id="icon-departamento"></i></th>
+                                <th onclick="ordenarTabela('capacidade')">Capacidade <i class="fas fa-sort sort-icon" id="icon-capacidade"></i></th>
+                                <th onclick="ordenarTabela('localizacao')">Localização <i class="fas fa-sort sort-icon" id="icon-localizacao"></i></th>
+                                <th>Andar / Piso</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaSalas">
+                            <!-- Os dados serão injetados via JavaScript aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Cadastro / Edição -->
+<div class="modal fade" id="modalSala" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-white" style="background-color: var(--sitec-primary);">
+                <h5 class="modal-title" id="modalTitulo">Cadastrar Nova Sala</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formSala" onsubmit="salvarSala(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="salaId">
+                    
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código/Nome da Sala <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="codigo" placeholder="Ex: S101, Lab-Info" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="departamento" class="form-label">Depto. Responsável <span class="text-danger">*</span></label>
+                        <select class="form-select" id="departamento" required>
+                            <option value="" disabled selected>Selecione o departamento...</option>
+                            <option value="Diretoria Geral">Diretoria Geral</option>
+                            <option value="Ciências Exatas">Ciências Exatas</option>
+                            <option value="Ciências Biológicas">Ciências Biológicas</option>
+                            <option value="Ciências Humanas">Ciências Humanas</option>
+                            <option value="TI e Infraestrutura">TI e Infraestrutura</option>
+                        </select>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="capacidade" class="form-label">Capacidade <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="capacidade" min="1" placeholder="Ex: 40" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="piso" class="form-label">Piso / Andar</label>
+                            <select class="form-select" id="piso">
+                                <option value="">Opcional...</option>
+                                <option value="1º Andar">1º Andar</option>
+                                <option value="2º Andar">2º Andar</option>
+                                <option value="3º Andar">3º Andar</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="localizacao" class="form-label">Localização (Unidade)</label>
+                        <select class="form-select" id="localizacao">
+                            <option value="">Selecione a unidade (opcional)...</option>
+                            <option value="Colégio">Colégio</option>
+                            <option value="Anglo">Anglo</option>
+                            <option value="Campus">Campus</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: var(--sitec-primary);">Salvar Sala</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Banco de Dados simulado atualizado com os novos campos
+    let salas = [
+        { id: 1, codigo: 'S101', departamento: 'Ciências Exatas', capacidade: 40, localizacao: 'Colégio', piso: '1º Andar', ativa: true },
+        { id: 2, codigo: 'S205', departamento: 'Ciências Humanas', capacidade: 30, localizacao: 'Anglo', piso: '2º Andar', ativa: true },
+        { id: 3, codigo: 'AUD-1', departamento: 'Diretoria Geral', capacidade: 120, localizacao: 'Campus', piso: '', ativa: false }, 
+        { id: 4, codigo: 'LAB-3', departamento: 'TI e Infraestrutura', capacidade: 25, localizacao: '', piso: '3º Andar', ativa: true } // Sala sem localização
+    ];
+
+    let modalInstancia;
+    // Adicionado o departamento nas opções de ordenação
+    let direcaoOrdenacao = { codigo: true, departamento: true, capacidade: true, localizacao: true };
+
+    document.addEventListener("DOMContentLoaded", function() {
+        modalInstancia = new bootstrap.Modal(document.getElementById('modalSala'));
+        renderizarTabela();
+    });
+
+    function filtrarTabela() {
+        const termoCodigo = document.getElementById('filtroCodigo').value.toLowerCase();
+        const termoLocalizacao = document.getElementById('filtroLocalizacao').value;
+
+        const salasFiltradas = salas.filter(sala => {
+            const matchCodigo = sala.codigo.toLowerCase().includes(termoCodigo);
+            
+            let matchLocalizacao = true;
+            if (termoLocalizacao === 'sem_local') {
+                matchLocalizacao = (sala.localizacao === '');
+            } else if (termoLocalizacao !== '') {
+                matchLocalizacao = (sala.localizacao === termoLocalizacao);
+            }
+
+            return matchCodigo && matchLocalizacao;
+        });
+
+        renderizarTabela(salasFiltradas);
+    }
+
+    function limparFiltros() {
+        document.getElementById('filtroCodigo').value = '';
+        document.getElementById('filtroLocalizacao').value = '';
+        renderizarTabela();
+    }
+
+    function renderizarTabela(dados = salas) {
+        const tbody = document.getElementById('listaSalas');
+        tbody.innerHTML = '';
+
+        if (dados.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">Nenhuma sala encontrada.</td></tr>`;
+            return;
+        }
+
+        dados.forEach(sala => {
+            const exibicaoPiso = sala.piso 
+                ? `<span class="badge ${sala.ativa ? 'bg-secondary' : 'bg-light text-dark border'}">${sala.piso}</span>` 
+                : `<span class="text-muted" style="font-size: 0.85em; font-style: italic;">Não informado</span>`;
+
+            const exibicaoLocal = sala.localizacao 
+                ? sala.localizacao 
+                : `<span class="text-muted" style="font-size: 0.85em; font-style: italic;">Não definida</span>`;
+
+            const trClass = sala.ativa ? '' : 'sala-desativada';
+            const badgeStatus = sala.ativa ? '' : '<span class="badge bg-danger ms-2">Desativada</span>';
+            
+            const btnEditar = sala.ativa 
+                ? `<button class="btn btn-sm btn-outline-primary me-1" onclick="editarSala(${sala.id})" title="Editar"><i class="fas fa-edit"></i></button>`
+                : `<button class="btn btn-sm btn-outline-secondary me-1" disabled title="Reative a sala para editá-la"><i class="fas fa-edit"></i></button>`;
+
+            const btnAtivarDesativar = sala.ativa
+                ? `<button class="btn btn-sm btn-outline-warning" onclick="alternarStatusSala(${sala.id})" title="Desativar Sala"><i class="fas fa-power-off"></i></button>`
+                : `<button class="btn btn-sm btn-outline-success" onclick="alternarStatusSala(${sala.id})" title="Reativar Sala"><i class="fas fa-check"></i> Reativar</button>`;
+
+            const tr = document.createElement('tr');
+            tr.className = trClass;
+            tr.innerHTML = `
+                <td class="fw-bold text-dark">${sala.codigo} ${badgeStatus}</td>
+                <td>${sala.departamento}</td>
+                <td>${sala.capacidade} alunos</td>
+                <td>${exibicaoLocal}</td>
+                <td>${exibicaoPiso}</td>
+                <td class="text-end" style="min-width: 100px;">
+                    ${btnEditar}
+                    ${btnAtivarDesativar}
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function ordenarTabela(coluna) {
+        document.querySelectorAll('.sort-icon').forEach(icon => {
+            icon.className = 'fas fa-sort sort-icon';
+        });
+
+        const crescente = direcaoOrdenacao[coluna];
+        
+        salas.sort((a, b) => {
+            let valorA = a[coluna];
+            let valorB = b[coluna];
+
+            if (coluna === 'capacidade') {
+                return crescente ? valorA - valorB : valorB - valorA;
+            }
+
+            valorA = valorA.toLowerCase();
+            valorB = valorB.toLowerCase();
+            
+            if (valorA < valorB) return crescente ? -1 : 1;
+            if (valorA > valorB) return crescente ? 1 : -1;
+            return 0;
+        });
+
+        direcaoOrdenacao[coluna] = !crescente;
+
+        const iconeAtual = document.getElementById(`icon-${coluna}`);
+        iconeAtual.className = crescente ? 'fas fa-sort-up sort-icon text-dark' : 'fas fa-sort-down sort-icon text-dark';
+
+        filtrarTabela(); 
+    }
+
+    function abrirModalCadastro() {
+        document.getElementById('formSala').reset();
+        document.getElementById('salaId').value = '';
+        document.getElementById('modalTitulo').innerText = 'Cadastrar Nova Sala';
+        modalInstancia.show();
+    }
+
+    function editarSala(id) {
+        const sala = salas.find(s => s.id === id);
+        if (sala && sala.ativa) {
+            document.getElementById('salaId').value = sala.id;
+            document.getElementById('codigo').value = sala.codigo;
+            document.getElementById('departamento').value = sala.departamento;
+            document.getElementById('capacidade').value = sala.capacidade;
+            document.getElementById('localizacao').value = sala.localizacao;
+            document.getElementById('piso').value = sala.piso;
+            
+            document.getElementById('modalTitulo').innerText = 'Editar Sala: ' + sala.codigo;
+            modalInstancia.show();
+        }
+    }
+
+    function salvarSala(event) {
+        event.preventDefault();
+
+        const idAtual = document.getElementById('salaId').value;
+        
+        if (idAtual) {
+            // Edição
+            const index = salas.findIndex(s => s.id === parseInt(idAtual));
+            salas[index].codigo = document.getElementById('codigo').value;
+            salas[index].departamento = document.getElementById('departamento').value;
+            salas[index].capacidade = parseInt(document.getElementById('capacidade').value);
+            salas[index].localizacao = document.getElementById('localizacao').value;
+            salas[index].piso = document.getElementById('piso').value;
+        } else {
+            // Nova Sala
+            const novaSala = {
+                id: Date.now(),
+                codigo: document.getElementById('codigo').value,
+                departamento: document.getElementById('departamento').value,
+                capacidade: parseInt(document.getElementById('capacidade').value),
+                localizacao: document.getElementById('localizacao').value,
+                piso: document.getElementById('piso').value,
+                ativa: true
+            };
+            salas.push(novaSala);
+        }
+
+        filtrarTabela(); 
+        modalInstancia.hide();
+    }
+
+    function alternarStatusSala(id) {
+        const index = salas.findIndex(s => s.id === id);
+        if (index !== -1) {
+            const nomeSala = salas[index].codigo;
+            const acao = salas[index].ativa ? "desativar" : "reativar";
+            
+            if(confirm(`Tem certeza que deseja ${acao} a sala ${nomeSala}?`)) {
+                salas[index].ativa = !salas[index].ativa;
+                filtrarTabela(); 
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
