@@ -53,6 +53,7 @@
             flex-direction: column;
             padding: 24px 16px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
         }
 
         .sidebar-section {
@@ -129,7 +130,14 @@
             font-weight: 600;
             padding-bottom: 16px;
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 24px;
+            margin-bottom: 12px;
+        }
+
+        .catalog-title {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
         .form-grid {
@@ -254,12 +262,6 @@
             transition: all 0.2s ease;
         }
 
-        .prereq-box, .equiv-box {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px 0;
-            width: 100%;
-        }
-
         .prereq-fieldset, .equiv-fieldset {
             border: 1px solid #cbd5e1;
             border-radius: 8px;
@@ -277,25 +279,20 @@
             gap: 6px;
         }
 
-        .help-tooltip {
+        button.help-tooltip {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             background: linear-gradient(180deg, #93c5fd 0%, #3b82f6 100%);
             color: #ffffff;
             font-size: 11px;
             font-weight: bold;
             border-radius: 50%;
+            border: none;
             cursor: pointer;
             box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .prereq-actions, .equiv-actions {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
         }
 
         .btn-system {
@@ -316,23 +313,6 @@
             color: #1e293b;
         }
 
-        .prereq-row, .equiv-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 14px;
-        }
-
-        .prereq-label, .equiv-label {
-            font-weight: 500;
-            color: #1e293b;
-        }
-
-        .prereq-connector, .equiv-connector {
-            color: #64748b;
-            font-style: italic;
-        }
-
         .chain-badge {
             display: inline-block;
             padding: 6px 12px;
@@ -340,30 +320,7 @@
             border: 1px solid transparent;
         }
 
-        .chain-badge a {
-            color: #1d4ed8;
-            text-decoration: underline;
-            font-weight: 600;
-        }
-
         .badge-gray { background-color: #e2e8f0; border-color: #cbd5e1; }
-        .badge-green { background-color: #dcfee7; border-color: #bbf7d0; }
-
-        .situacao-container {
-            margin-bottom: 16px;
-            font-size: 14px;
-        }
-
-        .situacao-label {
-            color: #4a5568;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .situacao-valor {
-            font-weight: 700;
-            color: #1a202c;
-        }
 
         .cadeia-table {
             width: 100%;
@@ -392,24 +349,30 @@
             background-color: #f8fafc;
         }
 
-        .btn-delete-row {
-            color: #dc2626;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                height: auto;
+                overflow: auto;
+                padding: 10px;
+            }
 
-        .input-table, .select-table {
-            width: 100%;
-            padding: 6px 8px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 13px;
+            .app-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .span-2 {
+                grid-column: span 1;
+            }
         }
     </style>
 </head>
@@ -424,33 +387,33 @@
             </a>		
             <div class="sidebar-section">
                 <div class="sidebar-title">Cadastro</div>
-                <ul class="sidebar-menu">
+                <ul class="sidebar-menu" role="tablist">
                     <li class="sidebar-item active" id="menu-dados-disciplina">
-                        <a href="#" onclick="switchTab(event, 'dados-disciplina', 'menu-dados-disciplina')">Dados da disciplina</a>
+                        <a href="#" role="tab" aria-selected="true" aria-controls="dados-disciplina" onclick="switchTab(event, 'dados-disciplina', 'menu-dados-disciplina')">Dados da disciplina</a>
                     </li>
                     <li class="sidebar-item" id="menu-cargahoraria">
-                        <a href="#" onclick="switchTab(event, 'dados-cargahoraria', 'menu-cargahoraria')">Carga Horária</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-cargahoraria" onclick="switchTab(event, 'dados-cargahoraria', 'menu-cargahoraria')">Carga Horária</a>
                     </li>
                     <li class="sidebar-item" id="menu-dados-bibliografia">
-                        <a href="#" onclick="switchTab(event, 'dados-bibliografia', 'menu-dados-bibliografia')">Bibliografia</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-bibliografia" onclick="switchTab(event, 'dados-bibliografia', 'menu-dados-bibliografia')">Bibliografia</a>
                     </li>                   
                     <li class="sidebar-item" id="menu-programa">
-                        <a href="#" onclick="switchTab(event, 'dados-programa', 'menu-programa')">Conteúdo Programático</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-programa" onclick="switchTab(event, 'dados-programa', 'menu-programa')">Conteúdo Programático</a>
                     </li>
                     <li class="sidebar-item" id="menu-objetivo">
-                        <a href="#" onclick="switchTab(event, 'dados-objetivo', 'menu-objetivo')">Objetivos</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-objetivo" onclick="switchTab(event, 'dados-objetivo', 'menu-objetivo')">Objetivos</a>
                     </li>
                     <li class="sidebar-item" id="menu-habilidades">
-                        <a href="#" onclick="switchTab(event, 'dados-habilidades', 'menu-habilidades')">Habilidades</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-habilidades" onclick="switchTab(event, 'dados-habilidades', 'menu-habilidades')">Habilidades</a>
                     </li>
                     <li class="sidebar-item" id="menu-atividades">
-                        <a href="#" onclick="switchTab(event, 'dados-atividades', 'menu-atividades')">Atividades</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-atividades" onclick="switchTab(event, 'dados-atividades', 'menu-atividades')">Atividades</a>
                     </li>
                     <li class="sidebar-item" id="menu-dados-requisito">
-                        <a href="#" onclick="switchTab(event, 'dados-requisito', 'menu-dados-requisito')">Pré-requisito</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-requisito" onclick="switchTab(event, 'dados-requisito', 'menu-dados-requisito')">Pré-requisito</a>
                     </li>
                     <li class="sidebar-item" id="menu-dados-equivalencia">
-                        <a href="#" onclick="switchTab(event, 'dados-equivalencia', 'menu-dados-equivalencia')">Equivalência</a>
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-equivalencia" onclick="switchTab(event, 'dados-equivalencia', 'menu-dados-equivalencia')">Equivalência</a>
                     </li>
                 </ul>
             </div>
@@ -460,10 +423,10 @@
         <main class="main-content">
 
             <!-- 1. ABA: Dados Geral Disciplina -->
-            <div id="dados-disciplina" class="tab-content active">
+            <div id="dados-disciplina" class="tab-content active" role="tabpanel">
                 <h2 class="section-header">Dados da disciplina</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
+                <h3 class="catalog-title">Catálogo 2027</h3>
+                
                 <form class="form-grid">
                     <div class="form-group">
                         <label for="codigo">Código da disciplina<span class="required">*</span></label>
@@ -559,43 +522,43 @@
             </div>
         
             <!-- 2. ABA: Carga Horária -->
-            <div id="dados-cargahoraria" class="tab-content">
+            <div id="dados-cargahoraria" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Carga Horária</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
+                <h3 class="catalog-title">Catálogo 2027</h3>
+                
                 <form class="form-grid">
                     <div class="form-group span-2">                
                         <label for="carga-total">Total da carga horária<span class="required">*</span></label>
-                        <input type="text" id="carga-total" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                        <input type="number" min="0" id="carga-total" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
                     </div>              
                     <div class="form-group span-2">                
                         <label for="carga-aula-quadro">Total aula_quadro<span class="required">*</span></label>
-                        <input type="text" id="carga-aula-quadro" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                        <input type="number" min="0" id="carga-aula-quadro" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
                     </div>              
                     <div class="form-group span-2">                
                         <label for="carga-presencial">Total ch_presencial<span class="required">*</span></label>
-                        <input type="text" id="carga-presencial" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                        <input type="number" min="0" id="carga-presencial" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
                     </div>              
                     <div class="form-group span-2">                
                         <label for="carga-npresencial">Total ch_n_presencial<span class="required">*</span></label>
-                        <input type="text" id="carga-npresencial" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                        <input type="number" min="0" id="carga-npresencial" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
                     </div>      
                     <div class="form-group span-2">                
                         <label for="carga-pratica-presencial">ch_pratica_presencial<span class="required">*</span></label>
-                        <input type="text" id="carga-pratica-presencial" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                        <input type="number" min="0" id="carga-pratica-presencial" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
                     </div>					
                     <div class="form-group span-2">                
                         <label for="creditos">Total creditos<span class="required">*</span></label>
-                        <input type="text" id="creditos" placeholder="Digite a carga horária padrão da disciplina (em horas de aula).">
+                        <input type="number" min="0" id="creditos" placeholder="Digite a quantidade de créditos.">
                     </div>              									
                 </form>
             </div>
 
             <!-- 3. ABA: Bibliografia -->
-            <div id="dados-bibliografia" class="tab-content">
+            <div id="dados-bibliografia" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Dados da bibliografia</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
+                <h3 class="catalog-title">Catálogo 2027</h3>
+                
                 <form class="form-grid">
                     <div class="form-group span-2">
                         <label for="bibliografia-basica">Básica</label>
@@ -609,10 +572,10 @@
             </div>   
 
             <!-- 4. ABA: Conteúdo Programático -->
-            <div id="dados-programa" class="tab-content">
+            <div id="dados-programa" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Conteúdo Programático</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
+                <h3 class="catalog-title">Catálogo 2027</h3>
+                
                 <form class="form-grid">
                     <div class="form-group span-2">
                         <label for="programa-bas">Conteúdo Programático</label>
@@ -622,10 +585,10 @@
             </div> 
 
             <!-- 5. ABA: Objetivos -->
-            <div id="dados-objetivo" class="tab-content">
+            <div id="dados-objetivo" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Objetivos</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
+                <h3 class="catalog-title">Catálogo 2027</h3>
+                
                 <form class="form-grid">
                     <div class="form-group span-2">
                         <label for="objetivo-bas">Geral</label>
@@ -639,10 +602,10 @@
             </div> 
 			
             <!-- 6. ABA: Habilidades -->
-            <div id="dados-habilidades" class="tab-content">
+            <div id="dados-habilidades" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Habilidades</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
+                <h3 class="catalog-title">Catálogo 2027</h3>
+                
                 <form class="form-grid">
                     <div class="form-group span-2">
                         <label for="habilidade-bas">Específico curso</label>
@@ -656,10 +619,10 @@
             </div> 	
 
             <!-- 7. ABA: Atividades -->
-            <div id="dados-atividades" class="tab-content">
+            <div id="dados-atividades" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Atividades</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
+                <h3 class="catalog-title">Catálogo 2027</h3>
+                
                 <form class="form-grid">
                     <div class="form-group span-2">
                         <label for="atividades-11">Método de avaliação</label>
@@ -692,90 +655,109 @@
                 </form>
             </div> 	
 						
-            <!-- 8. ABA: Pré-Requisito -->
-            <div id="dados-requisito" class="tab-content">
+            <!-- 8. ABA: Pré-Requisito (Classe active removida) -->
+            <div id="dados-requisito" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Pré - Requisito</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
-                <form class="form-grid">
-                    <div class="prereq-box">
-                        <fieldset class="prereq-fieldset">
-                            <legend class="prereq-legend">
-                                Selecione Cadeia de Pré-Requisitos
-                                <span class="help-tooltip" title="Clique para obter ajuda">?</span>
-                            </legend>
+                <h3 class="catalog-title">Catálogo 2027</h3>
 
-                            <div class="prereq-actions">
-                                <button type="button" class="btn-system">Nova Cadeia</button>
-                                <button type="button" class="btn-system">Reverter Alterações</button>
-                            </div>
+                <fieldset class="prereq-fieldset">
+                    <legend class="prereq-legend">
+                        Selecione Cadeia de Pré-Requisitos
+                        <button type="button" class="help-tooltip" aria-label="Ajuda" title="Gerencie as cadeias de pré-requisito vinculadas a este catálogo">?</button>
+                    </legend>
 
-                            <div class="prereq-row">
-                                <span class="prereq-label">Cadeia(s):</span>
-                                <span class="chain-badge badge-gray">
-                                    <a href="#" onclick="gerenciarCadeia(event, 'cadeia1')">AA935</a>
-                                </span>
-                                <span class="prereq-connector">ou</span>
-                                <span class="chain-badge badge-green">
-                                    <a href="#" onclick="gerenciarCadeia(event, 'cadeia2')">*EE400 & EE523</a>
-                                </span>
-                                <span class="prereq-connector">ou</span>
-                                <span class="chain-badge badge-gray">
-                                    <a href="#" onclick="gerenciarCadeia(event, 'cadeia3')">EN205 + EN109 + EN110 + EN207</a>
-                                </span>
-                                <span class="prereq-connector">ou</span>
-                                <span class="chain-badge badge-green">
-                                    <a href="#" onclick="gerenciarCadeia(event, 'cadeia4')">EN205 + AA200</a>
-                                </span>
-                            </div>
-                        </fieldset>
-
-                        <fieldset id="section-manter-cadeia" class="prereq-fieldset" style="display: none; margin-top: 20px;">
-                            <legend class="prereq-legend">Manter Cadeia</legend>
-                            
-                            <div class="situacao-container">
-                                <span class="situacao-label">Situação:</span>
-                                <span class="situacao-valor">Vigente</span>
-                            </div>
-
-                            <table class="cadeia-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 40px; text-align: center;"></th>
-                                        <th style="width: 130px;">Código</th>
-                                        <th style="width: 140px;">Característica</th>
-                                        <th style="width: 150px;">Nível</th>
-                                        <th>Nome</th>
-                                        <th style="width: 180px;">Último Oferecimento</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-body-cadeia"></tbody>
-                            </table>
-
-                            <div class="prereq-actions" style="margin-top: 20px; margin-bottom: 0;">
-                                <button type="button" class="btn-system">Salvar Cadeia</button>
-                                <button type="button" class="btn-system">Nova Disciplina</button>
-                                <button type="button" class="btn-system">Excluir Cadeia</button>
-                                <button type="button" class="btn-system" onclick="fecharManterCadeia()">Cancelar</button>
-                            </div>
-                        </fieldset>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="font-size: 13px; color: #475569; font-weight: 600;">Cadeias ativas:</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn-system" onclick="reverterAlteracoesPrereq()">Reverter Alterações</button>
+                            <button type="button" class="btn-system" style="background-color: #1e3a8a; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;" onclick="abrirFormularioPrereq()">
+                                + Nova Cadeia
+                            </button>
+                        </div>
                     </div>
-                </form>
-            </div>   
 
+                    <div style="overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+                        <table class="cadeia-table" style="margin-top: 0;">
+                            <thead>
+                                <tr>
+                                    <th>Código do curso</th>
+                                    <th>Ano do currículo</th>
+                                    <th>Período sugerido</th>
+                                    <th>Semestre sugerido</th>
+                                    <th>Pré-Requisito</th>
+                                    <th style="width: 100px; text-align: center;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-prereq-body">
+                                <!-- Preenchido dinamicamente via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+
+                <fieldset id="section-form-prereq" class="prereq-fieldset" style="display: none; margin-top: 24px; border-color: #3b82f6; background-color: #f8fafc;">
+                    <legend id="titulo-form-prereq" class="prereq-legend" style="color: #1e3a8a; font-weight: 700;">Cadastrar Nova Cadeia de Pré-Requisito</legend>
+                    
+                    <form id="form-prereq-inputs" onsubmit="salvarCadeiaPrereq(event)">
+                        <input type="hidden" id="prereq-index-edicao" value="-1">
+
+                        <div class="form-grid" style="margin-top: 10px;">
+                            <div class="form-group">
+                                <label for="prereq-cod-curso">Código do curso<span class="required">*</span></label>
+                                <input type="text" id="prereq-cod-curso" placeholder="Ex: 17 ou 25" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prereq-ano-curriculo">Ano do currículo<span class="required">*</span></label>
+                                <input type="number" id="prereq-ano-curriculo" placeholder="Ex: 2000 ou 2016" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prereq-periodo">Período sugerido<span class="required">*</span></label>
+                                <select id="prereq-periodo" required>
+                                    <option value="" disabled selected hidden>Selecione o período...</option>
+                                    <option value="1 Período/ Ano">1 Período/ Ano</option>
+                                    <option value="2 Período/ Ano">2 Período/ Ano</option>
+                                    <option value="3 Período/ Ano">3 Período/ Ano</option>
+                                    <option value="4 Período/ Ano">4 Período/ Ano</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prereq-semestre">Semestre sugerido<span class="required">*</span></label>
+                                <select id="prereq-semestre" required>
+                                    <option value="" disabled selected hidden>Selecione o semestre...</option>
+                                    <option value="Anual">Anual</option>
+                                    <option value="1º Semestre">1º Semestre</option>
+                                    <option value="2º Semestre">2º Semestre</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group span-2">
+                                <label for="prereq-disciplina">Pré-Requisito (Disciplinas)<span class="required">*</span></label>
+                                <input type="text" id="prereq-disciplina" placeholder="Ex: EEI13 & EEI16 ou AL301" required>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                            <button type="button" class="btn-system" onclick="fecharFormularioPrereq()">Cancelar</button>
+                            <button type="submit" class="btn-system" style="background-color: #10b981; color: white; border: none; font-weight: 600;">Salvar Cadeia</button>
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+ 
             <!-- 9. ABA: Equivalência -->
-            <div id="dados-equivalencia" class="tab-content">
+            <div id="dados-equivalencia" class="tab-content" role="tabpanel">
                 <h2 class="section-header">Equivalência</h2>
-                <h3 style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Catálogo 2027</h3>
+                <h3 class="catalog-title">Catálogo 2027</h3>
 
-                <!-- Container Principal de Cadeias Cadastradas -->
                 <fieldset class="equiv-fieldset">
                     <legend class="equiv-legend">
                         Cadeias de Equivalência Cadastradas
-                        <span class="help-tooltip" title="Gerencie as equivalências vinculadas a este curso e catálogo">?</span>
+                        <button type="button" class="help-tooltip" aria-label="Ajuda" title="Gerencie as equivalências vinculadas a este curso e catálogo">?</button>
                     </legend>
 
-                    <!-- Barra Superior com Ação -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-size: 13px; color: #475569; font-weight: 600;">Cadeias ativas vinculadas:</span>
                         <button type="button" class="btn-system" style="background-color: #1e3a8a; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;" onclick="abrirFormularioEquivalencia()">
@@ -783,7 +765,6 @@
                         </button>
                     </div>
 
-                    <!-- Tabela de Cadeias Cadastradas -->
                     <div style="overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
                         <table class="cadeia-table" style="margin-top: 0;">
                             <thead>
@@ -797,13 +778,12 @@
                                 </tr>
                             </thead>
                             <tbody id="tabela-cadeias-body">
-                                <!-- Linhas renderizadas dinamicamente via JavaScript -->
+                                <!-- Preenchido dinamicamente via JS -->
                             </tbody>
                         </table>
                     </div>
                 </fieldset>
 
-                <!-- Formulário Dinâmico (Novo / Edição) -->
                 <fieldset id="section-form-equiv" class="equiv-fieldset" style="display: none; margin-top: 24px; border-color: #3b82f6; background-color: #f8fafc;">
                     <legend id="titulo-form-equiv" class="equiv-legend" style="color: #1e3a8a; font-weight: 700;">Cadastrar Nova Equivalência</legend>
                     
@@ -811,7 +791,6 @@
                         <input type="hidden" id="equiv-index-edicao" value="-1">
 
                         <div class="form-grid" style="margin-top: 10px;">
-                            <!-- Grupo 1: Curso Principal -->
                             <div class="form-group">
                                 <label for="equiv-cod-curso">Código do curso<span class="required">*</span></label>
                                 <input type="text" id="equiv-cod-curso" placeholder="Ex: 25" required>
@@ -833,7 +812,6 @@
                             
                             <hr class="span-2" style="border: 0; border-top: 1px dashed #cbd5e1; margin: 8px 0;">
 
-                            <!-- Grupo 2: Disciplina Equivalente -->
                             <div class="form-group">
                                 <label for="equiv-cod-disciplina">Código da disciplina equivalente<span class="required">*</span></label>
                                 <input type="text" id="equiv-cod-disciplina" placeholder="Ex: AL308" required>
@@ -850,7 +828,6 @@
                             </div>
                         </div>
 
-                        <!-- Botões de Ação do Formulário -->
                         <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
                             <button type="button" class="btn-system" onclick="fecharFormularioEquivalencia()">Cancelar</button>
                             <button type="submit" class="btn-system" style="background-color: #10b981; color: white; border: none; font-weight: 600;">Salvar Equivalência</button>
@@ -871,72 +848,187 @@
             contents.forEach(content => content.classList.remove('active'));
 
             const menuItems = document.querySelectorAll('.sidebar-item');
-            menuItems.forEach(item => item.classList.remove('active'));
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+                const link = item.querySelector('a');
+                if (link) link.setAttribute('aria-selected', 'false');
+            });
 
             const targetTab = document.getElementById(tabId);
             if (targetTab) targetTab.classList.add('active');
 
             const targetMenu = document.getElementById(menuItemId);
-            if (targetMenu) targetMenu.classList.add('active');
-        }
-
-        // --- PRÉ-REQUISITOS ---
-        const bancoDeDadosCadeias = {
-            cadeia1: [
-                { codigo: 'AA935', caracteristica: 'Especial', nivel: 'Técnico', nome: 'Requerimento de autorização da Coordenadoria responsável', ultimo: '2026' }
-            ],
-            cadeia2: [
-                { codigo: 'EE400', caracteristica: 'Parcial', nivel: 'Graduação', nome: 'Métodos da Engenharia Elétrica', ultimo: '2026' },
-                { codigo: 'EE523', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Circuitos Eletrônicos Não-Lineares', ultimo: '2026' }
-            ],
-            cadeia3: [
-                { codigo: 'EN205', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Introdução à Engenharia', ultimo: '2026' },
-                { codigo: 'EN109', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Física Geral I', ultimo: '2026' },
-                { codigo: 'EN110', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Cálculo Diferencial e Integral I', ultimo: '2026' },
-                { codigo: 'EN207', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Álgebra Linear', ultimo: '2026' }
-            ],
-            cadeia4: [
-                { codigo: 'EN205', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Introdução à Engenharia', ultimo: '2026' },
-                { codigo: 'AA200', caracteristica: 'Pleno', nivel: 'Graduação', nome: 'Eletiva de Humanidades / Equivalente', ultimo: '2026' }
-            ]
-        };
-
-        function gerenciarCadeia(event, chaveCadeia) {
-            event.preventDefault(); 
-            const containerManter = document.getElementById('section-manter-cadeia');
-            const corpoTabela = document.getElementById('table-body-cadeia');
-            corpoTabela.innerHTML = '';
-            
-            const dadosLinhas = bancoDeDadosCadeias[chaveCadeia];
-            if (dadosLinhas) {
-                dadosLinhas.forEach(info => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td style="text-align: center;"><span class="btn-delete-row" title="Remover">✕</span></td>
-                        <td><input type="text" class="input-table" value="${info.codigo}"></td>
-                        <td>
-                            <select class="select-table">
-                                <option value="Pleno" ${info.caracteristica === 'Pleno' ? 'selected' : ''}>Pleno</option>
-                                <option value="Eletiva">Eletiva</option>
-                            </select>
-                        </td>
-                        <td>${info.nivel}</td>
-                        <td>${info.nome}</td>
-                        <td>${info.ultimo}</td>
-                    `;
-                    corpoTabela.appendChild(tr);
-                });
-                
-                containerManter.style.display = 'block';
-                containerManter.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            if (targetMenu) {
+                targetMenu.classList.add('active');
+                const link = targetMenu.querySelector('a');
+                if (link) link.setAttribute('aria-selected', 'true');
             }
         }
 
-        function fecharManterCadeia() {
-            document.getElementById('section-manter-cadeia').style.display = 'none';
+        // --- PRÉ-REQUISITOS ---
+        let listaCadeiasPrereqOriginal = [
+            {
+                codCurso: '17',
+                anoCurriculo: '2000',
+                periodo: '1 Período/ Ano',
+                semestre: 'Anual',
+                prerequisito: 'EEI13 & EEI16'
+            },
+            {
+                codCurso: '25',
+                anoCurriculo: '2016',
+                periodo: '1 Período/ Ano',
+                semestre: 'Anual',
+                prerequisito: 'AL301'
+            }
+        ];
+
+        let listaCadeiasPrereq = JSON.parse(JSON.stringify(listaCadeiasPrereqOriginal));
+
+        // Renderização segura contra XSS
+        function renderizarTabelaPrereq() {
+            const tbody = document.getElementById('tabela-prereq-body');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            if (listaCadeiasPrereq.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td colspan="6" style="text-align: center; color: #94a3b8; padding: 16px;">Nenhuma cadeia de pré-requisito cadastrada.</td>`;
+                tbody.appendChild(tr);
+                return;
+            }
+
+            listaCadeiasPrereq.forEach((item, index) => {
+                const tr = document.createElement('tr');
+
+                const tdCod = document.createElement('td');
+                const strongCod = document.createElement('strong');
+                strongCod.textContent = item.codCurso;
+                tdCod.appendChild(strongCod);
+
+                const tdAno = document.createElement('td');
+                tdAno.textContent = item.anoCurriculo;
+
+                const tdPeriodo = document.createElement('td');
+                tdPeriodo.textContent = item.periodo;
+
+                const tdSemestre = document.createElement('td');
+                tdSemestre.textContent = item.semestre;
+
+                const tdPrereq = document.createElement('td');
+                const spanPrereq = document.createElement('span');
+                spanPrereq.style.fontWeight = '600';
+                spanPrereq.style.color = '#1e3a8a';
+                spanPrereq.textContent = item.prerequisito;
+                tdPrereq.appendChild(spanPrereq);
+
+                const tdAcoes = document.createElement('td');
+                tdAcoes.style.textAlign = 'center';
+
+                const btnEdit = document.createElement('button');
+                btnEdit.type = 'button';
+                btnEdit.textContent = 'Editar';
+                btnEdit.style.cssText = 'background: none; border: none; color: #2563eb; cursor: pointer; font-weight: 600; margin-right: 8px;';
+                btnEdit.title = 'Editar';
+                btnEdit.onclick = () => editarCadeiaPrereq(index);
+
+                const btnDel = document.createElement('button');
+                btnDel.type = 'button';
+                btnDel.textContent = '✕';
+                btnDel.style.cssText = 'background: none; border: none; color: #dc2626; cursor: pointer; font-weight: 600;';
+                btnDel.title = 'Excluir';
+                btnDel.onclick = () => excluirCadeiaPrereq(index);
+
+                tdAcoes.appendChild(btnEdit);
+                tdAcoes.appendChild(btnDel);
+
+                tr.appendChild(tdCod);
+                tr.appendChild(tdAno);
+                tr.appendChild(tdPeriodo);
+                tr.appendChild(tdSemestre);
+                tr.appendChild(tdPrereq);
+                tr.appendChild(tdAcoes);
+
+                tbody.appendChild(tr);
+            });
         }
 
-        // --- LÓGICA DA ABA DE EQUIVALÊNCIA ---
+        function abrirFormularioPrereq() {
+            document.getElementById('prereq-index-edicao').value = '-1';
+            document.getElementById('prereq-cod-curso').value = '';
+            document.getElementById('prereq-ano-curriculo').value = '';
+            document.getElementById('prereq-periodo').value = '';
+            document.getElementById('prereq-semestre').value = '';
+            document.getElementById('prereq-disciplina').value = '';
+
+            document.getElementById('titulo-form-prereq').textContent = 'Cadastrar Nova Cadeia de Pré-Requisito';
+
+            const section = document.getElementById('section-form-prereq');
+            section.style.display = 'block';
+            section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function editarCadeiaPrereq(index) {
+            const item = listaCadeiasPrereq[index];
+            if (!item) return;
+
+            document.getElementById('prereq-index-edicao').value = index;
+            document.getElementById('prereq-cod-curso').value = item.codCurso;
+            document.getElementById('prereq-ano-curriculo').value = item.anoCurriculo;
+            document.getElementById('prereq-periodo').value = item.periodo;
+            document.getElementById('prereq-semestre').value = item.semestre;
+            document.getElementById('prereq-disciplina').value = item.prerequisito;
+
+            document.getElementById('titulo-form-prereq').textContent = `Editar Cadeia (${item.prerequisito})`;
+
+            const section = document.getElementById('section-form-prereq');
+            section.style.display = 'block';
+            section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function fecharFormularioPrereq() {
+            document.getElementById('section-form-prereq').style.display = 'none';
+        }
+
+        function salvarCadeiaPrereq(event) {
+            event.preventDefault();
+
+            const index = parseInt(document.getElementById('prereq-index-edicao').value, 10);
+            const novoItem = {
+                codCurso: document.getElementById('prereq-cod-curso').value,
+                anoCurriculo: document.getElementById('prereq-ano-curriculo').value,
+                periodo: document.getElementById('prereq-periodo').value,
+                semestre: document.getElementById('prereq-semestre').value,
+                prerequisito: document.getElementById('prereq-disciplina').value
+            };
+
+            if (index >= 0) {
+                listaCadeiasPrereq[index] = novoItem;
+            } else {
+                listaCadeiasPrereq.push(novoItem);
+            }
+
+            renderizarTabelaPrereq();
+            fecharFormularioPrereq();
+        }
+
+        function excluirCadeiaPrereq(index) {
+            if (confirm("Deseja realmente remover esta cadeia de pré-requisito?")) {
+                listaCadeiasPrereq.splice(index, 1);
+                renderizarTabelaPrereq();
+            }
+        }
+
+        function reverterAlteracoesPrereq() {
+            if (confirm("Deseja reverter as alterações para o estado original?")) {
+                listaCadeiasPrereq = JSON.parse(JSON.stringify(listaCadeiasPrereqOriginal));
+                renderizarTabelaPrereq();
+                fecharFormularioPrereq();
+            }
+        }
+
+        // --- EQUIVALÊNCIA ---
         let listaCadeiasEquiv = [
             {
                 codCurso: '25',
@@ -954,6 +1046,7 @@
             }
         ];
 
+        // Renderização segura contra XSS
         function renderizarTabelaEquiv() {
             const tbody = document.getElementById('tabela-cadeias-body');
             if (!tbody) return;
@@ -961,23 +1054,64 @@
             tbody.innerHTML = '';
 
             if (listaCadeiasEquiv.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8; padding: 16px;">Nenhuma cadeia de equivalência cadastrada.</td></tr>`;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td colspan="6" style="text-align: center; color: #94a3b8; padding: 16px;">Nenhuma cadeia de equivalência cadastrada.</td>`;
+                tbody.appendChild(tr);
                 return;
             }
 
             listaCadeiasEquiv.forEach((item, index) => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><strong>${item.codCurso}</strong></td>
-                    <td>${item.anoCurriculo}</td>
-                    <td>${item.periodo}</td>
-                    <td><span class="chain-badge badge-gray" style="font-weight: 600; color: #1e3a8a;">${item.codDisciplina}</span></td>
-                    <td>${item.periodoEquiv}</td>
-                    <td style="text-align: center;">
-                        <button type="button" onclick="editarCadeiaEquiv(${index})" style="background: none; border: none; color: #2563eb; cursor: pointer; font-weight: 600; margin-right: 8px;" title="Editar">Editar</button>
-                        <button type="button" onclick="excluirCadeiaEquiv(${index})" style="background: none; border: none; color: #dc2626; cursor: pointer; font-weight: 600;" title="Excluir">✕</button>
-                    </td>
-                `;
+
+                const tdCod = document.createElement('td');
+                const strongCod = document.createElement('strong');
+                strongCod.textContent = item.codCurso;
+                tdCod.appendChild(strongCod);
+
+                const tdAno = document.createElement('td');
+                tdAno.textContent = item.anoCurriculo;
+
+                const tdPeriodo = document.createElement('td');
+                tdPeriodo.textContent = item.periodo;
+
+                const tdDisc = document.createElement('td');
+                const spanDisc = document.createElement('span');
+                spanDisc.className = 'chain-badge badge-gray';
+                spanDisc.style.fontWeight = '600';
+                spanDisc.style.color = '#1e3a8a';
+                spanDisc.textContent = item.codDisciplina;
+                tdDisc.appendChild(spanDisc);
+
+                const tdPeriodoEquiv = document.createElement('td');
+                tdPeriodoEquiv.textContent = item.periodoEquiv;
+
+                const tdAcoes = document.createElement('td');
+                tdAcoes.style.textAlign = 'center';
+
+                const btnEdit = document.createElement('button');
+                btnEdit.type = 'button';
+                btnEdit.textContent = 'Editar';
+                btnEdit.style.cssText = 'background: none; border: none; color: #2563eb; cursor: pointer; font-weight: 600; margin-right: 8px;';
+                btnEdit.title = 'Editar';
+                btnEdit.onclick = () => editarCadeiaEquiv(index);
+
+                const btnDel = document.createElement('button');
+                btnDel.type = 'button';
+                btnDel.textContent = '✕';
+                btnDel.style.cssText = 'background: none; border: none; color: #dc2626; cursor: pointer; font-weight: 600;';
+                btnDel.title = 'Excluir';
+                btnDel.onclick = () => excluirCadeiaEquiv(index);
+
+                tdAcoes.appendChild(btnEdit);
+                tdAcoes.appendChild(btnDel);
+
+                tr.appendChild(tdCod);
+                tr.appendChild(tdAno);
+                tr.appendChild(tdPeriodo);
+                tr.appendChild(tdDisc);
+                tr.appendChild(tdPeriodoEquiv);
+                tr.appendChild(tdAcoes);
+
                 tbody.appendChild(tr);
             });
         }
@@ -990,7 +1124,7 @@
             document.getElementById('equiv-cod-disciplina').value = '';
             document.getElementById('equiv-periodo-equiv').value = '';
 
-            document.getElementById('titulo-form-equiv').innerText = 'Cadastrar Nova Equivalência';
+            document.getElementById('titulo-form-equiv').textContent = 'Cadastrar Nova Equivalência';
 
             const section = document.getElementById('section-form-equiv');
             section.style.display = 'block';
@@ -1008,7 +1142,7 @@
             document.getElementById('equiv-cod-disciplina').value = item.codDisciplina;
             document.getElementById('equiv-periodo-equiv').value = item.periodoEquiv;
 
-            document.getElementById('titulo-form-equiv').innerText = `Editar Equivalência (${item.codDisciplina})`;
+            document.getElementById('titulo-form-equiv').textContent = `Editar Equivalência (${item.codDisciplina})`;
 
             const section = document.getElementById('section-form-equiv');
             section.style.display = 'block';
@@ -1048,8 +1182,9 @@
             }
         }
 
-        // Inicializa a tabela de equivalências ao carregar
+        // Inicialização das tabelas ao carregar o DOM
         document.addEventListener('DOMContentLoaded', () => {
+            renderizarTabelaPrereq();
             renderizarTabelaEquiv();
         });
     </script>
