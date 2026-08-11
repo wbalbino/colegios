@@ -11,6 +11,7 @@
             --color-secondary: #ef4444; /* Vermelho Cotuca/Cotil */
             --color-tertiary: #3b82f6; /* Azul Calendário */
             --color-diarios: #10b981; /* Verde Diários */
+            --color-salas: #8b5cf6; /* Roxo Cadastro de Salas */
             --color-dark: #0f172a;
             --color-text: #334155;
             --color-card-bg: #ffffff;
@@ -94,12 +95,12 @@
             margin: 0 auto;
         }
 
-        /* Grid de Módulos (Ajustado para 4 Módulos) */
+        /* Grid de Módulos (Ajustado para até 5 Módulos) */
         .modules-grid {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 40px auto;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
             padding: 0 20px;
         }
@@ -154,6 +155,10 @@
             background-color: var(--color-diarios);
         }
 
+        .module-card.salas::before {
+            background-color: var(--color-salas);
+        }
+
         .module-icon {
             font-size: 32px;
             margin-bottom: 20px;
@@ -194,6 +199,10 @@
 
         .module-card.diarios .btn-access {
             color: var(--color-diarios);
+        }
+
+        .module-card.salas .btn-access {
+            color: var(--color-salas);
         }
 
         .btn-access .arrow {
@@ -255,7 +264,13 @@
         }
 
         /* Responsividade */
-        @media (max-width: 1100px) {
+        @media (max-width: 1280px) {
+            .modules-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
             .modules-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -296,7 +311,7 @@
     <!-- Seção Principal / Boas-vindas -->
     <section class="hero">
         <h1>Gestão <span> dos colégios</span></h1>
-        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas, calendários, diários de classe e catálogos anuais com máxima fluidez visual.</p>
+        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas, calendários, diários de classe, salas de aula e catálogos anuais com máxima fluidez visual.</p>
     </section>
 
     <!-- Grid de Links para as Páginas do Sistema -->
@@ -338,7 +353,7 @@
             </div>
         </a>
 
-        <!-- Link para Diários Acadêmicos (Novo Módulo Adicionado) -->
+        <!-- Link para Diários Acadêmicos -->
         <a href="diarios.html" class="module-card diarios">
             <div>
                 <div class="module-icon">📝</div>
@@ -347,6 +362,18 @@
             </div>
             <div class="btn-access">
                 Acessar Módulo de Diários <span class="arrow">&rarr;</span>
+            </div>
+        </a>
+
+        <!-- Link para Cadastro de Salas (Novo Módulo Adicionado) -->
+        <a href="salaAula.html" class="module-card salas">
+            <div>
+                <div class="module-icon">🏫</div>
+                <h2>Cadastro de Salas</h2>
+                <p>Cadastre e organize salas de aula, laboratórios e auditórios. Defina a capacidade de alunos, recursos multimídia disponíveis e vinculação para alocação de turmas.</p>
+            </div>
+            <div class="btn-access">
+                Acessar Módulo de Salas <span class="arrow">&rarr;</span>
             </div>
         </a>
 
