@@ -12,6 +12,7 @@
             --color-tertiary: #3b82f6; /* Azul Calendário */
             --color-diarios: #10b981; /* Verde Diários */
             --color-salas: #8b5cf6; /* Roxo Cadastro de Salas */
+            --color-servicos: #f59e0b; /* Âmbar/Laranja Solicitação de Serviços */
             --color-dark: #0f172a;
             --color-text: #334155;
             --color-card-bg: #ffffff;
@@ -95,12 +96,12 @@
             margin: 0 auto;
         }
 
-        /* Grid de Módulos (Ajustado para até 5 Módulos) */
+        /* Grid de Módulos (Ajustado para 6 Módulos) */
         .modules-grid {
             max-width: 1300px;
             margin: 40px auto;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding: 0 20px;
         }
@@ -159,6 +160,10 @@
             background-color: var(--color-salas);
         }
 
+        .module-card.servicos::before {
+            background-color: var(--color-servicos);
+        }
+
         .module-icon {
             font-size: 32px;
             margin-bottom: 20px;
@@ -174,7 +179,7 @@
         .module-card p {
             color: #64748b;
             font-size: 14px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             flex-grow: 1;
             line-height: 1.5;
         }
@@ -211,6 +216,37 @@
 
         .module-card:hover .btn-access .arrow {
             transform: translateX(5px);
+        }
+
+        /* Links de perfis para Solicitação de Serviços */
+        .service-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .service-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--color-dark);
+            font-size: 13px;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .service-link:hover {
+            background-color: #e2e8f0;
+            transform: translateX(3px);
+        }
+
+        .service-link span {
+            color: var(--color-servicos);
         }
 
         /* Características Inovadoras */
@@ -264,13 +300,7 @@
         }
 
         /* Responsividade */
-        @media (max-width: 1280px) {
-            .modules-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .modules-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -311,7 +341,7 @@
     <!-- Seção Principal / Boas-vindas -->
     <section class="hero">
         <h1>Gestão <span> dos colégios</span></h1>
-        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas, calendários, diários de classe, salas de aula e catálogos anuais com máxima fluidez visual.</p>
+        <p>Uma plataforma unificada, inteligente e sob medida para os colégios técnicos. Otimize a criação de matrizes curriculares, ementas, calendários, diários de classe, salas de aula e solicitações de serviços com máxima fluidez visual.</p>
     </section>
 
     <!-- Grid de Links para as Páginas do Sistema -->
@@ -365,7 +395,7 @@
             </div>
         </a>
 
-        <!-- Link para Cadastro de Salas (Novo Módulo Adicionado) -->
+        <!-- Link para Cadastro de Salas -->
         <a href="salaAula.html" class="module-card salas">
             <div>
                 <div class="module-icon">🏫</div>
@@ -376,6 +406,27 @@
                 Acessar Módulo de Salas <span class="arrow">&rarr;</span>
             </div>
         </a>
+
+        <!-- Módulo de Solicitação de Serviços (Novo Módulo Adicionado) -->
+        <div class="module-card servicos">
+            <div>
+                <div class="module-icon">📑</div>
+                <h2>Solicitação de Serviços</h2>
+                <p>Acompanhe e gerencie requisições acadêmicas. Acesse pelo seu perfil para solicitar, validar ou aprovar requerimentos.</p>
+                
+                <div class="service-links">
+                    <a href="perfilAluno.html" class="service-link">
+                        👨‍🎓 Aluno (Solicitar) <span>&rarr;</span>
+                    </a>
+                    <a href="perfilSecretaria.html" class="service-link">
+                        🏛️ Secretaria (Validar) <span>&rarr;</span>
+                    </a>
+                    <a href="perfilDiretor.html" class="service-link">
+                        👨‍🏫 Prof. / Direção (Aprovar) <span>&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
 
     </main>
 
