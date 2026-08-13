@@ -1330,6 +1330,14 @@
                             <option value="especial">Especial</option>
                         </select>
                     </div>
+					 <div class="form-group">
+                        <label for="tipo">Modalidade<span class="required">*</span></label>
+                        <select id="tipo">
+                            <option value="" disabled selected hidden>Selecione o tipo de modalidade...</option>
+                            <option value="tecnico">Presencial</option>
+                            <option value="medio">EaD</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="eixo">Eixo tecnológico<span class="required">*</span></label>
                         <select id="eixo">
@@ -1358,7 +1366,8 @@
                         <label for="periodicidade">Periodicidade<span class="required">*</span></label>
                         <select id="periodicidade">
                             <option value="" disabled selected hidden>Selecione a periodicidade...</option>
-                            <option value="semestre">Semestre</option>
+							<option value="semestre">Anual</option>
+                            <option value="semestre">Semestral</option>
                             <option value="serie">Série</option>
                             <option value="modulo">Módulo</option>
                         </select>
@@ -1371,15 +1380,6 @@
                         <label for="anos">Quantidade de anos<span class="required">*</span></label>
                         <input type="number" id="anos" placeholder="Digite um valor de 0 a 10" min="0" max="10" step="1">
                     </div>      
-                    <div class="form-group">
-                        <label for="periodo-letivo">Período letivo<span class="required">*</span></label>
-                        <select id="periodo-letivo">
-                            <option value="" disabled selected hidden>Selecione o período...</option>
-                            <option value="semestre">Semestre</option>
-                            <option value="serie">Série</option>
-                            <option value="modulo">Módulo</option>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label for="departamento">Departamento<span class="required">*</span></label>
                         <select id="departamento">
@@ -1609,7 +1609,7 @@
                 </div>
             </div>
 
-            <!-- 7. ABA: Matriz Curricular (LAYOUT CORRIGIDO) -->
+            <!-- 7. ABA: Matriz Curricular -->
             <div id="dados-matriz" class="tab-content">
                 <h2 class="section-header">Matriz Curricular</h2>
                 <h3>Catálogo 2027</h3>
@@ -1635,6 +1635,12 @@
                                 <label for="data-criacao-matriz">Data de Criação<span class="required">*</span></label>
                                 <input type="date" id="data-criacao-matriz" name="data-criacao-matriz" value="2026-07-15">
                             </div>
+								<div class="form-group">
+									<label for="ativo" style="display: flex; align-items: center; gap: 8px; cursor: pointer; height: 100%;">
+										<input type="checkbox" id="ativo" name="ativo" checked style="width: auto; cursor: pointer;">
+										Ativo
+									</label>
+								</div>
                             <div class="form-group span-2">
                                 <label for="observacoes-matriz">Descrição / Observações da Matriz</label>
                                 <textarea id="observacoes-matriz" placeholder="Digite informações detalhadas sobre esta estrutura..." rows="2" maxlength="500"></textarea>
@@ -2443,7 +2449,7 @@
 
                 let totalCHParte = 0;
                 parte.grupos.forEach(g => {
-                    g.disciplinas.forEach(d => totalCHParte += d.ch);
+                    g.disciplinas.forEach(d => totalCHParte += (parseInt(d.ch, 10) || 0));
                 });
 
                 const parteCard = document.createElement('div');
@@ -2479,8 +2485,8 @@
                         let totalCHGrupo = 0;
                         let totalCreditosGrupo = 0;
                         grupo.disciplinas.forEach(d => {
-                            totalCHGrupo += d.ch;
-                            totalCreditosGrupo += d.creditos;
+                            totalCHGrupo += (parseInt(d.ch, 10) || 0);
+                            totalCreditosGrupo += (parseInt(d.creditos, 10) || 0);
                         });
 
                         const grupoCard = document.createElement('div');
@@ -2523,7 +2529,9 @@
                                     <tr>
                                         <td style="width: 110px;"><strong>${disc.codigo}</strong></td>
                                         <td>${disc.nome}</td>
-                                        <td style="width: 110px; text-align: center;">${disc.ch} horas</td>
+                                        <td style="width: 130px; text-align: center;">
+                                            <input type="number" min="0" value="${disc.ch}" style="width: 70px; text-align: center; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;" onchange="atualizarCargaHoraria('${chaveParte}', '${grupo.id}', ${discIdx}, this.value)"> hrs
+                                        </td>
                                         <td style="width: 90px; text-align: center;">${disc.creditos}</td>
                                         <td style="width: 50px; text-align: center;">
                                             <button type="button" class="btn-remover-row" title="Remover" onclick="removerDisciplina('${chaveParte}', '${grupo.id}', ${discIdx})">✕</button>
@@ -2575,6 +2583,15 @@
                 parteCard.appendChild(bodyParte);
                 container.appendChild(parteCard);
             });
+        }
+
+        function atualizarCargaHoraria(chaveParte, grupoId, discIndex, novoValor) {
+            const val = parseInt(novoValor, 10);
+            const grupo = matrizEstado[chaveParte]?.grupos.find(g => g.id === grupoId);
+            if (grupo && grupo.disciplinas[discIndex]) {
+                grupo.disciplinas[discIndex].ch = isNaN(val) ? 0 : val;
+                renderizarMatrizAccordions();
+            }
         }
 
         function adicionarParteDoSelect() {
