@@ -2642,13 +2642,12 @@
 			}
 
 			const info = bancoDisciplinas[codigo] || {
-				nivel: document.getElementById('input-nivel').value || 'Graduação',
-				nome: document.getElementById('input-nome').value || ('Disciplina ' + codigo),
-				creditos: document.getElementById('input-creditos').value || '4'
+				nivel: document.getElementById('input-nivel').value || 'Personalizado',
+				nome: document.getElementById('input-nome').value || 'Disciplina Adicional',
+				creditos: document.getElementById('input-creditos').value || '0'
 			};
 
-			const bodyTabela = document.getElementById('lista-disciplinas-body');
-
+			const tbody = document.getElementById('lista-disciplinas-body');
 			const tr = document.createElement('tr');
 			tr.innerHTML = `
 				<td><strong>${codigo}</strong></td>
@@ -2656,19 +2655,80 @@
 				<td>${info.nome}</td>
 				<td style="text-align: center;">${info.creditos}</td>
 				<td style="text-align: center;">
-					<button type="button" class="btn-remover-row" title="Remover Disciplina" onclick="removerDisciplina(this)">✕</button>
+					<button type="button" class="btn-remover-row" title="Remover" onclick="this.closest('tr').remove()">✕</button>
 				</td>
 			`;
+			tbody.appendChild(tr);
 
-			bodyTabela.appendChild(tr);
 			document.getElementById('container-lista-disciplinas').style.display = 'block';
 
+			// Limpar os inputs após adicionar
 			inputCodigo.value = '';
 			document.getElementById('input-nivel').value = '';
 			document.getElementById('input-nome').value = '';
 			document.getElementById('input-creditos').value = '';
 			inputCodigo.focus();
 		}
+		
+// =========================================================================
+		// NOVO CÓDIGO: INICIALIZAÇÃO PARA PRÉ-PREENCHER A MATRIZ PEDAGÓGICA
+		// =========================================================================
+		window.addEventListener('DOMContentLoaded', () => {
+			// 1. Abre a aba da Matriz Pedagógica logo ao abrir o arquivo
+			// Passamos um objeto de evento simulado para evitar erro no preventDefault()
+			switchTab({ preventDefault: () => {} }, 'dados-series', 'menu-series');
+
+			// Referências aos selects que as funções originais utilizam
+			const selectPeriodo = document.getElementById('select-periodo-opcao');
+			const selectDisciplina = document.getElementById('select-disciplina-add');
+
+			// --- CRIAR 1º PERÍODO ---
+			selectPeriodo.value = '1º';
+			adicionarPeriodo(); 
+
+			// Adicionar disciplinas no 1º Período
+			selectDisciplina.value = 'MARK'; // MBI10 - Biologia
+			adicionarDisciplinaMatriz();
+			selectDisciplina.value = 'MAT'; // MC102 - Eletricidade Básica
+			adicionarDisciplinaMatriz();
+
+
+			// --- CRIAR 2º PERÍODO ---
+			selectPeriodo.value = '2º';
+			adicionarPeriodo();
+
+			// Adicionar disciplinas no 2º Período
+			selectDisciplina.value = 'CEIANB'; // MC101 - Algorítmos
+			adicionarDisciplinaMatriz();
+			selectDisciplina.value = 'GEST'; // MC103 - Desenho Técnico
+			adicionarDisciplinaMatriz();
+
+
+			// --- CRIAR 3º PERÍODO (Opcional, apenas de exemplo) ---
+			selectPeriodo.value = '3º';
+			adicionarPeriodo();
+			selectDisciplina.value = 'MAT'; // Reutilizando Eletricidade Básica
+			adicionarDisciplinaMatriz();
+
+
+			// --- FINALIZAÇÃO ---
+			// Reseta os selects para a posição inicial visualmente
+			selectPeriodo.value = '';
+			selectDisciplina.selectedIndex = 0;
+
+			// Força a seleção visual do 1º período para ele ficar aberto na tela
+			const primeiroPeriodoId = document.querySelector('.period-badge-card').id.replace('badge-', '');
+			selecionarPeriodo(primeiroPeriodoId);
+		});		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		function removerDisciplina(btn) {
 			const tr = btn.closest('tr');
