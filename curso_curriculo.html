@@ -1220,6 +1220,209 @@
             border-radius: 8px;
             background-color: #ffffff;
         }
+
+        /* Controles de Adicionar Parte */
+        .add-parte-control {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .add-parte-control select {
+            flex: 1;
+        }
+
+        /* Botões */
+        button {
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-green {
+            background-color: #16a34a;
+            color: #ffffff;
+        }
+
+        .btn-green:hover {
+            background-color: #15803d;
+        }
+
+        .btn-outline {
+            background-color: #ffffff;
+            border-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-outline:hover {
+            background-color: #f8fafc;
+        }
+
+        .btn-danger-outline {
+            background-color: #ffffff;
+            border-color: #fca5a5;
+            color: #dc2626;
+            font-size: 11px;
+            padding: 4px 10px;
+        }
+
+        .btn-danger-outline:hover {
+            background-color: #fef2f2;
+        }
+
+        .btn-sm-green {
+            background-color: #16a34a;
+            color: #ffffff;
+            font-size: 11px;
+            padding: 4px 10px;
+        }
+
+        .btn-sm-green:hover {
+            background-color: #15803d;
+        }
+
+        .divider {
+            border-top: 1px dashed #cbd5e1;
+            margin: 20px 0;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 14px;
+        }
+
+        /* Accordion da Parte */
+        .acc-parte {
+            border-radius: 6px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .acc-parte-header {
+            background-color: #1d4ed8;
+            color: #ffffff;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .acc-parte-title-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .badge-pill {
+            background-color: #93c5fd;
+            color: #1e3a8a;
+        }
+
+        .badge-text {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .acc-parte-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .acc-parte-body {
+            background-color: #ffffff;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            display: none;
+        }
+
+        .acc-parte.open .acc-parte-body {
+            display: block;
+        }
+
+        /* Item do Grupo */
+        .acc-grupo {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #3b82f6;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .acc-grupo:last-child {
+            margin-bottom: 0;
+        }
+
+        .acc-grupo-header {
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .acc-grupo-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .acc-grupo-meta {
+            font-weight: 400;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .toggle-arrow {
+            font-size: 10px;
+            color: #ffffff;
+            margin-left: 4px;
+            transition: transform 0.2s;
+        }
+
+        .acc-parte.open .toggle-arrow-parte {
+            transform: rotate(180deg);
+        }
+
+        .empty-state {
+            padding: 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 6px;
+            background-color: #f8fafc;
+        }		
+		
+		
+		
+		
     </style>
 </head>
 <body>
@@ -1254,6 +1457,9 @@
                     </li>
                     <li class="sidebar-item" id="menu-dados-matriz">
                         <a href="#" onclick="switchTab(event, 'dados-matriz', 'menu-dados-matriz')">Matriz Curricular</a>
+                    </li>
+					<li class="sidebar-item" id="menu-dados-matrizA">
+                        <a href="#" onclick="switchTab(event, 'dados-matrizA', 'menu-dados-matrizA')">Partes</a>
                     </li>
                 </ul>
             </div>
@@ -1554,7 +1760,7 @@
                 </form>
             </div>
 
-            <!-- 6. ABA: Séries (DINÂMICA) -->
+            <!-- 6. ABA: Matriz pedagógica  -->
             <div id="dados-series" class="tab-content">
                 <h2 class="section-header">Matriz pedagógica</h2>
 				<h3>Catálogo 2027</h3>
@@ -1680,7 +1886,7 @@
                         </div>
 
                         <div style="margin-top: 15px; border-top: 1px dashed #cbd5e1; padding-top: 15px;">
-                            <h4 style="font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 12px;">Partes Ativas nesta Matriz (Accordion)</h4>
+                            <h4 style="font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 12px;">Partes Ativas nesta Matriz</h4>
                             <div id="accordion-partes-container"></div>
                         </div>
                     </div>
@@ -1785,6 +1991,96 @@
 					</div>					
                 </form>
             </div>
+
+            <!-- 8. ABA: Matriz Curricular -->
+            <div id="dados-matrizA" class="tab-content">
+                <h2 class="section-header">Matriz Curricular</h2>
+                <h3>Catálogo 2027</h3>
+                <br>
+                <form style="display: flex; flex-direction: column; gap: 20px;">
+                    <p style="font-size: 13px; color: #64748b; margin-top: -15px;">
+                        Escolha uma parte cadastrada ou crie uma nova para estruturar os grupos e disciplinas da matriz.
+                    </p>
+        <!-- Card 1: Informações Gerais da Matriz -->
+        <div class="card">
+            <div class="card-title">Informações Gerais da Matriz</div>
+            
+            <div class="form-row">
+                <div class="form-group flex-2">
+                    <label>Matriz Selecionada <span class="required">*</span></label>
+                    <select id="select-matriz">
+                        <option value="Matriz 2025 - Vigente" selected>Matriz 2025 - Vigente</option>
+                        <option value="Matriz 2026 - Em Revisão">Matriz 2026 - Em Revisão</option>
+                        <option value="Matriz Nova 2027">Matriz Nova 2027</option>
+                    </select>
+                </div>
+
+                <div class="form-group w-200">
+                    <label>Data de Criação <span class="required">*</span></label>
+                    <input type="date" id="input-data-criacao" value="2026-07-15">
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="check-ativo" checked>
+                <label for="check-ativo" style="cursor: pointer;">Ativo</label>
+            </div>
+
+            <div class="form-group">
+                <label>Descrição / Observações da Matriz</label>
+                <textarea id="textarea-descricao" placeholder="Digite informações detalhadas sobre esta estrutura..."></textarea>
+            </div>
+        </div>
+
+        <!-- Card 2: Adicionar e Gerenciar Partes da Matriz -->
+        <div class="card">
+            <div class="card-title">Adicionar e Gerenciar Partes da Matriz</div>
+
+            <div class="form-group" style="margin-bottom: 8px;">
+                <label>Escolha uma Parte para incluir na Matriz: <span class="required">*</span></label>
+            </div>
+
+            <div class="add-parte-control">
+                <select id="select-nova-parte">
+                    <option value="" disabled selected>Selecione uma parte...</option>
+                    <option value="parte1">ATIVIDADES COMPLEMENTARES</option>
+                    <option value="parte2">ATIVIDADES CURRICULARES</option>
+                    <option value="parte3">BASE NACIONAL</option>
+                    <option value="parte4">BASE NACIONAL COMUM</option>
+                    <option value="parte5">ENSINO RELIGIOSO</option>
+                    <option value="parte6">ESTÁGIO</option>
+                    <option value="parte7">FORMAÇÃO ESPECIAL - MÍNIMO PROFISSIONALIZANTE</option>
+                    <option value="parte8">FORMAÇÃO GERAL</option>
+                    <option value="parte9">FORMAÇÃO PROFISSIONAL</option>
+                    <option value="parte10">NÚCLEO ARTICULADOR</option>
+                    <option value="parte11">PARTE DIVERSIFICADA OBRIGATÓRIA</option>
+                    <option value="parte12">PARTE DIVERSIFICADA</option>
+                    <option value="parte14">PARTE DIVERSIFICADA OPTATIVA</option>
+                    <option value="parte15">PARTE TÉCNICA</option>					
+										
+                </select>
+                <button type="button" class="btn-green" onclick="adicionarParteDaSelecao()">+ Adicionar Parte</button>
+                <button type="button" class="btn-outline" onclick="criarOutraParte()">+ Criar Outra Parte</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section-subtitle">Partes Ativas nesta Matriz</div>
+
+            <!-- Conteêiner onde as partes serão renderizadas -->
+            <div id="partes-container"></div>
+        </div>
+    </div>
+
+               </form>
+            </div>
+
+
+
+
+
+
+
 					
             <!-- 9. ABA: Documentos Básicos -->
             <div id="docs-basicos" class="tab-content">
@@ -2405,10 +2701,7 @@
                         id: 'grp_1',
                         nome: 'CIÊNCIAS HUMANAS E SOCIAIS APLICADAS',
                         aberto: true,
-                        disciplinas: [
-                            { codigo: 'HIST101', nome: 'História Contemporânea', ch: 60, creditos: 3 },
-                            { codigo: 'GEO101', nome: 'Geografia do Brasil e Geral', ch: 60, creditos: 3 }
-                        ]
+						disciplinas: []
                     }
                 ]
             },
@@ -2420,9 +2713,7 @@
                         id: 'grp_2',
                         nome: 'LÍNGUA ESTRANGEIRA',
                         aberto: true,
-                        disciplinas: [
-                            { codigo: 'ING101', nome: 'Língua Estrangeira: Inglês Técnico', ch: 40, creditos: 2 }
-                        ]
+						disciplinas: []
                     }
                 ]
             }
@@ -2729,6 +3020,184 @@
         }
 
         document.addEventListener('DOMContentLoaded', renderizarMatrizAccordions);
+		
+
+
+        /* RENDERIZAÇÃO DA INTERFACE */
+        function renderizarPartesAtivas() {
+            const container = document.getElementById('partes-container');
+            container.innerHTML = '';
+
+            const chavesPartes = Object.keys(matrizEstado);
+
+            if (chavesPartes.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        Nenhuma Parte foi adicionada a esta Matriz ainda. Selecione uma opção no campo acima e clique em <strong>"+ Adicionar Parte"</strong>.
+                    </div>
+                `;
+                return;
+            }
+
+            chavesPartes.forEach(chaveParte => {
+                const parte = matrizEstado[chaveParte];
+
+                // Cálculo das horas totais da parte
+                let totalCHParte = parte.grupos.reduce((acc, g) => acc + (g.ch || 0), 0);
+
+                const parteCard = document.createElement('div');
+                parteCard.className = `acc-parte ${parte.aberto ? 'open' : ''}`;
+
+                // Header da Parte
+                const headerParte = document.createElement('div');
+                headerParte.className = 'acc-parte-header';
+                headerParte.onclick = () => toggleParte(chaveParte);
+                headerParte.innerHTML = `
+                    <div class="acc-parte-title-area">
+                        <span>📌 ${parte.nome}</span>
+                        <span class="badge badge-pill">${parte.grupos.length} Grupo(s)</span>
+                        <span class="badge badge-text">${totalCHParte} hrs Totais</span>
+                    </div>
+                    <div class="acc-parte-actions">
+                        <button type="button" class="btn-sm-green" onclick="adicionarGrupo(event, '${chaveParte}')">+ Criar Grupo</button>
+                        <button type="button" class="btn-danger-outline" onclick="excluirParte(event, '${chaveParte}')">Excluir Parte</button>
+                        <span class="toggle-arrow toggle-arrow-parte">▼</span>
+                    </div>
+                `;
+
+                // Body da Parte
+                const bodyParte = document.createElement('div');
+                bodyParte.className = 'acc-parte-body';
+
+                if (parte.grupos.length === 0) {
+                    bodyParte.innerHTML = `
+                        <div class="empty-state">
+                            Nenhum grupo cadastrado nesta Parte. Clique em <strong>"+ Criar Grupo"</strong> acima para adicionar.
+                        </div>
+                    `;
+                } else {
+                    parte.grupos.forEach((grupo, idxGrupo) => {
+                        const grupoCard = document.createElement('div');
+                        grupoCard.className = 'acc-grupo';
+
+                        const headerGrupo = document.createElement('div');
+                        headerGrupo.className = 'acc-grupo-header';
+                        headerGrupo.innerHTML = `
+                            <div class="acc-grupo-title">
+                                📁 Grupo ${idxGrupo + 1}: ${grupo.nome}
+                                <span class="acc-grupo-meta">(${grupo.discCount} disc. | ${grupo.ch}h | ${grupo.crd} crd)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <button type="button" class="btn-danger-outline" onclick="excluirGrupo(event, '${chaveParte}', '${grupo.id}')">Excluir Grupo</button>
+                                <span class="toggle-arrow" style="color: #64748b;">▼</span>
+                            </div>
+                        `;
+
+                        grupoCard.appendChild(headerGrupo);
+                        bodyParte.appendChild(grupoCard);
+                    });
+                }
+
+                parteCard.appendChild(headerParte);
+                parteCard.appendChild(bodyParte);
+                container.appendChild(parteCard);
+            });
+        }
+
+        /* FUNÇÕES DE AÇÃO E EVENTOS */
+
+        function toggleParte(chaveParte) {
+            if (matrizEstado[chaveParte]) {
+                matrizEstado[chaveParte].aberto = !matrizEstado[chaveParte].aberto;
+                renderizarPartesAtivas();
+            }
+        }
+
+        function adicionarParteDaSelecao() {
+            const select = document.getElementById('select-nova-parte');
+            const nomeParte = select.value;
+
+            if (!nomeParte) {
+                alert('Por favor, escolha uma parte na lista primeiro.');
+                return;
+            }
+
+            if (matrizEstado[nomeParte]) {
+                alert('Esta Parte já foi adicionada à Matriz.');
+                return;
+            }
+
+            matrizEstado[nomeParte] = {
+                nome: nomeParte,
+                aberto: true,
+                grupos: []
+            };
+
+            select.value = '';
+            renderizarPartesAtivas();
+        }
+
+        function criarOutraParte() {
+            const nomeParte = prompt('Digite o nome da nova Parte:');
+            if (!nomeParte || !nomeParte.trim()) return;
+
+            const nomeFormatado = nomeParte.trim().toUpperCase();
+
+            if (matrizEstado[nomeFormatado]) {
+                alert('Esta Parte já existe na Matriz.');
+                return;
+            }
+
+            matrizEstado[nomeFormatado] = {
+                nome: nomeFormatado,
+                aberto: true,
+                grupos: []
+            };
+
+            renderizarPartesAtivas();
+        }
+
+        function excluirParte(event, chaveParte) {
+            event.stopPropagation();
+            if (confirm(`Tem certeza que deseja excluir a parte "${chaveParte}" e seus grupos?`)) {
+                delete matrizEstado[chaveParte];
+                renderizarPartesAtivas();
+            }
+        }
+
+        function adicionarGrupo(event, chaveParte) {
+            event.stopPropagation();
+            const nomeGrupo = prompt(`Digite o nome do novo Grupo para "${chaveParte}":`);
+            if (!nomeGrupo || !nomeGrupo.trim()) return;
+
+            const parte = matrizEstado[chaveParte];
+            if (parte) {
+                parte.grupos.push({
+                    id: 'grp_' + Date.now(),
+                    nome: nomeGrupo.trim().toUpperCase(),
+                    discCount: 0,
+                    ch: 0,
+                    crd: 0
+                });
+                parte.aberto = true; // Mantém a parte aberta ao criar o grupo
+                renderizarPartesAtivas();
+            }
+        }
+
+        function excluirGrupo(event, chaveParte, grupoId) {
+            event.stopPropagation();
+            const parte = matrizEstado[chaveParte];
+            if (parte && confirm('Tem certeza que deseja excluir este Grupo?')) {
+                parte.grupos = parte.grupos.filter(g => g.id !== grupoId);
+                renderizarPartesAtivas();
+            }
+        }
+
+        /* INICIALIZAÇÃO DA PÁGINA */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderizarPartesAtivas();
+        });		
+
     </script>
 </body>
 </html>
