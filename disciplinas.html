@@ -374,6 +374,38 @@
                 grid-column: span 1;
             }
         }
+
+
+		.sidebar-divider-with-text {
+			display: flex;
+			align-items: center;
+			font-size: 11px;
+			font-weight: 700;
+			color: var(--text-muted);
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			margin: 16px 0 12px 0;
+			cursor: default; /* Impede que o cursor mude como se fosse um link */
+		}
+
+		/* Cria as linhas antes e depois do texto */
+		.sidebar-divider-with-text::before,
+		.sidebar-divider-with-text::after {
+			content: "";
+			flex: 1;
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		/* Espaçamento entre as linhas e o texto */
+		.sidebar-divider-with-text::before {
+			margin-right: 12px;
+		}
+
+		.sidebar-divider-with-text::after {
+			margin-left: 12px;
+		}		
+		
+		
     </style>
 </head>
 <body>
@@ -394,6 +426,13 @@
                     <li class="sidebar-item" id="menu-cargahoraria">
                         <a href="#" role="tab" aria-selected="false" aria-controls="dados-cargahoraria" onclick="switchTab(event, 'dados-cargahoraria', 'menu-cargahoraria')">Carga Horária</a>
                     </li>
+                    <li class="sidebar-item" id="menu-dados-requisito">
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-requisito" onclick="switchTab(event, 'dados-requisito', 'menu-dados-requisito')">Pré-requisito</a>
+                    </li>
+                    <li class="sidebar-item" id="menu-dados-equivalencia">
+                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-equivalencia" onclick="switchTab(event, 'dados-equivalencia', 'menu-dados-equivalencia')">Equivalência</a>
+                    </li>
+					<li class="sidebar-divider-with-text">Plano de Curso</li>
                     <li class="sidebar-item" id="menu-dados-bibliografia">
                         <a href="#" role="tab" aria-selected="false" aria-controls="dados-bibliografia" onclick="switchTab(event, 'dados-bibliografia', 'menu-dados-bibliografia')">Bibliografia</a>
                     </li>                   
@@ -409,12 +448,7 @@
                     <li class="sidebar-item" id="menu-atividades">
                         <a href="#" role="tab" aria-selected="false" aria-controls="dados-atividades" onclick="switchTab(event, 'dados-atividades', 'menu-atividades')">Atividades</a>
                     </li>
-                    <li class="sidebar-item" id="menu-dados-requisito">
-                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-requisito" onclick="switchTab(event, 'dados-requisito', 'menu-dados-requisito')">Pré-requisito</a>
-                    </li>
-                    <li class="sidebar-item" id="menu-dados-equivalencia">
-                        <a href="#" role="tab" aria-selected="false" aria-controls="dados-equivalencia" onclick="switchTab(event, 'dados-equivalencia', 'menu-dados-equivalencia')">Equivalência</a>
-                    </li>
+
                 </ul>
             </div>
         </aside>
