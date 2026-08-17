@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #334155;
+        }
+
+        /* Top Header */
+        .page-title-section {
+            padding: 15px 30px 0;
+        }
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+        .breadcrumb-text {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Student Card Header */
+        .student-header-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin: 15px 30px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0f172a;
+        }
+        .student-details h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .student-details p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        /* Buttons */
+        .btn-custom-outline {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+            font-weight: 500;
+        }
+        .btn-custom-outline:hover {
+            background-color: #f1f5f9;
+        }
+        .btn-custom-primary {
+            background-color: #27375b;
+            border-color: #27375b;
+            color: #fff;
+            font-weight: 500;
+        }
+        .btn-custom-primary:hover {
+            background-color: #1e2946;
+            color: #fff;
+        }
+        .btn-action-icon {
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        /* Main Content Layout */
+        .main-container {
+            padding: 0 30px 30px;
+        }
+        
+        /* Sidebar */
+        .sidebar-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            padding: 15px 0;
+            height: 100%;
+        }
+        .sidebar-category {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 10px 20px 5px;
+        }
+        .nav-pills .nav-link {
+            color: #475569;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            padding: 10px 20px;
+            margin: 2px 10px;
+            text-align: left;
+        }
+        .nav-pills .nav-link:hover {
+            background-color: #f8fafc;
+        }
+        .nav-pills .nav-link.active {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            padding: 25px;
+            min-height: 600px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #27375b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        /* Form styling */
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+        .form-control, .form-select {
+            font-size: 0.9rem;
+            border-color: #cbd5e1;
+            padding: 0.5rem 0.75rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #94a3b8;
+            box-shadow: 0 0 0 0.2rem rgba(39, 55, 91, 0.1);
+        }
+        .text-danger {
+            color: #ef4444 !important;
+        }
+
+        /* Tables & Files */
+        .table th {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom-width: 1px;
+        }
+        .table td {
+            font-size: 0.9rem;
+            color: #334155;
+            vertical-align: middle;
+            border-bottom-color: #f1f5f9;
+        }
+        .file-upload-header {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+        .badge-type {
+            background-color: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .action-edit {
+            font-weight: 600;
+            color: #27375b;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .action-edit:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Title & Breadcrumb -->
+    <div class="page-title-section">
+        <div class="d-flex align-items-center gap-2 page-title">
+            <i class="bi bi-people"></i> Alunos
+        </div>
+        <div class="breadcrumb-text">Acadêmico / Alunos</div>
+    </div>
+
+    <!-- Student Info Header -->
+    <div class="student-header-card">
+        <div class="student-info">
+            <div class="avatar">J</div>
+            <div class="student-details">
+                <h2>Jonas Donizete</h2>
+                <p>RA: 1 <br> Colégio: COTUCA</p>
+            </div>
+        </div>
+        <div class="action-buttons d-flex gap-2">
+            <button class="btn btn-sm btn-custom-outline px-3"><i class="bi bi-arrow-left"></i> Voltar</button>
+            <button class="btn btn-sm btn-custom-outline px-2"><i class="bi bi-file-earmark-arrow-down"></i> <i class="bi bi-chevron-down ms-1"></i></button>
+            <button class="btn btn-sm btn-custom-primary px-4">Salvar Aluno</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container row g-4">
+        
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3">
+            <div class="sidebar-card">
+                <div class="sidebar-category">Cadastro</div>
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <!-- Abas com data-bs-target configurado -->
+                    <button class="nav-link active" id="v-pills-pessoais-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pessoais" type="button" role="tab">Dados Pessoais</button>
+                    <button class="nav-link" id="v-pills-endereco-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endereco" type="button" role="tab">Endereço e Contato</button>
+                    <button class="nav-link" id="v-pills-filiacao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-filiacao" type="button" role="tab">Filiação / Responsáveis</button>
+                    <button class="nav-link" id="v-pills-formacao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-formacao" type="button" role="tab">Formação Anterior</button>
+                    
+                    <div class="sidebar-category mt-3">Documentação</div>
+                    <button class="nav-link" id="v-pills-docs-tab" data-bs-toggle="pill" data-bs-target="#v-pills-docs" type="button" role="tab">Documentos Básicos</button>
+                    <button class="nav-link" id="v-pills-rg-tab" data-bs-toggle="pill" data-bs-target="#v-pills-rg" type="button" role="tab">RG e Identidade</button>
+                    <button class="nav-link" id="v-pills-certidoes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-certidoes" type="button" role="tab">Certidões</button>
+                    
+                    <div class="sidebar-category mt-3">Registros Escolares</div>
+                    <button class="nav-link" id="v-pills-anexos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-anexos" type="button" role="tab">Arquivos Anexos</button>
+                    <button class="nav-link" id="v-pills-cursos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cursos" type="button" role="tab">Cursos Inscritos</button>
+                    <button class="nav-link" id="v-pills-notas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-notas" type="button" role="tab">Histórico de Notas</button>
+                    <button class="nav-link" id="v-pills-carteira-tab" data-bs-toggle="pill" data-bs-target="#v-pills-carteira" type="button" role="tab">Carteira Estudantil</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="col-md-9">
+            <div class="content-card tab-content" id="v-pills-tabContent">
+
+                <!-- TAB: Dados Pessoais (Ativa por padrão) -->
+                <div class="tab-pane fade show active" id="v-pills-pessoais" role="tabpanel">
+                    <h4 class="section-title">Dados Pessoais</h4>
+                    <form>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Nome <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="Jonas Donizete">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nome Social</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Registro Acadêmico (RA) <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="1">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Colégio</label>
+                                <select class="form-select">
+                                    <option>COTUCA (12)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Data de Nascimento</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sexo</label>
+                                <select class="form-select">
+                                    <option>--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Nacionalidade (ID)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">País Nascimento (ID)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">UF Nascimento</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cidade Nascimento</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Tipo Sanguíneo</label>
+                                <select class="form-select">
+                                    <option>--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Etnia</label>
+                                <select class="form-select">
+                                    <option>--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Caixa Arquivo Morto</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Validade do RA</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- TAB: Endereço e Contato -->
+                <div class="tab-pane fade" id="v-pills-endereco" role="tabpanel">
+                    <h4 class="section-title">Endereço e Contato</h4>
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">CEP <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="123">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Endereço (Logradouro)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Número</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Complemento</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Bairro</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select">
+                                    <option>-- Selecione --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Cidade</label>
+                                <select class="form-select">
+                                    <option>-- Selecione --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">País de Residência (ID)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <h5 class="section-title mt-4" style="font-size: 1rem;">Contatos do Aluno</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">DDD + Tel. Residencial</label>
+                                <div class="d-flex gap-2">
+                                    <input type="text" class="form-control" style="width: 70%;">
+                                    <input type="text" class="form-control" placeholder="Ramal" style="width: 30%;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">DDD + Celular</label>
+                                <div class="d-flex gap-2">
+                                    <input type="text" class="form-control" style="width: 70%;">
+                                    <input type="text" class="form-control" placeholder="Ramal" style="width: 30%;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">DDD + Comercial / Ramal</label>
+                                <div class="d-flex gap-2">
+                                    <input type="text" class="form-control" style="width: 70%;">
+                                    <input type="text" class="form-control" placeholder="Ramal" style="width: 30%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">E-mail Principal</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">E-mail Responsável</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB: Filiação / Responsáveis -->
+                <div class="tab-pane fade" id="v-pills-filiacao" role="tabpanel">
+                    <h4 class="section-title">Filiação / Responsáveis</h4>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded">
+                                <h6 class="fw-bold mb-3 text-secondary">Dados da Mãe</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Nome da Mãe</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">E-mail da Mãe</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                                <div>
+                                    <label class="form-label">Celular da Mãe</label>
+                                    <div class="d-flex gap-2">
+                                        <input type="text" class="form-control" style="width: 25%;" placeholder="DDD">
+                                        <input type="text" class="form-control" style="width: 75%;" placeholder="Número">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded">
+                                <h6 class="fw-bold mb-3 text-secondary">Dados do Pai</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Nome do Pai</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">E-mail do Pai</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                                <div>
+                                    <label class="form-label">Celular do Pai</label>
+                                    <div class="d-flex gap-2">
+                                        <input type="text" class="form-control" style="width: 25%;" placeholder="DDD">
+                                        <input type="text" class="form-control" style="width: 75%;" placeholder="Número">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: Formação Anterior -->
+                <div class="tab-pane fade" id="v-pills-formacao" role="tabpanel">
+                    <h4 class="section-title">Formação Anterior</h4>
+                    <div class="row g-4">
+                        
+                        <!-- Ensino Fundamental -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded h-100">
+                                <h6 class="fw-bold mb-3 text-dark border-bottom pb-2">Ensino Fundamental</h6>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Escola Ens. Fundamental</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Cidade Escola (Fundamental)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label text-truncate w-100">UF Escola (Fundamental)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">País Escola (Fundamental)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Ano Formação (Fundamental)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ensino Médio -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded h-100">
+                                <h6 class="fw-bold mb-3 text-dark border-bottom pb-2">Ensino Médio</h6>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Escola Ens. Médio</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Cidade Escola (Médio)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label text-truncate w-100">UF Escola (Médio)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">País Escola (Médio)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Ano Formação (Médio)</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TAB: Documentos Básicos -->
+                <div class="tab-pane fade" id="v-pills-docs" role="tabpanel">
+                    <h4 class="section-title">Documentos Básicos</h4>
+                    <form>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">CPF</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">RG Escolar</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">NIS</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Certificado Reservista</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Carteira de Trabalho</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Recebe Bolsa Família?</label>
+                                <select class="form-select">
+                                    <option>--</option>
+                                    <option>Sim</option>
+                                    <option>Não</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- TAB: RG e Identidade -->
+                <div class="tab-pane fade" id="v-pills-rg" role="tabpanel">
+                    <h4 class="section-title">RG e Identidade</h4>
+                    <form>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Número RG</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Órgão Emissor do RG</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">UF Emissão do RG</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Data Emissão RG</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB: Certidões -->
+                <div class="tab-pane fade" id="v-pills-certidoes" role="tabpanel">
+                    <h4 class="section-title">Certidões</h4>
+                    <form>
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <label class="form-label">Registro (Matrícula)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Data Emissão (Certidão)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Livro</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Folha</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Distrito</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <label class="form-label">Município (Comarca)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">UF Comarca</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB: Arquivos Anexos -->
+                <div class="tab-pane fade" id="v-pills-anexos" role="tabpanel">
+                    <h4 class="section-title">Arquivos Digitais</h4>
+                    
+                    <div class="file-upload-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="mb-1 text-secondary" style="font-size: 0.9rem;">Adicione documentos para consulta local (mock).</p>
+                            <small class="text-muted" style="font-size: 0.8rem;">3 documentos anexados</small>
+                        </div>
+                        <button class="btn btn-sm btn-custom-primary px-3 py-2">
+                            <i class="bi bi-plus"></i> Adicionar arquivo
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>DOCUMENTO ANEXADO</th>
+                                    <th>TIPO</th>
+                                    <th>TAMANHO</th>
+                                    <th>ADICIONADO EM</th>
+                                    <th class="text-end">AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-medium">foto-perfil-aluno.png</td>
+                                    <td><span class="badge-type">IMG</span></td>
+                                    <td>44.8 KB</td>
+                                    <td>17/08/2026, 15:54</td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-2">
+                                            <button class="btn btn-sm btn-custom-primary btn-action-icon" title="Visualizar"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-sm btn-outline-secondary btn-action-icon" title="Baixar"><i class="bi bi-download"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger btn-action-icon" title="Excluir"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-medium">prontuario-escolar.pdf</td>
+                                    <td><span class="badge-type">PDF</span></td>
+                                    <td>96.4 KB</td>
+                                    <td>17/08/2026, 15:54</td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-2">
+                                            <button class="btn btn-sm btn-custom-primary btn-action-icon" title="Visualizar"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-sm btn-outline-secondary btn-action-icon" title="Baixar"><i class="bi bi-download"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger btn-action-icon" title="Excluir"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-medium">observacoes.txt</td>
+                                    <td><span class="badge-type">TXT</span></td>
+                                    <td>428 B</td>
+                                    <td>17/08/2026, 15:54</td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-2">
+                                            <button class="btn btn-sm btn-custom-primary btn-action-icon" title="Visualizar"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-sm btn-outline-secondary btn-action-icon" title="Baixar"><i class="bi bi-download"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger btn-action-icon" title="Excluir"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB: Cursos Inscritos -->
+                <div class="tab-pane fade" id="v-pills-cursos" role="tabpanel">
+                    <h4 class="section-title">Cursos Inscritos</h4>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>CURSO</th>
+                                    <th>SITUAÇÃO</th>
+                                    <th>DATA CONCLUSÃO</th>
+                                    <th>AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>18 - Técnico em Enfermagem Integrado ao Ensino Médio</td>
+                                    <td>Concluiu Ensino Integrado</td>
+                                    <td>20/12/2025</td>
+                                    <td><a href="#" class="action-edit">Editar</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB: Histórico de Notas -->
+                <div class="tab-pane fade" id="v-pills-notas" role="tabpanel">
+                    <h4 class="section-title">Histórico Escolar</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Disciplina</th>
+                                    <th>Ano</th>
+                                    <th>Período</th>
+                                    <th>Nota</th>
+                                    <th>CH</th>
+                                    <th>Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>BI101 - Biologia</td>
+                                    <td>2025</td>
+                                    <td>3</td>
+                                    <td class="fw-bold">8.0</td>
+                                    <td>36</td>
+                                    <td>Aprovado</td>
+                                </tr>
+                                <tr>
+                                    <td>EEA28 - Arte</td>
+                                    <td>2024</td>
+                                    <td>2</td>
+                                    <td class="fw-bold">9.7</td>
+                                    <td>60</td>
+                                    <td>Aprovado</td>
+                                </tr>
+                                <tr>
+                                    <td>EFI38 - Física</td>
+                                    <td>2025</td>
+                                    <td>3</td>
+                                    <td class="fw-bold">6.5</td>
+                                    <td>90</td>
+                                    <td>Aprovado</td>
+                                </tr>
+                                <tr>
+                                    <td>EMA38 - Matemática</td>
+                                    <td>2025</td>
+                                    <td>3</td>
+                                    <td class="fw-bold">5.4</td>
+                                    <td>120</td>
+                                    <td>Aprovado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- TAB: Carteira Estudantil -->
+                <div class="tab-pane fade" id="v-pills-carteira" role="tabpanel">
+                    <h4 class="section-title">Solicitações de Carteirinha</h4>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>DESCRIÇÃO DA SOLICITAÇÃO</th>
+                                    <th>DATA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ENVIAR FOTOGRAFIAS</td>
+                                    <td>15/02/2024 16:08</td>
+                                </tr>
+                                <tr>
+                                    <td>ENVIO DE DADOS (1ª VIA DE CARTÃO)</td>
+                                    <td>30/01/2024 15:03</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS + Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

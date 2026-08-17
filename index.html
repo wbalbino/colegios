@@ -13,6 +13,7 @@
             --color-diarios: #10b981; /* Verde Diários */
             --color-salas: #8b5cf6; /* Roxo Cadastro de Salas */
             --color-servicos: #f59e0b; /* Âmbar/Laranja Solicitação de Serviços */
+            --color-alunos: #ec4899; /* Rosa Cadastro de Alunos */
             --color-dark: #0f172a;
             --color-text: #334155;
             --color-card-bg: #ffffff;
@@ -96,7 +97,7 @@
             margin: 0 auto;
         }
 
-        /* Grid de Módulos (Ajustado para 6 Módulos) */
+        /* Grid de Módulos (Ajustado para múltiplos Módulos) */
         .modules-grid {
             max-width: 1300px;
             margin: 40px auto;
@@ -163,6 +164,10 @@
         .module-card.servicos::before {
             background-color: var(--color-servicos);
         }
+        
+        .module-card.alunos::before {
+            background-color: var(--color-alunos);
+        }
 
         .module-icon {
             font-size: 32px;
@@ -208,6 +213,10 @@
 
         .module-card.salas .btn-access {
             color: var(--color-salas);
+        }
+        
+        .module-card.alunos .btn-access {
+            color: var(--color-alunos);
         }
 
         .btn-access .arrow {
@@ -347,6 +356,18 @@
     <!-- Grid de Links para as Páginas do Sistema -->
     <main class="modules-grid">
         
+        <!-- Link para Cadastro de Alunos (Novo Módulo) -->
+        <a href="CadastroAluno.html" class="module-card alunos">
+            <div>
+                <div class="module-icon">👨‍🎓</div>
+                <h2>Cadastro de Alunos</h2>
+                <p>Gerencie dados pessoais, endereço, filiação, formação anterior e documentações vitais. Visualize carteiras estudantis, arquivos e históricos escolares.</p>
+            </div>
+            <div class="btn-access">
+                Acessar Módulo de Alunos <span class="arrow">&rarr;</span>
+            </div>
+        </a>
+
         <!-- Link para Curso e Currículo -->
         <a href="curso_curriculo.html" class="module-card curso">
             <div>
@@ -407,7 +428,7 @@
             </div>
         </a>
 
-        <!-- Módulo de Solicitação de Serviços (Novo Módulo Adicionado) -->
+        <!-- Módulo de Solicitação de Serviços -->
         <div class="module-card servicos">
             <div>
                 <div class="module-icon">📑</div>
