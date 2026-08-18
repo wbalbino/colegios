@@ -1422,6 +1422,47 @@
 		
 		
 		
+		/* Feedback visual para a linha da tabela sendo editada */
+.disciplinas-table tbody tr.row-editing {
+    background-color: #eff6ff !important;
+    border-left: 4px solid var(--border-focus);
+}
+
+/* Container do formulário com destaque visual ao editar */
+.form-container-highlight {
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-container-highlight.editing-active {
+    border-color: var(--border-focus);
+    background-color: #f8fafc;
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.18);
+}
+
+/* Banner de contexto sobre o formulário */
+.edit-status-banner {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e0f2fe;
+    border: 1px solid #7dd3fc;
+    color: #0369a1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.edit-status-banner.active {
+    display: flex;
+}
+		
+		
 		
     </style>
 </head>
@@ -1455,9 +1496,11 @@
                     <li class="sidebar-item" id="menu-series">
                         <a href="#" onclick="switchTab(event, 'dados-series', 'menu-series')">Matriz pedagógica</a>
                     </li>
+					<!--
                     <li class="sidebar-item" id="menu-dados-matriz">
                         <a href="#" onclick="switchTab(event, 'dados-matriz', 'menu-dados-matriz')">Matriz Curricular</a>
                     </li>
+					-->
 					<li class="sidebar-item" id="menu-dados-matrizA">
                         <a href="#" onclick="switchTab(event, 'dados-matrizA', 'menu-dados-matrizA')">Partes</a>
                     </li>
@@ -1628,58 +1671,107 @@
             </div>
 
             <!-- 3. ABA: Habilitação -->
-            <div id="dados-habilitacao" class="tab-content">
-                <h2 class="section-header">Dados da Habilitação</h2>
-                <h3>Catálogo 2027</h3>
-                <br>
-                <form class="form-grid">                
-                    <div class="form-group">
-                        <label for="area-conhecimento">Área de conhecimento<span class="required">*</span></label>
-                        <select id="area-conhecimento">
-                            <option value="" disabled selected hidden>Selecione uma área...</option>
-                            <option value="tecnico1">LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS</option>
-                            <option value="tecnico2">CIÊNCIAS HUMANAS E SUAS TECNOLOGIAS</option>
-                            <option value="tecnico3">CIÊNCIAS DA NATUREZA, MATEMÁTICA E SUAS TECNOLOGIAS</option>
-                            <option value="tecnico4">PARTE DIVERSIFICADA</option>
-                            <option value="tecnico5">INDÚSTRIA</option>
-                            <option value="tecnico6">SAÚDE</option>
-                            <option value="tecnico7">INFORMÁTICA</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="CNCT">Protocolo Catálogo Nacional de Cursos Técnicos (CNCT)</label>
-                        <input type="text" id="CNCT" placeholder="Digite o código utilizado no MEC">
-                    </div>
-                    <div class="form-group">
-                        <label for="data-public">Data de publicação da autorização<span class="required">*</span></label>
-                        <input type="date" id="data-public" name="data-public" value="2026-07-15">
-                    </div>
-                    <div class="form-group">
-                        <label for="hist">Nomenclatura no histórico</label>
-                        <input type="text" id="hist" placeholder="Digite a nomenclatura que deve constar no histórico">
-                    </div>
-                    <div class="form-group">
-                        <label for="certif">Nomenclatura no certificado</label>
-                        <input type="text" id="certif" placeholder="Digite a nomenclatura que deve constar no certificado">
-                    </div>
-                    <div class="form-group">
-                        <label for="carga-estagio">Carga Horária de estágio<span class="required">*</span></label>
-                        <input type="number" id="carga-estagio" placeholder="Digite um valor de 0 a 350" min="0" max="350" step="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="anos-minimo">Número mínimo de anos para integralização (Processo Pedagócio Curso)<span class="required">*</span></label>
-                        <input type="number" id="anos-minimo" placeholder="Digite um valor de 0 a 12" min="0" max="12" step="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="anos-maximo">Número máximo de anos para integralização<span class="required">*</span></label>
-                        <input type="number" id="anos-maximo" placeholder="Digite um valor de 0 a 5" min="0" max="5" step="1">
-                    </div>                  
-                    <div class="form-group">
-                        <label for="obs-habilitacao">Observação</label>
-                        <input type="text" id="obs-habilitacao" placeholder="Digite alguma observação">
-                    </div>
-                </form>
-            </div>
+<!-- 3. ABA: Habilitação -->
+			<div id="dados-habilitacao" class="tab-content">
+				<h2 class="section-header">Dados da Habilitação</h2>
+				<h3>Catálogo 2027</h3>
+				<br>
+
+				<table class="disciplinas-table" style="margin-top: 10px;">
+					<thead>
+						<tr>
+							<th style="width: 80px; text-align: center;">Item</th>
+							<th>Nome da Ênfase</th>
+							<th style="width: 140px; text-align: center;">Situação</th>
+							<th style="width: 120px; text-align: center;">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="text-align: center; font-weight: 600;">1</td>
+							<td><strong>SISTEMA INFORMAÇÃO</strong></td>
+							<td style="text-align: center;"><span class="badge badge-success">Ativo</span></td>
+							<td style="text-align: center;">
+								<button type="button" class="btn-table-action" title="Editar" onclick="editarEnfase('SISTEMA INFORMAÇÃO', this)">✏️</button>
+								<button type="button" class="btn-remover-row" style="display: inline-block;" title="Excluir">✕</button>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align: center; font-weight: 600;">2</td>
+							<td><strong>SISTEMA DE SUPORTE</strong></td>
+							<td style="text-align: center;"><span class="badge badge-success">Ativo</span></td>
+							<td style="text-align: center;">
+								<button type="button" class="btn-table-action" title="Editar" onclick="editarEnfase('SISTEMA DE SUPORTE', this)">✏️</button>
+								<button type="button" class="btn-remover-row" style="display: inline-block;" title="Excluir">✕</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div style="display: flex; justify-content: flex-end; margin-top: 15px; margin-bottom: 20px;">
+					<button type="button" class="btn-green" onclick="cancelarEdicaoEnfase()">+ Adicionar Ênfase</button>
+				</div>
+
+				<!-- Envolto em um container para aplicar o destaque visual (UX) -->
+				<div id="container-form-habilitacao" class="form-container-highlight">
+					
+					<!-- Banner Informativo da Ênfase Atual em Edição -->
+					<div id="banner-edicao-enfase" class="edit-status-banner">
+						<span>✏️ Editando informações da ênfase: <strong id="nome-enfase-editando">---</strong></span>
+						<button type="button" class="btn-system" style="padding: 4px 10px; font-size: 11px;" onclick="cancelarEdicaoEnfase()">Cancelar Edição</button>
+					</div>
+
+					<form class="form-grid">                
+						<div class="form-group">
+							<label for="area-conhecimento">Área de conhecimento<span class="required">*</span></label>
+							<select id="area-conhecimento">
+								<option value="" disabled selected hidden>Selecione uma área...</option>
+								<option value="tecnico1">LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS</option>
+								<option value="tecnico2">CIÊNCIAS HUMANAS E SUAS TECNOLOGIAS</option>
+								<option value="tecnico3">CIÊNCIAS DA NATUREZA, MATEMÁTICA E SUAS TECNOLOGIAS</option>
+								<option value="tecnico4">PARTE DIVERSIFICADA</option>
+								<option value="tecnico5">INDÚSTRIA</option>
+								<option value="tecnico6">SAÚDE</option>
+								<option value="tecnico7">INFORMÁTICA</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="CNCT">Protocolo Catálogo Nacional de Cursos Técnicos (CNCT)</label>
+							<input type="text" id="CNCT" placeholder="Digite o código utilizado no MEC">
+						</div>
+						<div class="form-group">
+							<label for="data-public">Data de publicação da autorização<span class="required">*</span></label>
+							<input type="date" id="data-public" name="data-public" value="2026-07-15">
+						</div>
+						<div class="form-group">
+							<label for="hist">Nomenclatura no histórico</label>
+							<input type="text" id="hist" placeholder="Digite a nomenclatura que deve constar no histórico">
+						</div>
+						<div class="form-group">
+							<label for="certif">Nomenclatura no certificado</label>
+							<input type="text" id="certif" placeholder="Digite a nomenclatura que deve constar no certificado">
+						</div>
+						<div class="form-group">
+							<label for="carga-estagio">Carga Horária de estágio<span class="required">*</span></label>
+							<input type="number" id="carga-estagio" placeholder="Digite um valor de 0 a 350" min="0" max="350" step="1">
+						</div>
+						<div class="form-group">
+							<label for="anos-minimo">Número mínimo de anos para integralização (Processo Pedagócio Curso)<span class="required">*</span></label>
+							<input type="number" id="anos-minimo" placeholder="Digite um valor de 0 a 12" min="0" max="12" step="1">
+						</div>
+						<div class="form-group">
+							<label for="anos-maximo">Número máximo de anos para integralização<span class="required">*</span></label>
+							<input type="number" id="anos-maximo" placeholder="Digite um valor de 0 a 5" min="0" max="5" step="1">
+						</div>                  
+						<div class="form-group">
+							<label for="obs-habilitacao">Observação</label>
+							<input type="text" id="obs-habilitacao" placeholder="Digite alguma observação">
+						</div>
+					</form>
+				</div>
+			</div>		
+			
+
 
             <!-- 4. ABA: Qualificação -->
             <div id="dados-qualificacao" class="tab-content">
@@ -3256,7 +3348,47 @@
         /* INICIALIZAÇÃO DA PÁGINA */
         document.addEventListener('DOMContentLoaded', () => {
             renderizarPartesAtivas();
-        });		
+        });	
+
+        /* ênfases */
+		function editarEnfase(nomeEnfase, btnElement) {
+			// 1. Remove o destaque de todas as linhas da tabela
+			document.querySelectorAll('#dados-habilitacao .disciplinas-table tbody tr').forEach(tr => {
+				tr.classList.remove('row-editing');
+			});
+
+			// 2. Destaca a linha selecionada
+			const trSelecionada = btnElement.closest('tr');
+			if (trSelecionada) trSelecionada.classList.add('row-editing');
+
+			// 3. Exibe o banner de contexto indicando a ênfase em edição
+			const banner = document.getElementById('banner-edicao-enfase');
+			const nomeSpan = document.getElementById('nome-enfase-editando');
+			if (banner && nomeSpan) {
+				nomeSpan.textContent = nomeEnfase;
+				banner.classList.add('active');
+			}
+
+			// 4. Aplica a borda brilhante e o fundo diferenciado no formulário
+			const containerForm = document.getElementById('container-form-habilitacao');
+			if (containerForm) {
+				containerForm.classList.add('editing-active');
+				
+				// Rolagem suave para manter o formulário visível na tela
+				containerForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+			}
+		}
+
+		function cancelarEdicaoEnfase() {
+			// Reseta destaques da tabela, banner e bordas do formulário
+			document.querySelectorAll('#dados-habilitacao .disciplinas-table tbody tr').forEach(tr => tr.classList.remove('row-editing'));
+			
+			const banner = document.getElementById('banner-edicao-enfase');
+			if (banner) banner.classList.remove('active');
+
+			const containerForm = document.getElementById('container-form-habilitacao');
+			if (containerForm) containerForm.classList.remove('editing-active');
+		}		
 
     </script>
 </body>
