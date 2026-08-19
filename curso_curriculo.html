@@ -1463,6 +1463,33 @@
 }
 		
 		
+		/* =========================================================
+   ESTILOS DA NOVA ABA: NOVA MATRIZ PEDAGÓGICA
+   ========================================================= */
+#nova-matriz-pedagogica .acoes-globais { display: flex; gap: 10px; margin-bottom: 25px; align-items: center; }
+#nova-matriz-pedagogica .acoes-globais select { padding: 6px; border: 1px solid #ccc; border-radius: 4px; width: 150px; }
+#nova-matriz-pedagogica .btn-verde { background-color: #16a34a; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+#nova-matriz-pedagogica .btn-verde:hover { background-color: #15803d; }
+#nova-matriz-pedagogica .periodo-box { border: 1px solid #94a3b8; background-color: #f1f5f9; padding: 15px; margin-bottom: 20px; }
+#nova-matriz-pedagogica .periodo-box h3 { margin-top: 0; font-size: 18px; font-weight: normal; }
+#nova-matriz-pedagogica .busca-disciplina { display: flex; gap: 10px; margin-bottom: 10px; }
+#nova-matriz-pedagogica .busca-disciplina input { padding: 6px; width: 450px; border: 1px solid #94a3b8; }
+#nova-matriz-pedagogica .btn-azul { background-color: #5b9bd5; color: white; border: none; padding: 6px 20px; cursor: pointer; }
+#nova-matriz-pedagogica .btn-azul:hover { background-color: #4a84c0; }
+#nova-matriz-pedagogica table { width: 100%; border-collapse: collapse; margin-bottom: 10px; background-color: white; }
+#nova-matriz-pedagogica th, #nova-matriz-pedagogica td { border: 1px solid #cbd5e1; padding: 4px; text-align: left; }
+#nova-matriz-pedagogica th { background-color: #5b9bd5; color: white; font-weight: normal; text-align: center; }
+#nova-matriz-pedagogica td input, #nova-matriz-pedagogica td select { width: 100%; box-sizing: border-box; border: 1px solid #cbd5e1; padding: 4px; background-color: #f8fafc; }
+#nova-matriz-pedagogica .col-del { width: 30px; text-align: center; background-color: #f1f5f9; border: none;}
+#nova-matriz-pedagogica .col-ch { width: 60px; }
+#nova-matriz-pedagogica .btn-remover { background: none; border: none; color: #dc2626; font-size: 18px; cursor: pointer; padding: 0; }
+#nova-matriz-pedagogica .subtotais { display: flex; justify-content: flex-end; gap: 10px; align-items: center; font-size: 14px; }
+#nova-matriz-pedagogica .subtotais input, #nova-matriz-pedagogica .rodape-matriz input { width: 50px; padding: 4px; text-align: center; background-color: #e2e8f0; border: 1px solid #94a3b8; }
+#nova-matriz-pedagogica .subtotais-container { display: flex; gap: 10px; }
+#nova-matriz-pedagogica .rodape-matriz { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #cbd5e1; }
+#nova-matriz-pedagogica .btn-salvar { background-color: #dbeafe; border: 1px solid #5b9bd5; padding: 6px 20px; cursor: pointer; color: #1e3a8a; }
+#nova-matriz-pedagogica .btn-salvar:hover { background-color: #bfdbfe; }
+		
 		
     </style>
 </head>
@@ -1492,10 +1519,15 @@
                     </li>
                     <li class="sidebar-item" id="menu-dados-qualificacao">
                         <a href="#" onclick="switchTab(event, 'dados-qualificacao', 'menu-dados-qualificacao')">Qualificação</a>
-                    </li>                   
+                    </li>
+					<!--					
                     <li class="sidebar-item" id="menu-series">
                         <a href="#" onclick="switchTab(event, 'dados-series', 'menu-series')">Matriz pedagógica</a>
                     </li>
+					-->
+					<li class="sidebar-item" id="menu-nova-matriz-pedagogica">
+						<a href="#" onclick="switchTab(event, 'nova-matriz-pedagogica', 'menu-nova-matriz-pedagogica')">Nova Matriz Pedagógica</a>
+					</li>
 					<!--
                     <li class="sidebar-item" id="menu-dados-matriz">
                         <a href="#" onclick="switchTab(event, 'dados-matriz', 'menu-dados-matriz')">Matriz Curricular</a>
@@ -2002,6 +2034,33 @@
                     </div>
                 </form>
             </div>
+			
+			
+			<!-- ABA: Nova Matriz Pedagógica -->
+			<div id="nova-matriz-pedagogica" class="tab-content">
+				<h2 class="section-header">Matriz pedagógica (Alternativa)</h2>
+				<h3>Catálogo 2027</h3>
+
+				<div class="acoes-globais">
+					<select id="select-periodo-nova">
+						<option value="">Escolha...</option>
+						<option value="1º Período/ Série">1º Período/ Série</option>
+						<option value="2º Período/ Série">2º Período/ Série</option>
+						<option value="3º Período/ Série">3º Período/ Série</option>
+						<option value="4º Período/ Série">4º Período/ Série</option>
+					</select>
+					<button class="btn-verde" onclick="adicionarPeriodoNova()">+ Adicionar período/série</button>
+					<button class="btn-verde">🖨 Imprimir matriz</button>
+				</div>
+
+				<div id="periodos-container-nova"></div>
+
+				<div class="rodape-matriz">
+					<span>Total do Curso</span> 
+					<input type="text" id="total-geral-nova" value="0" readonly>
+					<button class="btn-salvar">Salvar</button>
+				</div>
+			</div>
 			
             <!-- 8. ABA: Sugestão -->
             <div id="dados-sugestao" class="tab-content">
@@ -3417,6 +3476,168 @@
             alert('Dados da ênfase salvos com sucesso!');
             cancelarEdicaoEnfase();
         }
+
+		/* =========================================================
+		   LÓGICA DA NOVA ABA: MATRIZ PEDAGÓGICA ALTERNATIVA
+		   ========================================================= */
+		const listaDisciplinasNova = [
+			{ codigo: 'MAT101', nome: 'Matemática e Suas Tecnologias I', area: 'Matemática', tipo: 'Técnico', aprovacao: 'Por Nota e Frequência', ch: 60 },
+			{ codigo: 'BIO101', nome: 'Biologia Celular e Genética', area: 'Ciências da Natureza', tipo: 'Técnico', aprovacao: 'Por Nota e Frequência', ch: 60 },
+			{ codigo: 'GEO101', nome: 'Geografia do Brasil e Geral', area: 'Ciências Humanas', tipo: 'Ensino Médio', aprovacao: 'Por Nota e Frequência', ch: 60 },
+			{ codigo: 'HIST101', nome: 'História Contemporânea', area: 'Ciências Humanas', tipo: 'Ensino Médio', aprovacao: 'Por Nota e Frequência', ch: 60 },
+			{ codigo: 'PORT101', nome: 'Língua Portuguesa e Literatura', area: 'Linguagens', tipo: 'Ensino Médio', aprovacao: 'Por Nota e Frequência', ch: 100 },
+			{ codigo: 'ING101', nome: 'Língua Estrangeira: Inglês Técnico', area: 'Linguagens', tipo: 'Ensino Médio', aprovacao: 'Por Nota e Frequência', ch: 40 },
+			{ codigo: 'ALGO10', nome: 'Algoritmos e Lógica de Programação', area: 'Formação Técnica Profissional', tipo: 'Técnico', aprovacao: 'Por Nota e Frequência', ch: 90 },
+			{ codigo: 'ELET10', nome: 'Eletricidade Básica e Circuitos', area: 'Formação Técnica Profissional', tipo: 'Técnico', aprovacao: 'Por Nota e Frequência', ch: 80 }
+		];
+
+		let periodoCountNova = 0;
+
+		// Cria o datalist sem usar window.onload para não sobrescrever outros scripts
+		document.addEventListener('DOMContentLoaded', function() {
+			const datalist = document.createElement('datalist');
+			datalist.id = 'lista-disciplinas-bd-nova';
+			
+			listaDisciplinasNova.forEach(d => {
+				const option = document.createElement('option');
+				option.value = `${d.codigo} - ${d.nome}`;
+				datalist.appendChild(option);
+			});
+			
+			document.body.appendChild(datalist);
+		});
+
+		function adicionarPeriodoNova() {
+			const select = document.getElementById('select-periodo-nova');
+			const nomePeriodo = select.value;
+
+			if (nomePeriodo === "") {
+				alert("Por favor, escolha um período na lista.");
+				return;
+			}
+
+			periodoCountNova++;
+			const periodoId = `periodo-nova-${periodoCountNova}`;
+
+			const htmlPeriodo = `
+				<div class="periodo-box" id="${periodoId}">
+					<h3>${nomePeriodo}</h3>
+					
+					<div class="busca-disciplina">
+						<input type="text" id="busca-${periodoId}" list="lista-disciplinas-bd-nova" placeholder="Pesquise uma disciplina pelo nome ou código">
+						<button class="btn-azul" onclick="adicionarLinhaDisciplinaNova('${periodoId}')">Adicionar</button>
+					</div>
+
+					<table>
+						<thead>
+							<tr>
+								<th class="col-del"></th>
+								<th>Disciplina</th>
+								<th>Área do Conhecimento</th>
+								<th>Tipo de Disciplina</th>
+								<th>Tipo de Aprovação</th>
+								<th class="col-ch">C.H.</th>
+							</tr>
+						</thead>
+						<tbody id="tbody-${periodoId}"></tbody>
+					</table>
+					
+					<div class="subtotais">
+						<div id="subtotais-box-${periodoId}" class="subtotais-container"></div>
+					</div>
+				</div>
+			`;
+
+			document.getElementById('periodos-container-nova').insertAdjacentHTML('beforeend', htmlPeriodo);
+			select.value = "";
+		}
+
+		function adicionarLinhaDisciplinaNova(periodoId) {
+			const inputBusca = document.getElementById(`busca-${periodoId}`);
+			const valorPesquisado = inputBusca.value;
+
+			const disciplina = listaDisciplinasNova.find(d => `${d.codigo} - ${d.nome}` === valorPesquisado);
+
+			if (!disciplina) {
+				alert("Disciplina não encontrada! Selecione uma opção válida na lista.");
+				return;
+			}
+
+			const tbody = document.getElementById(`tbody-${periodoId}`);
+			const novaLinha = document.createElement('tr');
+
+			novaLinha.innerHTML = `
+				<td class="col-del"><button class="btn-remover" onclick="removerLinhaDisciplinaNova(this, '${periodoId}')">❌</button></td>
+				<td><input type="text" value="${disciplina.nome}" readonly style="background-color: #e2e8f0; color: #475569;"></td>
+				<td>
+					<select>
+						<option value="Formação Técnica Profissional" ${disciplina.area === 'Formação Técnica Profissional' ? 'selected' : ''}>Formação Técnica Profissional</option>
+						<option value="Linguagens" ${disciplina.area === 'Linguagens' ? 'selected' : ''}>Linguagens</option>
+						<option value="Matemática" ${disciplina.area === 'Matemática' ? 'selected' : ''}>Matemática</option>
+						<option value="Ciências da Natureza" ${disciplina.area === 'Ciências da Natureza' ? 'selected' : ''}>Ciências da Natureza</option>
+						<option value="Ciências Humanas" ${disciplina.area === 'Ciências Humanas' ? 'selected' : ''}>Ciências Humanas</option>
+					</select>
+				</td>
+				<td>
+					<input type="text" class="tipo-disciplina-nova" value="${disciplina.tipo}" readonly style="background-color: #e2e8f0; color: #475569;">
+				</td>
+				<td>
+					<input type="text" value="${disciplina.aprovacao}" readonly style="background-color: #e2e8f0; color: #475569;">
+				</td>
+				<td class="col-ch">
+					<input type="number" class="ch-input-nova" value="${disciplina.ch}" readonly onchange="calcularTotaisNova()" onkeyup="calcularTotaisNova()">
+				</td>
+			`;
+
+			tbody.appendChild(novaLinha);
+			inputBusca.value = ""; 
+			calcularTotaisNova();
+		}
+
+		function removerLinhaDisciplinaNova(botaoRemover, periodoId) {
+			const linha = botaoRemover.closest('tr');
+			linha.remove();
+			calcularTotaisNova();
+		}
+
+		function calcularTotaisNova() {
+			let totalGeral = 0;
+			const periodos = document.querySelectorAll('#nova-matriz-pedagogica .periodo-box');
+
+			periodos.forEach(periodo => {
+				const linhas = periodo.querySelectorAll('tbody tr');
+				const totaisPeriodo = {}; 
+
+				linhas.forEach(linha => {
+					const tipoElement = linha.querySelector('.tipo-disciplina-nova');
+					const chElement = linha.querySelector('.ch-input-nova');
+					
+					if(tipoElement && chElement) {
+						const tipo = tipoElement.value;
+						const ch = parseInt(chElement.value) || 0;
+
+						if(!totaisPeriodo[tipo]) totaisPeriodo[tipo] = 0;
+						totaisPeriodo[tipo] += ch;
+						totalGeral += ch;
+					}
+				});
+
+				const subtotaisBox = periodo.querySelector('.subtotais-container');
+				subtotaisBox.innerHTML = ''; 
+
+				for (const [tipo, valor] of Object.entries(totaisPeriodo)) {
+					if (valor > 0) {
+						subtotaisBox.insertAdjacentHTML('beforeend', `
+							<span style="background: #f1f5f9; padding: 2px 5px; border: 1px solid #cbd5e1;">${tipo}</span>
+							<input type="text" value="${valor}" readonly>
+						`);
+					}
+				}
+			});
+
+			document.getElementById('total-geral-nova').value = totalGeral;
+		}
+
 
     </script>
 </body>
