@@ -1534,7 +1534,7 @@
                     </li>
 					-->
 					<li class="sidebar-item" id="menu-dados-matrizA">
-                        <a href="#" onclick="switchTab(event, 'dados-matrizA', 'menu-dados-matrizA')">Partes</a>
+                        <a href="#" onclick="switchTab(event, 'dados-matrizA', 'menu-dados-matrizA')">Áreas</a>
                     </li>
                 </ul>
             </div>
@@ -1677,7 +1677,25 @@
                             <option value="eletro">26. Técnico em Eletroeletrônica</option>
                             <option value="enfer">27. Técnico em Enfermagem</option>
                         </select>
-                    </div>          
+                    </div> 
+					
+                    <div class="parent-card span-2">
+                        <h3>Carga Horária Total do Curso</h3>
+                        <div class="form-group">
+                            <label for="nome-curso-portugues">Formação Geral Básica (horas):<span class="required">*</span></label>
+                            <input type="number" id="formacaoGeral" name="formacaoGeral" min="0" placeholder="Ex: 1800">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome-curso-ingles">Formação Técnica Profissional (horas):</</label>
+                            <input type="number" id="formacaoTecnica" name="formacaoTecnica" min="0" placeholder="Ex: 1200">
+                        </div>                       
+                    </div>   					
+					
+					
+	
+        
+
+					
                 </form>
             </div>
             
@@ -1896,61 +1914,8 @@
                 </form>
             </div>
 
-            <!-- 6. ABA: Matriz pedagógica  -->
-            <div id="dados-series" class="tab-content">
-                <h2 class="section-header">Matriz pedagógica</h2>
-				<h3>Catálogo 2027</h3>
-                <br>
-                <div class="series-container">
-                    <div class="series-top-bar">
-                        <div class="series-search-group">
-                            <label for="select-disciplina-add">Busque uma disciplina para adicionar:</label>
-                            <select id="select-disciplina-add">
-                                <option value="MARK">MBI10 - Biologia</option>
-                                <option value="CEIANB">MC101 - Introdução aos Algorítmos de Programação</option>
-                                <option value="MAT">MC102 - Eletricidade Básica</option>
-                                <option value="GEST">MC103 - Desenho Técnico e Projetos de Máquinas I</option>
-                            </select>
-                            <button type="button" class="btn-green" onclick="adicionarDisciplinaMatriz()">+ Adicionar disciplina à matriz</button>
-                        </div>
 
-                        <div class="series-actions-right">
-                            <button type="button" class="btn-green">🖨 Imprimir matriz</button>
-                        </div>
-                    </div>
-
-                    <div class="period-control-bar">
-                        <select id="select-periodo-opcao">
-                            <option value="">Escolha...</option>
-                            <option value="1º">1º Período/Série</option>
-                            <option value="2º">2º Período/Série</option>
-                            <option value="3º">3º Período/Série</option>
-                            <option value="4º">4º Período/Série</option>
-                        </select>
-                        <button type="button" class="btn-green" onclick="adicionarPeriodo()">+ Adicionar período/série</button>
-                        <span class="period-info-text">
-                            <span class="dica-icon">ℹ️</span> Essa matriz é organizada em cada divisão, escolha o período acima para gerar a caixa e a tabela.
-                        </span>
-                    </div>
-
-                    <div class="series-main-grid">
-                        <div class="period-sidebar-list" id="period-sidebar-list">
-                            <!-- Botões dos períodos criados -->
-                        </div>
-
-                        <div class="series-table-wrapper" id="period-tables-container">
-                            <div id="empty-period-msg" class="empty-state-box">
-                                Nenhum período adicionado. Selecione um período no menu acima e clique em <strong>"+ Adicionar período"</strong> para começar.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="series-footer-actions">
-                        <button type="button" class="btn-blue-save">✔ Salvar</button>
-                    </div>
-                </div>
-            </div>
-
+            
             <!-- 7. ABA: Matriz Curricular -->
             <div id="dados-matriz" class="tab-content">
                 <h2 class="section-header">Matriz Curricular</h2>
@@ -2038,7 +2003,7 @@
 			
 			<!-- ABA: Nova Matriz Pedagógica -->
 			<div id="nova-matriz-pedagogica" class="tab-content">
-				<h2 class="section-header">Matriz pedagógica (Alternativa)</h2>
+				<h2 class="section-header">Matriz pedagógica</h2>
 				<h3>Catálogo 2027</h3>
 
 				<div class="acoes-globais">
