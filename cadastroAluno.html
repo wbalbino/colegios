@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #334155;
+        }
+
+        .page-title-section {
+            padding: 15px 30px 0;
+        }
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+        .breadcrumb-text {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .student-header-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin: 15px 30px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0f172a;
+        }
+        .student-details h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .student-details p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .btn-custom-outline {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+            font-weight: 500;
+        }
+        .btn-custom-outline:hover {
+            background-color: #f1f5f9;
+        }
+        .btn-custom-primary {
+            background-color: #27375b;
+            border-color: #27375b;
+            color: #fff;
+            font-weight: 500;
+        }
+        .btn-custom-primary:hover {
+            background-color: #1e2946;
+            color: #fff;
+        }
+
+        .main-container {
+            padding: 0 30px 30px;
+        }
+        
+        .sidebar-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            padding: 15px 0;
+            height: 100%;
+        }
+        .sidebar-category {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 10px 20px 5px;
+        }
+        .nav-pills .nav-link {
+            color: #475569;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            padding: 10px 20px;
+            margin: 2px 10px;
+            text-align: left;
+        }
+        .nav-pills .nav-link:hover {
+            background-color: #f8fafc;
+        }
+        .nav-pills .nav-link.active {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .content-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            padding: 25px;
+            min-height: 600px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #27375b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+        .form-control, .form-select {
+            font-size: 0.9rem;
+            border-color: #cbd5e1;
+            padding: 0.5rem 0.75rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #94a3b8;
+            box-shadow: 0 0 0 0.2rem rgba(39, 55, 91, 0.1);
+        }
+        .text-danger {
+            color: #ef4444 !important;
+        }
+
+        .table th {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom-width: 1px;
+        }
+        .table td {
+            font-size: 0.9rem;
+            color: #334155;
+            vertical-align: middle;
+            border-bottom-color: #f1f5f9;
+        }
+        .file-upload-header {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+        .badge-type {
+            background-color: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .action-edit {
+            font-weight: 600;
+            color: #27375b;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .action-edit:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="studentForm" novalidate>
+        <!-- Header Principal -->
+        <div class="page-title-section">
+            <div class="d-flex align-items-center gap-2 page-title">
+                <i class="bi bi-people"></i> Alunos
+            </div>
+            <div class="breadcrumb-text">Acadêmico / Alunos</div>
+        </div>
+
+        <div class="student-header-card">
+            <div class="student-info">
+                <div class="avatar">J</div>
+                <div class="student-details">
+                    <h2>Jonas Donizete</h2>
+                    <p>RA: 1 <br> Colégio: COTUCA</p>
+                </div>
+            </div>
+            <div class="action-buttons d-flex gap-2">
+                <button type="button" class="btn btn-sm btn-custom-outline px-3"><i class="bi bi-arrow-left"></i> Voltar</button>
+                <button type="button" class="btn btn-sm btn-custom-outline px-2"><i class="bi bi-file-earmark-arrow-down"></i> <i class="bi bi-chevron-down ms-1"></i></button>
+                <button type="submit" class="btn btn-sm btn-custom-primary px-4">Salvar Aluno</button>
+            </div>
+        </div>
+
+        <!-- Estrutura do Form/Abas -->
+        <div class="main-container row g-4">
+            
+            <!-- Sidebar Navigation -->
+            <div class="col-md-3">
+                <div class="sidebar-card">
+                    <div class="sidebar-category">Cadastro</div>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-pessoais-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pessoais" type="button" role="tab">Dados Pessoais</button>
+                        <button class="nav-link" id="v-pills-endereco-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endereco" type="button" role="tab">Endereço e Contato</button>
+                        <button class="nav-link" id="v-pills-filiacao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-filiacao" type="button" role="tab">Filiação / Responsáveis</button>
+                        <button class="nav-link" id="v-pills-docs-tab" data-bs-toggle="pill" data-bs-target="#v-pills-docs" type="button" role="tab">Documentos Básicos</button>
+                        <button class="nav-link" id="v-pills-formacao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-formacao" type="button" role="tab">Formação Anterior</button>
+                        <button class="nav-link" id="v-pills-saude-tab" data-bs-toggle="pill" data-bs-target="#v-pills-saude" type="button" role="tab">Ficha de Saúde</button>
+                        <button class="nav-link" id="v-pills-anexos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-anexos" type="button" role="tab">Arquivos Anexos</button>
+
+                        <div class="sidebar-category mt-3">Registros Escolares</div>
+                        <button class="nav-link" id="v-pills-cursos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cursos" type="button" role="tab">Cursos Inscritos</button>
+                        <button class="nav-link" id="v-pills-notas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-notas" type="button" role="tab">Histórico de Notas</button>
+                        <button class="nav-link" id="v-pills-carteira-tab" data-bs-toggle="pill" data-bs-target="#v-pills-carteira" type="button" role="tab">Carteira Estudantil</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-md-9">
+                <div class="content-card tab-content" id="v-pills-tabContent">
+
+                    <!-- TAB 1: Dados Pessoais -->
+                    <div class="tab-pane fade show active" id="v-pills-pessoais" role="tabpanel">
+                        <h4 class="section-title">Dados Pessoais</h4>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Nome <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="Jonas Donizete" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nome Social</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Colégio</label>
+                                <select class="form-select">
+                                    <option value="COTUCA">COTUCA (12)</option>
+                                    <option value="COTIL">COTIL</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Data de Nascimento</label>
+                                <input type="date" id="dtNascimento" class="form-control">
+                                <div class="invalid-feedback">O aluno deve ter no mínimo 13 anos de idade.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Sexo</label>
+                                <select class="form-select">
+                                    <option>-- Selecione --</option>
+                                    <option>Masculino</option>
+                                    <option>Feminino</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">País Nascimento (ID)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">UF Nascimento</label>
+                                <select class="form-select select-uf">
+                                    <option value="">-- Selecione --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cidade Nascimento</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Etnia</label>
+                                <select class="form-select">
+                                    <option value="">-- Selecione --</option>
+                                    <option value="Branco">Branco</option>
+                                    <option value="Preto">Preto</option>
+                                    <option value="Pardo">Pardo</option>
+                                    <option value="Indigena">Indígena</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Validade do RA (MM/AAAA)</label>
+                                <input type="text" id="validadeRA" class="form-control" placeholder="MM/AAAA" maxlength="7">
+                                <div class="invalid-feedback">A data do RA deve ser igual ou superior ao mês/ano atual.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- TAB 2: Endereço e Contato -->
+                    <div class="tab-pane fade" id="v-pills-endereco" role="tabpanel">
+                        <h4 class="section-title">Endereço e Contato</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">CEP</label>
+                                <input type="text" class="form-control" value="13000-000">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Endereço (Logradouro)</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Número</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Complemento</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Bairro</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select select-uf">
+                                    <option value="">-- Selecione --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Cidade</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <h5 class="section-title mt-4" style="font-size: 1rem;">Contatos do Aluno</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">DDD + Tel. Residencial</label>
+                                <div class="d-flex gap-2">
+                                    <input type="text" class="form-control" style="width: 70%;">
+                                    <input type="text" class="form-control" placeholder="Ramal" style="width: 30%;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">DDD + Celular</label>
+                                <div class="d-flex gap-2">
+                                    <input type="text" class="form-control" style="width: 70%;">
+                                    <input type="text" class="form-control" placeholder="Ramal" style="width: 30%;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">DDD + Comercial / Ramal</label>
+                                <div class="d-flex gap-2">
+                                    <input type="text" class="form-control" style="width: 70%;">
+                                    <input type="text" class="form-control" placeholder="Ramal" style="width: 30%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">E-mail Principal</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">E-mail Responsável</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: Filiação / Responsáveis -->
+                    <div class="tab-pane fade" id="v-pills-filiacao" role="tabpanel">
+                        <h4 class="section-title">Filiação / Responsáveis</h4>
+                        
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded">
+                                    <h6 class="fw-bold mb-3 text-secondary">Dados da Mãe</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome da Mãe <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" required>
+                                        <div class="invalid-feedback">O nome da mãe é obrigatório.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">E-mail da Mãe</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Celular da Mãe</label>
+                                        <div class="d-flex gap-2">
+                                            <input type="text" class="form-control" style="width: 25%;" placeholder="DDD">
+                                            <input type="text" class="form-control" style="width: 75%;" placeholder="Número">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded">
+                                    <h6 class="fw-bold mb-3 text-secondary">Dados do Pai</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome do Pai</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">E-mail do Pai</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Celular do Pai</label>
+                                        <div class="d-flex gap-2">
+                                            <input type="text" class="form-control" style="width: 25%;" placeholder="DDD">
+                                            <input type="text" class="form-control" style="width: 75%;" placeholder="Número">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded">
+                                    <h6 class="fw-bold mb-3 text-secondary">Dados da Madrasta</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome da Madrasta</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">E-mail da Madrasta</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Celular da Madrasta</label>
+                                        <div class="d-flex gap-2">
+                                            <input type="text" class="form-control" style="width: 25%;" placeholder="DDD">
+                                            <input type="text" class="form-control" style="width: 75%;" placeholder="Número">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded">
+                                    <h6 class="fw-bold mb-3 text-secondary">Dados do Padrasto</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome do Padrasto</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">E-mail do Padrasto</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Celular do Padrasto</label>
+                                        <div class="d-flex gap-2">
+                                            <input type="text" class="form-control" style="width: 25%;" placeholder="DDD">
+                                            <input type="text" class="form-control" style="width: 75%;" placeholder="Número">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: Documentos Básicos (CPF OBRIGATÓRIO) -->
+                    <div class="tab-pane fade" id="v-pills-docs" role="tabpanel">
+                        <h4 class="section-title">Documentos Básicos</h4>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">CPF <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required placeholder="000.000.000-00">
+                                <div class="invalid-feedback">O CPF do aluno é obrigatório.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">RG Escolar</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <h5 class="section-title mt-4" style="font-size: 1rem;">RG e Identidade</h5>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Número RG</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Órgão Emissor do RG</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">UF Emissão do RG</label>
+                                <select class="form-select select-uf">
+                                    <option value="">-- Selecione --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Data Emissão RG</label>
+                                <input type="date" id="dtEmissaoRG" class="form-control">
+                                <div class="invalid-feedback">A data de emissão deve ser menor ou igual ao dia atual.</div>
+                            </div>
+                        </div>
+
+                        <h5 class="section-title mt-4" style="font-size: 1rem;">Outros Documentos</h5>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Recebe Bolsa Família?</label>
+                                <select class="form-select">
+                                    <option value="">-- Selecione --</option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">NIS</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Carteira de Trabalho</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: Formação Anterior (COM ANO DE FORMAÇÃO) -->
+                    <div class="tab-pane fade" id="v-pills-formacao" role="tabpanel">
+                        <h4 class="section-title">Formação Anterior</h4>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded h-100">
+                                    <h6 class="fw-bold mb-3 text-dark border-bottom pb-2">Ensino Fundamental</h6>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Escola Ens. Fundamental</label>
+                                            <input type="text" class="form-control" placeholder="Nome da Instituição">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-8">
+                                            <label class="form-label">Cidade Escola</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">UF Escola</label>
+                                            <select class="form-select select-uf">
+                                                <option value="">--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Ano de Conclusão</label>
+                                            <input type="number" class="form-control" placeholder="Ex: 2022" min="1950" max="2030">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded h-100">
+                                    <h6 class="fw-bold mb-3 text-dark border-bottom pb-2">Ensino Médio</h6>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Escola Ens. Médio</label>
+                                            <input type="text" class="form-control" placeholder="Nome da Instituição">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-8">
+                                            <label class="form-label">Cidade Escola</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">UF Escola</label>
+                                            <select class="form-select select-uf">
+                                                <option value="">--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Ano de Conclusão</label>
+                                            <input type="number" class="form-control" placeholder="Ex: 2025" min="1950" max="2030">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 6: Ficha de Saúde -->
+                    <div class="tab-pane fade" id="v-pills-saude" role="tabpanel">
+                        <h4 class="section-title">Ficha de Saúde</h4>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Tipo Sanguíneo</label>
+                                <select class="form-select">
+                                    <option value="">-- Selecione --</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Possui Plano de Saúde?</label>
+                                <select class="form-select">
+                                    <option value="">-- Selecione --</option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Nome do Convênio / Plano</label>
+                                <input type="text" class="form-control" placeholder="Ex: Unimed">
+                            </div>
+                        </div>
+
+                        <h5 class="section-title mt-4" style="font-size: 1rem;">Informações Médicas</h5>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Alergias Conhecidas</label>
+                                <textarea class="form-control" rows="3" placeholder="Alimentos, medicamentos, picadas de insetos..."></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Medicamentos de Uso Contínuo</label>
+                                <textarea class="form-control" rows="3" placeholder="Nome do medicamento e dosagem..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Condições de Saúde / Restrições</label>
+                                <textarea class="form-control" rows="3" placeholder="Diabetes, asma, problemas cardíacos, restrições físicas..."></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Observações Médicas Adicionais</label>
+                                <textarea class="form-control" rows="3" placeholder="Informações relevantes para a escola..."></textarea>
+                            </div>
+                        </div>
+
+                        <h5 class="section-title mt-4" style="font-size: 1rem;">Contatos de Emergência Médica</h5>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nome do Contato</label>
+                                <input type="text" class="form-control" placeholder="Nome da pessoa responsável">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Parentesco</label>
+                                <input type="text" class="form-control" placeholder="Ex: Tio, Avó">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Telefone de Emergência</label>
+                                <input type="text" class="form-control" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 7: Arquivos Anexos -->
+                    <div class="tab-pane fade" id="v-pills-anexos" role="tabpanel">
+                        <h4 class="section-title">Arquivos Digitais</h4>
+                        <div class="file-upload-header d-flex justify-content-between align-items-center">
+                            <p class="mb-0 text-secondary" style="font-size: 0.9rem;">Documentos anexados do aluno.</p>
+                            <button type="button" class="btn btn-sm btn-custom-primary"><i class="bi bi-plus"></i> Adicionar arquivo</button>
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome do Arquivo</th>
+                                    <th>Tipo</th>
+                                    <th>Data de Envio</th>
+                                    <th class="text-end">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="bi bi-file-earmark-pdf text-danger me-2"></i>certidao_nascimento.pdf</td>
+                                    <td><span class="badge-type">Certidão</span></td>
+                                    <td>10/01/2026</td>
+                                    <td class="text-end">
+                                        <a class="action-edit me-2"><i class="bi bi-download"></i></a>
+                                        <a class="text-danger action-edit"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i class="bi bi-file-earmark-image text-primary me-2"></i>comprovante_residencia.jpg</td>
+                                    <td><span class="badge-type">Comprovante</span></td>
+                                    <td>12/01/2026</td>
+                                    <td class="text-end">
+                                        <a class="action-edit me-2"><i class="bi bi-download"></i></a>
+                                        <a class="text-danger action-edit"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- TAB 8: Cursos Inscritos -->
+                    <div class="tab-pane fade" id="v-pills-cursos" role="tabpanel">
+                        <h4 class="section-title">Cursos Inscritos</h4>
+                        <table class="table">
+                            <thead><tr><th>Curso</th><th>Situação</th></tr></thead>
+                            <tbody><tr><td>18 - Técnico em Enfermagem Integrado</td><td>Concluiu</td></tr></tbody>
+                        </table>
+                    </div>
+
+                    <!-- TAB 9: Histórico de Notas -->
+                    <div class="tab-pane fade" id="v-pills-notas" role="tabpanel">
+                        <h4 class="section-title">Histórico Escolar</h4>
+                        <p>Sem histórico registrado.</p>
+                    </div>
+                    
+                    <!-- TAB 10: Carteira Estudantil -->
+                    <div class="tab-pane fade" id="v-pills-carteira" role="tabpanel">
+                        <h4 class="section-title">Solicitações de Carteirinha</h4>
+                        <p>Nenhuma solicitação pendente.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Popula Lista de Estados
+            const ufs = [
+                'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 
+                'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 
+                'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+            ];
+            
+            document.querySelectorAll('.select-uf').forEach(select => {
+                ufs.forEach(uf => {
+                    const option = document.createElement('option');
+                    option.value = uf;
+                    option.textContent = uf;
+                    select.appendChild(option);
+                });
+            });
+
+            // Parâmetros de Data
+            const hoje = new Date();
+            const anoAtual = hoje.getFullYear();
+            const mesAtual = hoje.getMonth() + 1; // 1-12
+            const hojeStr = hoje.toISOString().split('T')[0];
+
+            const dataLimite13Anos = new Date(hoje.getFullYear() - 13, hoje.getMonth(), hoje.getDate());
+            const dataLimite13AnosStr = dataLimite13Anos.toISOString().split('T')[0];
+
+            const dtEmissaoInput = document.getElementById('dtEmissaoRG');
+            const validadeRAInput = document.getElementById('validadeRA');
+            const dtNascimentoInput = document.getElementById('dtNascimento');
+
+            if (dtEmissaoInput) dtEmissaoInput.setAttribute('max', hojeStr);
+            if (dtNascimentoInput) dtNascimentoInput.setAttribute('max', dataLimite13AnosStr);
+
+            // Formatação do RA (MM/AAAA)
+            validadeRAInput?.addEventListener('input', function(e) {
+                let v = e.target.value.replace(/\D/g, '');
+                if (v.length > 2) {
+                    v = v.substring(0, 2) + '/' + v.substring(2, 6);
+                }
+                e.target.value = v;
+            });
+
+            // Validações
+            function validarNascimento() {
+                if (!dtNascimentoInput || !dtNascimentoInput.value) {
+                    dtNascimentoInput.setCustomValidity('');
+                    dtNascimentoInput.classList.remove('is-invalid');
+                    return true;
+                }
+
+                const dtNasc = new Date(dtNascimentoInput.value + 'T00:00:00');
+                let idade = hoje.getFullYear() - dtNasc.getFullYear();
+                const m = hoje.getMonth() - dtNasc.getMonth();
+                
+                if (m < 0 || (m === 0 && hoje.getDate() < dtNasc.getDate())) {
+                    idade--;
+                }
+
+                if (idade < 13) {
+                    dtNascimentoInput.setCustomValidity('O aluno deve ter no mínimo 13 anos.');
+                    dtNascimentoInput.classList.add('is-invalid');
+                    return false;
+                } else {
+                    dtNascimentoInput.setCustomValidity('');
+                    dtNascimentoInput.classList.remove('is-invalid');
+                    return true;
+                }
+            }
+
+            function validarEmissaoRG() {
+                if (!dtEmissaoInput || !dtEmissaoInput.value) return true;
+
+                const dtEmissao = new Date(dtEmissaoInput.value + 'T00:00:00');
+                const limiteHoje = new Date();
+                limiteHoje.setHours(23, 59, 59, 999);
+
+                if (dtEmissao > limiteHoje) {
+                    dtEmissaoInput.setCustomValidity('A data não pode ser superior à atual.');
+                    dtEmissaoInput.classList.add('is-invalid');
+                    return false;
+                } else {
+                    dtEmissaoInput.setCustomValidity('');
+                    dtEmissaoInput.classList.remove('is-invalid');
+                    return true;
+                }
+            }
+
+            // Validação de Mês e Ano do RA (Mês/Ano Atual ou Futuro)
+            function validarValidadeRA() {
+                if (!validadeRAInput || !validadeRAInput.value) return true;
+
+                const regex = /^(0[1-9]|1[0-2])\/\d{4}$/;
+                if (!regex.test(validadeRAInput.value)) {
+                    validadeRAInput.setCustomValidity('Formato inválido.');
+                    validadeRAInput.classList.add('is-invalid');
+                    return false;
+                }
+
+                const parts = validadeRAInput.value.split('/');
+                const mes = parseInt(parts[0], 10);
+                const ano = parseInt(parts[1], 10);
+
+                if (ano < anoAtual || (ano === anoAtual && mes < mesAtual)) {
+                    validadeRAInput.setCustomValidity('A data deve ser igual ou posterior ao mês/ano atual.');
+                    validadeRAInput.classList.add('is-invalid');
+                    return false;
+                } else {
+                    validadeRAInput.setCustomValidity('');
+                    validadeRAInput.classList.remove('is-invalid');
+                    return true;
+                }
+            }
+
+            dtNascimentoInput?.addEventListener('change', validarNascimento);
+            dtNascimentoInput?.addEventListener('input', validarNascimento);
+            dtEmissaoInput?.addEventListener('change', validarEmissaoRG);
+            validadeRAInput?.addEventListener('change', validarValidadeRA);
+            validadeRAInput?.addEventListener('keyup', validarValidadeRA);
+
+            // Submissão
+            const form = document.getElementById('studentForm');
+            form.addEventListener('submit', function (e) {
+                const nascAval = validarNascimento();
+                const rgAval = validarEmissaoRG();
+                const raAval = validarValidadeRA();
+
+                if (!nascAval || !rgAval || !raAval || !form.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    if (!nascAval || !raAval) {
+                        const tabPessoais = new bootstrap.Tab(document.getElementById('v-pills-pessoais-tab'));
+                        tabPessoais.show();
+                    } else if (!rgAval || !form.checkValidity()) {
+                        // Se houver erro de CPF/RG, redireciona para a aba de documentos
+                        const tabDocs = new bootstrap.Tab(document.getElementById('v-pills-docs-tab'));
+                        tabDocs.show();
+                    }
+
+                    alert('Existem erros de validação no formulário. Verifique os campos destacados.');
+                } else {
+                    e.preventDefault();
+                    alert('Cadastro salvo com sucesso!');
+                }
+
+                form.classList.add('was-validated');
+            });
+        });
+    </script>
+</body>
+</html>
